@@ -1,4 +1,5 @@
-body {
+body
+{
   background-color: white;
   color: #6F6F6F;
   font-family: 'Droid Sans', 'Helvetica', 'sans';
@@ -6,16 +7,7 @@ body {
   margin: 2ex 2em;
 }
 
-h1, h2, h3, h4 {
-  color: #E9601A;
-}
-
-a {
-  color: #6F6F6F;
-  text-decoration: underline;
-}
-
-div#datetime {
-  font-size: 80%;
-  text-align: right;
+h1
+{
+	color: #E9601A;
 }

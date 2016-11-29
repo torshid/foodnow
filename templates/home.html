@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-  </head>
-  <body>
-    <h1>Hello, Flask!</h1>
-
-    <footer>
-      <div id="datetime">{{ current_time }}</div>
-    </footer>
-  </body>
-</html>
+{% extends "layout.html" %}
+{% block title %} Home {% endblock %}
+{% block body %}
+	<p>Time to go sleep I guess... (:
+	<p>Current time: {{ current_time }}</p>
+{% endblock %}
