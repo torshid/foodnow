@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %} Sign up {% endblock %}
+{% block navigation %}
+	<a href="{{ url_for('entities.signlog.login') }}"><button type="button" class="btn btn-success">Already have an account?</button></a>
+{% endblock %}
+{% block body %}
+      <form method="post" action="{{ url_for('entities.signlog.signup') }}" class="form-signin">
+        <h2 class="form-signin-heading">Join us today</h2>
+        <label for="name" class="sr-only">Full name</label>
+        <input type="text"class="form-control" name="name" id="name" placeholder="Full name" value="{{ name }}" required autofocus>
+        <br/>
+        <label for="mail" class="sr-only">Email address</label>
+        <input type="email"class="form-control" name="mail" id="mail" placeholder="Email address" value="{{ mail }}" required>
+        <label for="password" class="sr-only">Password</label>
+        <input type="password"class="form-control" name="password" id="password" placeholder="Password" value="{{ password }}" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+      </form>
+{% endblock %}

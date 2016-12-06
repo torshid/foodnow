@@ -43,6 +43,3 @@ def get_elephantsql_dsn(vcap_services):
     dsn = """user='{}' password='{}' host='{}' port={}
              dbname='{}'""".format(user, password, host, port, dbname)
     return dsn
-
-def req():
-    return dbapi2.connect(app.config['dsn'])
