@@ -9,8 +9,18 @@ from flask import render_template
 
 from common import *
 from config import *
+import jinja
 
 app = Flask(__name__)
+
+# jinja-python functions
+@app.context_processor
+def processor():
+    functions = {}
+    for function in jinja.__dict__.values():
+        if callable(function):
+          functions[function.__name__] = function
+    return functions
 
 # dynamically load all entities + register blueprints
 for name in os.listdir("entities"):
