@@ -1,20 +1,22 @@
+{% import 'macros.html' as macros %}
 {% extends "layout.html" %}
 {% block title %} Login {% endblock %}
 {% block navigation %}
 	<a href="{{ url_for('entities.signlog.signup') }}"><button type="button" class="btn btn-success">No account?</button></a>
 {% endblock %}
 {% block body %}
-      <form method="post" action="{{ url_for('entities.signlog.login') }}" class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="mail" class="sr-only">Email address</label>
-        <input type="email"class="form-control" name="mail" id="mail" placeholder="Email address" value="{{ mail }}" required autofocus>
-        <label for="password" class="sr-only">Password</label>
-        <input type="password"class="form-control" name="password" id="password" placeholder="Password" value="{{ password }}" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" name="remember"{{ remember }}> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+	<form method="post" action="{{ url_for('entities.signlog.login') }}" class="form-signin">
+		<h2 class="form-signin-heading">Please sign in</h2>
+		{{ macros.alertErrors(errors) }}
+		<label for="mail" class="sr-only">Email address</label>
+		<input type="email"class="form-control" name="mail" id="mail" placeholder="Email address" value="{{ mail }}" required autofocus>
+		<label for="password" class="sr-only">Password</label>
+		<input type="password"class="form-control" name="password" id="password" placeholder="Password" value="{{ password }}" required>
+		<div class="checkbox">
+		<label>
+			<input type="checkbox" name="remember"{{ remember }}> Remember me
+		</label>
+		</div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+	</form>
 {% endblock %}
