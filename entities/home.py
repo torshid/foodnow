@@ -10,3 +10,6 @@ def main():
     with db() as connection:  # just a test
         now = datetime.datetime.now()
     return render_template('home.html', current_time = now.ctime())
+
+def reset():
+    print('reset the home page? u mad')
