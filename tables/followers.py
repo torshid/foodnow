@@ -16,7 +16,7 @@ def addFollows(userId, followedId):
                 connection.rollback()
             else:
                 connection.commit()
-    return userId
+    return userId;
 
 
 def reset():

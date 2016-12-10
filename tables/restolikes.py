@@ -16,7 +16,7 @@ def likeResto(userId, restoId):
                 connection.rollback()
             else:
                 connection.commit()
-    return userId
+    return userId;
 
 
 def reset():

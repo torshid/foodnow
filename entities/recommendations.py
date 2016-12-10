@@ -8,7 +8,7 @@ page = Blueprint(__name__)
 
 @page.route('/recommendations/')
 def main():
-    return render_template('recommendations.html');
+    return render_template('recommendations.html')
 
 def recommendResto(restoId):
 

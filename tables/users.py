@@ -14,7 +14,7 @@ def addUser(name, mail, password):
                 connection.rollback()
             else:
                 connection.commit()
-    return id
+    return id;
 
 def getUser(mail, password):
     user = None
