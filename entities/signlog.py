@@ -39,8 +39,9 @@ def signup():
                     session['mail'] = mail
                     session['password'] = hashed
                     response = make_response(redirect(url_for('entities.home.main')))
-                    response.set_cookie('mail', mail)
-                    response.set_cookie('password', hashed)
+                    expire = datetime.datetime.now() + datetime.timedelta(days = 120)
+                    response.set_cookie('mail', mail, expires = expire)
+                    response.set_cookie('password', hashed, expires = expire)
                     return response
     return render_template('signup.html', name = name, mail = mail, password = password, errors = errors)
 
@@ -58,7 +59,10 @@ def login():
             password = request.form['password']
             if len(mail) > 0 and len(password) > 0:
                 hashed = None
-                if exist('remember'):
+                if exist('present'):
+                    if exist('remember'):
+                        remember = 'checked'
+                else:
                     remember = ' checked'
                 if validMail(mail) and validPassword(password):
                     hashed = md5Password(password)
@@ -68,8 +72,9 @@ def login():
                         session['password'] = hashed
                         response = make_response(redirect(url_for('entities.home.main')))
                         if remember != '':
-                            response.set_cookie('mail', mail)
-                            response.set_cookie('password', hashed)
+                            expire = datetime.datetime.now() + datetime.timedelta(days = 120)
+                            response.set_cookie('mail', mail, expires = expire)
+                            response.set_cookie('password', hashed, expires = expire)
                         return response
                     else:
                         errors.append("Incorrect email/password")
