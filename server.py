@@ -30,6 +30,7 @@ for name in os.listdir("entities"):
         app.register_blueprint(getattr(globals()[module], 'page'))
 
 if __name__ == '__main__':
+    app.secret_key = 'flask key'
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
         port, debug = int(VCAP_APP_PORT), False

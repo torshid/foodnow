@@ -13,6 +13,7 @@
 		<label for="password" class="sr-only">Password</label>
 		<input type="password"class="form-control" name="password" id="password" placeholder="Password" value="{{ password }}" required>
 		<div class="checkbox">
+		<input type="hidden" name="present" value="1"/>
 		<label>
 			<input type="checkbox" name="remember"{{ remember }}> Remember me
 		</label>
