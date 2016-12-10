@@ -49,7 +49,10 @@ def signup():
 @page.route('/login/<path:redirect_url>', methods = ['GET', 'POST'])
 def login(redirect_url):
     if isLogged():
-        return redirect(url_for('entities.home.main'))
+        if redirect_url:
+            return redirect(url_for(redirect_url))
+        else:
+            return redirect(url_for('entities.home.main'))
     mail = ''
     password = ''
     remember = ''
