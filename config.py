@@ -10,3 +10,7 @@ mailmin = 8
 mailmax = 64
 passwordmin = 3
 passwordmax = 64
+restonamemin = 4
+restonamemax = 64
+restopseudomin = 3
+restopseudomax = 16

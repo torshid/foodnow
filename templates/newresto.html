@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+{% import 'macros.html' as macros %}
+{% extends "layout.html" %}
+{% block title %} New restaurant {% endblock %}
+{% block body %}
+<div class="container maxed">
+	<form method="post" action="{{ url_for('entities.managerestos.new') }}{% if redirect_url %}/{{ redirect_url }}{% endif %}" class="form-signin">
+		<h2>New restaurant</h2>
+		{{ macros.alertErrors(errors) }}
+		<hr/>
+		<label for="name" class="sr-only">Name</label>
+		<input type="text"class="form-control" name="name" id="name" placeholder="Name" value="{{ name }}" required>
+		<br/>
+		<label for="pseudo" class="sr-only">@name</label>
+		<input type="text"class="form-control" name="pseudo" id="name" placeholder="@name" value="{{ pseudo }}" required>
+		<br/>
+		<label for="mail" class="sr-only">Contact mail address</label>
+		<input type="email"class="form-control" name="mail" id="mail" placeholder="Contact mail address" value="{{ mail }}" required>
+		<br/>
+		<label for="phone" class="sr-only">Contact phone number</label>
+		<input type="tel"class="form-control" name="phone" id="phone" placeholder="Contact phone number" value="{{ phone }}" required>
+		<br/>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
+	</form>
+	</div>
+{% endblock %}

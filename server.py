@@ -4,8 +4,8 @@ import os
 import psycopg2 as dbapi2
 import re
 
-from flask import Flask, app
-from flask import render_template
+from werkzeug.exceptions import NotFound, HTTPException
+from flask import Flask, app, render_template
 
 from common import *
 from config import *
@@ -28,6 +28,17 @@ for name in os.listdir("entities"):
         module = name[:-3]
         globals()[module] = __import__('entities.' + module, fromlist = ['page'])
         app.register_blueprint(getattr(globals()[module], 'page'))
+
+@app.errorhandler(NotFound)
+def error(e):
+    return render_template('errors/' + str(e.code) + '.html'), e.code
+
+@app.errorhandler(HTTPException)
+def error(e):
+    code = 500
+    if isinstance(e, HTTPException):
+        code = e.code
+    return render_template('errors/' + str(e.code) + '.html'), e.code
 
 if __name__ == '__main__':
     app.secret_key = 'flask key'

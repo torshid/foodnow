@@ -5,7 +5,7 @@
 	<a href="{{ url_for('entities.signlog.signup') }}"><button type="button" class="btn btn-success">No account?</button></a>
 {% endblock %}
 {% block body %}
-	<form method="post" action="{{ url_for('entities.signlog.login') }}" class="form-signin">
+	<form method="post" action="{{ url_for('entities.signlog.login') }}{% if redirect_url %}/{{ redirect_url }}{% endif %}" class="form-signin">
 		<h2 class="form-signin-heading">Please sign in</h2>
 		{{ macros.alertErrors(errors) }}
 		<label for="mail" class="sr-only">Email address</label>
