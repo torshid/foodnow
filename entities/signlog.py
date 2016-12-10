@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, make_response
+from flask import render_template, request, redirect, make_response, Markup
 from flask.helpers import url_for
 
 from common import *
@@ -45,14 +45,17 @@ def signup():
                     return response
     return render_template('signup.html', name = name, mail = mail, password = password, errors = errors)
 
-@page.route('/login', methods = ['GET', 'POST'])
-def login():
+@page.route('/login', defaults = {'redirect_url': None}, methods = ['GET', 'POST'])
+@page.route('/login/<path:redirect_url>', methods = ['GET', 'POST'])
+def login(redirect_url):
     if isLogged():
         return redirect(url_for('entities.home.main'))
     mail = ''
     password = ''
     remember = ''
     errors = []
+    if redirect_url:
+        errors.append('Login needed to access page ' + Markup('<i><b>') + redirect_url + Markup('</b></i>'))
     if request.method == 'POST':
         if exist('mail') and exist('password'):
             mail = request.form['mail']
@@ -70,7 +73,10 @@ def login():
                     if user:
                         session['mail'] = mail
                         session['password'] = hashed
-                        response = make_response(redirect(url_for('entities.home.main')))
+                        redirectpage = url_for('entities.home.main')
+                        if redirect_url:
+                            redirectpage = redirect_url
+                        response = make_response(redirect(redirectpage))
                         if remember != '':
                             expire = datetime.datetime.now() + datetime.timedelta(days = 120)
                             response.set_cookie('mail', mail, expires = expire)
@@ -80,7 +86,7 @@ def login():
                         errors.append("Incorrect email/password")
                 else:
                     errors.append("Incorrect email/password")
-    return render_template('login.html', mail = mail, password = password, remember = remember, errors = errors)
+    return render_template('login.html', mail = mail, password = password, remember = remember, errors = errors, redirect_url = redirect_url)
 
 @page.route('/logout')
 def logout():
