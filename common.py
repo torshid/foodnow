@@ -1,7 +1,9 @@
 import os
 import psycopg2 as dbapi2
+import hashlib
 import flask
-from flask import request
+from jinja import *
+from flask import Flask, session, request
 
 from email.utils import parseaddr
 
@@ -27,3 +29,15 @@ def validMail(mail):
 
 def validPassword(password):
     return validLength(password, passwordmin, passwordmax)
+
+def getRestoFromPseudo(pseudo):
+    return
+
+def getUserFromPseudo(pseudo):
+    return
+
+def md5(value):
+    return hashlib.md5(str(value).encode('utf-8')).hexdigest()
+
+def md5Password(password):
+    return md5('{[-' + password + '-]}')

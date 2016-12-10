@@ -7,9 +7,17 @@ page = Blueprint(__name__)
 
 @page.route('/')
 def main():
-    with db() as connection:  # just a test
-        now = datetime.datetime.now()
+    now = datetime.datetime.now()
     return render_template('home.html', current_time = now.ctime())
 
 def reset():
-    print('reset the home page? u mad')
+    with db() as connection:
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute("""DROP TABLE IF EXISTS users""")
+                cursor.execute("""CREATE TABLE users (id SERIAL, mail VARCHAR UNIQUE, password VARCHAR)""")
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+    return
