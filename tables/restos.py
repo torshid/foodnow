@@ -44,4 +44,14 @@ def getRestoFromId(id):
                 connection.commit()
     return user
 
-
+def reset():
+    with db() as connection:
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute("""DROP TABLE IF EXISTS restos""")
+                cursor.execute("""CREATE TABLE restos (id SERIAL, name VARCHAR, pseudo VARCHAR UNIQUE, mail VARCHAR, phone VARCHAR)""")
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+    return

@@ -49,13 +49,5 @@ def panel(resto_pseudo):
     return render_template('panel/home.html', resto = resto)
 
 def reset():
-    with db() as connection:
-        with connection.cursor() as cursor:
-            try:
-                cursor.execute("""DROP TABLE IF EXISTS restos""")
-                cursor.execute("""CREATE TABLE restos (id SERIAL, name VARCHAR, pseudo VARCHAR UNIQUE, mail VARCHAR, phone VARCHAR)""")
-            except dbapi2.Error:
-                connection.rollback()
-            else:
-                connection.commit()
+    restos.reset()
     return
