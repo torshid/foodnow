@@ -18,6 +18,7 @@ def recommendMeal(restoId, mealId):
 
     return
 
+#TODO wrong code to be changed
 def getRecommendations():
     statement = ""
     try:
