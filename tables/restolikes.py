@@ -24,7 +24,7 @@ def reset():
         with connection.cursor() as cursor:
             try:
                 cursor.execute("""DROP TABLE IF EXISTS restolikes""")
-                cursor.execute("""CREATE TABLE restolikes (userId INTEGER  users(id),
+                cursor.execute("""CREATE TABLE restolikes (userId INTEGER REFERENCES users(id),
                     restoId INTEGER REFERENCES restos(id)), UNIQUE(userId, restoId)""")
             except dbapi2.Error:
                 connection.rollback()
