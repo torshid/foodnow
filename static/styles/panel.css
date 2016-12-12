@@ -1,0 +1,322 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+    border: 0;
+    background: #363B3F;
+}
+
+.navbar-inverse .navbar-brand
+{
+    color: lightgray;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+    background: #363B3F;
+    margin-right: -35px;
+
+}
+@media (min-width: 768px) {
+    .sidebar {
+        margin-right: 0;
+        position: fixed;
+        top: 30px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        background-color: #363B3F;
+    }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+    margin-right: -20px;
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+@media (max-width: 768px) {
+
+    .nav-sidebar {
+        width: 100%;
+    }
+}
+.nav-sidebar > li > a {
+    color: white;
+    padding: 6px;
+    padding-left: 12px;
+}
+@media (min-width: 768px) {
+    .nav-sidebar > li > a {
+        padding: 6px;
+    }
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+    color: #fff;
+    background-color: #E14D43;
+}
+
+@media (min-width: 768px) {
+    .nav-sidebar > .active > a::after {
+        right: 0px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: transparent white transparent transparent;
+        -moz-border-top-colors: none;
+        -moz-border-right-colors: none;
+        -moz-border-bottom-colors: none;
+        -moz-border-left-colors: none;
+        border-image: none;
+        content: " ";
+        height: 0px;
+        width: 0px;
+        position: absolute;
+        pointer-events: none;
+        top: 50%;
+        margin-top: -8px;
+    }
+}
+
+.nav-sidebar li a:hover,
+.nav-sidebar li a:focus
+{
+    background-color: #E14D43;
+}
+
+.nav-sidebar li a .glyphicon
+{
+    font-weight: bold;
+    font-size: 20px;
+    top: -2px;
+    vertical-align: middle;
+}
+.nav-sidebar li a .text
+{
+    margin-left: 10px;
+    font-size: 15px;
+}
+
+.navsub
+{
+    background-color: #26292C;
+    display: none;
+}
+
+.navsub li a
+ {
+     color: #C2C4C5;
+     padding: 8px;
+    padding-left: 12px;
+     font-size: 14px;
+ }
+@media (min-width: 768px) {
+    .navsub li a
+    {
+        padding: 8px;
+    }
+}
+
+.navsub li a.active {
+    color: white;
+    font-weight: bold;
+}
+.navsub li a:hover,
+.navsub li a:focus
+{
+    background-color: #26292C;
+    color: #E14D43;
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+    padding: 20px;
+    padding-top: 0;
+}
+@media (min-width: 768px) {
+    .main {
+        paddind-left: 40px;
+        paddind-right: 40px;
+        padding-top: 20px;
+    }
+}
+.page-header {
+    margin: 0;
+    padding: 0;
+    border-style: none;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.placeholders h4 {
+    margin-bottom: 0;
+}
+.placeholder {
+    margin-bottom: 20px;
+}
+.placeholder img {
+    display: inline-block;
+    border-radius: 50%;
+}
+
+#content
+{
+    display: none;
+}
+
+#loading
+{
+    background-image: url('../images/loading.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 200px;
+}
+
+.edition
+{
+    padding: 15px !important;;
+}
+.edition button
+{
+    font-size: 10px;
+}
+.edition #bold
+{
+    font-weight: bold;
+}
+.edition #italic
+{
+    font-style: italic;
+}
+.edition #underline
+{
+    text-decoration: underline;
+}
+
+.editor
+{
+    margin-top: 10px;
+}
+
+.dropedit
+{
+
+}
+.dropedit li
+{
+}
+.dropedit a
+{
+
+}
+.preview
+{
+    display: none;
+}
+
+.newside
+{
+    padding: 10px !important;
+}
+
+.pershr
+{
+    margin: 0;
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+.categorychecklist
+{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.catchildren
+{
+    list-style-type: none;
+    padding-left: 16px;
+}
+
+hr
+{
+    padding: 0;
+   margin-bottom: 10px;
+    margin-top: 4px;
+}
+
+.dropdown-toggle:hover > .dropdown-menu li {
+    display: block;
+}
+
+.postactions .posttitle div:first-child
+{
+    font-weight: bold;
+}
+.postactions .posttitle div:last-child
+{
+    display: none;
+    color: gray;
+    font-size: 12px;
+}
+.postactions:hover .posttitle div:last-child
+{
+    display: block;
+}
+
+/*.postactions div:first-child
+{
+    font-weight: bold;
+}
+.postactions div:last-child
+{
+    display: none;
+    color: gray;
+    font-size: 12px;
+}
+.postactions:hover div:last-child
+{
+    display: block;
+}*/

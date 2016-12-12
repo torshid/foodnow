@@ -39,15 +39,6 @@ def new():
                     return redirect(url_for('entities.managerestos.panel', resto_pseudo = pseudo))
     return render_template('newresto.html', name = name, pseudo = pseudo, mail = mail, phone = phone, errors = errors)
 
-@page.route('/<string:resto_pseudo>/panel')
-def panel(resto_pseudo):
-    if not isLogged():
-        return redirectLogin('entities.management.new')
-    resto = restos.getResto(resto_pseudo)
-    if not resto:
-        abort(404)
-    return render_template('panel/home.html', resto = resto)
-
 def reset():
     restos.reset()
     return

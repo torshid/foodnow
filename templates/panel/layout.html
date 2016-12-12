@@ -1,0 +1,89 @@
+{% if checkSessions() %}{% endif %}
+<html lang="en">
+	<head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>{% block title %}{% endblock %}</title>
+		<!-- Latest compiled and minified BS CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles/panel.css') }}">
+	</head>
+	<body onload="{% block onload %}{% endblock %}">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+		    <div class="container-fluid">
+		        <div class="navbar-header">
+		            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+		                <span class="sr-only">Toggle navigation</span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		            </button>
+		            <a class="navbar-brand" href="#">{{ name }}</a>
+		        </div>
+		        <div id="navbar" class="navbar-collapse collapse">
+		            <ul class="nav navbar-nav navbar-right">
+		                <li><a id="">Tableau de bord</a></li>
+		                <li><a href="">Réglages</a></li>
+		                <li><a href="">Profil</a></li>
+		                <li><a href="">Déconnexion</a></li>
+		            </ul>
+		        </div>
+		    </div>
+		</nav>
+		<div class="col-sm-3 col-md-2 sidebar" id="sidebar">
+		    <ul class="nav nav-sidebar">
+		        <li>
+		            <a href="#" id="overview"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span><span class="text">Panorama</span></a>
+		        </li>
+		        <li>
+		            <a href="#" id="menus"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><span class="text">Menus</span></a>
+		        </li>
+		        <li>
+		            <a href="#" id="statistics"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span><span class="text">Statistiques</span></a>
+		        </li>
+		    </ul>
+		    <ul class="nav nav-sidebar">
+		        <li>
+		            <a href="#" id="visitors"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span><span class="text">Visiteurs</span></a>
+		        </li>
+		        <li>
+		            <a href="#" id="members"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="text">Membres</span></a>
+		            <ul class="nav navsub">
+		                <li><a href="#" id="new-member">Ajouter</a></li>
+		            </ul>
+		        </li>
+		        <li>
+		            <a href="#" id="comments"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span><span class="text">Commentaires</span></a>
+		        </li>
+		    </ul>
+		    <ul class="nav nav-sidebar">
+		        <li>
+		            <a href="#" id="posts"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span><span class="text">Articles</span></a>
+		            <ul class="nav navsub">
+		                <li><a href="#" id="new-post">Ajouter</a></li>
+		                <li><a href="#" id="categories">Catégories</a></li>
+		            </ul>
+		        </li>
+		        <li>
+		            <a href="#" id="pages"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span><span class="text">Pages</span></a>
+		            <ul class="nav navsub">
+		                <li><a href="#" id="new-page">Ajouter</a></li>
+		            </ul>
+		        </li>
+		    </ul>
+		</div>
+		<div id="content" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		</div>
+		<div class="container-fluid">
+		    <div class="row">
+		    </div>
+		</div>
+		<!-- JQuery -->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+		<!-- Latest compiled and minified BS JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	    <!-- Common JS -->
+	    <script src="{{ url_for('static', filename='scripts/panel.js') }}"></script>
+	</body>
+</html>

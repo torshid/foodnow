@@ -3,7 +3,8 @@ import psycopg2 as dbapi2
 import hashlib
 import re
 import flask
-from flask import Flask, session, request, redirect
+from flask import Flask, session, request, redirect, render_template
+from flask.helpers import url_for
 from jinja import *
 
 from email.utils import parseaddr
@@ -51,5 +52,20 @@ def md5(value):
 def md5Password(password):
     return md5('{[-' + password + '-]}')
 
-def redirectLogin(entity):
-    return redirect(url_for('entities.signlog.login', redirect_url = url_for(entity)[1:]))
+def redirectLogin(entity, **data):
+    return redirect(url_for('entities.signlog.login', redirect_url = url_for(entity, **data)[1:]))
+
+def redirectPanel(entity, **data):
+    return redirect(url_for('entities.panel.main', resto_pseudo = data['resto_pseudo']) + "#" + url_for(entity, **data).replace('/' + data['resto_pseudo'] + '/panel/', ''))
+
+
+
+
+
+
+
+
+
+
+
+

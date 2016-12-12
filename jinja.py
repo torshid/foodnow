@@ -21,3 +21,6 @@ def checkSessions():
 def isLogged():
     from flask import session
     return 'user' in session
+
+def getUser():
+    return session['user']
