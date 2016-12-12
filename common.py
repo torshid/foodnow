@@ -58,9 +58,68 @@ def redirectLogin(entity, **data):
 def redirectPanel(entity, **data):
     return redirect(url_for('entities.panel.main', resto_pseudo = data['resto_pseudo']) + "#" + url_for(entity, **data).replace('/' + data['resto_pseudo'] + '/panel/', ''))
 
+def select(table, all, dict):
+    result = None
+    with db() as connection:
+        with connection.cursor() as cursor:
+            placeholders = ' AND '.join(['%s = %s' % (key, '%s') for (key, value) in dict.items()])
+            query = "SELECT * FROM %s WHERE %s" % (table, placeholders)
+            try:
+                cursor.execute(query, list(dict.values()))
+                if all:
+                    result = cursor.fetchall()
+                else:
+                    result = cursor.fetchone()
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+            print(cursor.query)
+    return result
 
+def selectone(table, dict):
+    print('eeee')
+    return select(table, False, dict)
 
+def selectall(table, dict):
+    return select(table, True, dict)
 
+def delete(table, dict):
+    result = None
+    with db() as connection:
+        with connection.cursor() as cursor:
+            placeholders = ' AND '.join(['%s = %s' % (key, '%s') for (key, value) in dict.items()])
+            query = "DELETE FROM %s WHERE %s" % (table, placeholders)
+            try:
+                cursor.execute(query, list(dict.values()))
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+            print(cursor.query)
+    return result
+
+def insert(table, dict, simple):
+    placeholders = ', '.join(['%s'] * len(dict))
+    columns = ', '.join(dict.keys())
+    query = "INSERT INTO %s (%s) VALUES (%s)" % (table, columns, placeholders)
+    result = False
+    if not simple:
+        query += " RETURNING id"
+        result = None
+    with db() as connection:
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query, list(dict.values()))
+                if not simple:
+                    result = cursor.fetchone()[0]
+                else:
+                    result = True
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+    return result
 
 
 
