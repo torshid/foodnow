@@ -11,7 +11,7 @@ page = Blueprint(__name__)
 @page.route('/<string:resto_pseudo>/panel/menus', methods = ['GET', 'POST'])
 def main(resto_pseudo):
     if not isLogged():
-        return redirectLogin('entities.managemenus.main')
+        return redirectLogin('entities.managemenus.main', resto_pseudo = resto_pseudo)
     if request.method == 'GET':
         return redirectPanel('entities.managemenus.main', resto_pseudo = resto_pseudo)
 

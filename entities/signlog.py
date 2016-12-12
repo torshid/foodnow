@@ -50,7 +50,7 @@ def signup():
 def login(redirect_url):
     if isLogged():
         if redirect_url:
-            return redirect(url_for(redirect_url))
+            return redirect(redirect_url)
         else:
             return redirect(url_for('entities.home.main'))
     mail = ''
