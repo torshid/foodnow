@@ -36,7 +36,7 @@ def new():
                 if id == None:
                     errors.append("@name is already used")
                 else:
-                    return redirect(url_for('entities.managerestos.panel', resto_pseudo = pseudo))
+                    return redirect(url_for('entities.panel.main', resto_pseudo = pseudo))
     return render_template('newresto.html', name = name, pseudo = pseudo, mail = mail, phone = phone, errors = errors)
 
 def reset():

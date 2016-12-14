@@ -74,11 +74,9 @@ def select(table, all, dict):
                 connection.rollback()
             else:
                 connection.commit()
-            print(cursor.query)
     return result
 
 def selectone(table, dict):
-    print('eeee')
     return select(table, False, dict)
 
 def selectall(table, dict):
@@ -99,7 +97,7 @@ def delete(table, dict):
             print(cursor.query)
     return result
 
-def insert(table, dict, simple):
+def insert(table, dict, simple = None):
     placeholders = ', '.join(['%s'] * len(dict))
     columns = ', '.join(dict.keys())
     query = "INSERT INTO %s (%s) VALUES (%s)" % (table, columns, placeholders)
