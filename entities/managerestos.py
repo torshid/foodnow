@@ -2,7 +2,7 @@ from flask import render_template, redirect, abort
 from flask.helpers import url_for
 from common import *
 
-from tables import restos
+from tables import restos, employees
 
 import datetime
 
@@ -33,12 +33,15 @@ def new():
                 errors.append('Enter a correct phone number')
             if len(errors) == 0:
                 id = restos.addResto(name, pseudo, mail, phone)
+                employees.addEmployee(id, getUser()[0], rolemanager)
                 if id == None:
                     errors.append("@name is already used")
                 else:
+
                     return redirect(url_for('entities.panel.main', resto_pseudo = pseudo))
     return render_template('newresto.html', name = name, pseudo = pseudo, mail = mail, phone = phone, errors = errors)
 
 def reset():
     restos.reset()
+    employees.reset()
     return

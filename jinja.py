@@ -23,4 +23,14 @@ def isLogged():
     return 'user' in session
 
 def getUser():
+    from flask import session
     return session['user']
+
+def getUserEmployments():
+    from tables import employees
+    employments = employees.getUserEmployments(getUser()[0])
+    return employments
+
+def getResto(restoid):
+    from tables import restos
+    return restos.getRestoFromId(restoid)

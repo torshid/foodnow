@@ -14,3 +14,8 @@ restonamemin = 4
 restonamemax = 64
 restopseudomin = 3
 restopseudomax = 16
+
+# employee roles
+rolemanager = 10
+roleworker = 5
+roledriver = 1

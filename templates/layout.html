@@ -35,7 +35,22 @@
         	<div class="navbar-form navbar-right">
 	       		{% block navigation %}
 	       			{% if isLogged() %}
-	       				<a href="{{ url_for('entities.signlog.logout') }}"><button type="button" class="btn btn-primary">Logout</button></a>
+	       				<div class="dropdown navdrop">
+						    <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">{{ getUser()[1] }}
+						    <span class="caret"></span></button>
+						    <ul class="dropdown-menu">
+						      <li><a href="{{ url_for('entities.user.main', user_id = getUser()[0]) }}">My profile</a></li>
+						      <li><a href="{{ url_for('entities.signlog.logout') }}">Logout</a></li>
+						      {% set employments = getUserEmployments() %}
+						      {% if employments %}
+						      <li class="dropdown-header">Employments</li>
+						      	{% for employment in employments %}
+						      		{% set resto = getResto(employment[1]) %}
+						      <li><a href="{{ url_for('entities.resto.main', resto_pseudo = resto[2]) }}">{{ resto[1] }}</a></li>
+								{% endfor %}
+						      {% endif %}
+						    </ul>
+					  	</div>
 	       			{% else %}
 	       			<form method="post" action="{{ url_for('entities.signlog.login') }}">
 			            <div class="form-group">

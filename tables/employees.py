@@ -9,14 +9,17 @@ def deleteEmployee(id):
     return delete('employees', { 'id' : id })
 
 def getRestoEmployees(restoid):
-    return selectall('users', { 'restoid' : restoid })
+    return selectall('employees', { 'restoid' : restoid })
+
+def getUserEmployments(userid):
+    return selectall('employees', { 'userid' : userid })
 
 def reset():
     with db() as connection:
         with connection.cursor() as cursor:
             try:
                 cursor.execute("""DROP TABLE IF EXISTS employees""")
-                cursor.execute("""CREATE TABLE users (id SERIAL, restoid INTEGER, userid INTEGER, role SMALLINT)""")
+                cursor.execute("""CREATE TABLE employees (id SERIAL, restoid INTEGER, userid INTEGER, role SMALLINT)""")
             except dbapi2.Error:
                 connection.rollback()
             else:
