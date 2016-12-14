@@ -7,7 +7,7 @@ def likeResto(userId, restoId):
     with db() as connection:
         with connection.cursor() as cursor:
             checkQuery = """SELECT * FROM restolikes  WHERE userId = %s AND restoId = %s"""
-            addQuery = """INSERT INTO restoLikes (userId, restoId) values ( %(userId)s, %(restoId)s)"""
+            addQuery = """INSERT INTO restoLikes (user_id, resto_id) values ( %(userId)s, %(restoId)s)"""
             try:
                 if cursor.execute(checkQuery, userId, restoId) == None:
                     cursor.execute(addQuery, {'userId' : userId, 'restoId' : restoId })
@@ -19,13 +19,28 @@ def likeResto(userId, restoId):
     return userId;
 
 
+def getTotalLikesRestos(userId):
+    with db() as connection:
+        with connection.cursor() as cursor:
+            countQuery = """SELECT COUNT(resto_id) FROM restolikes  WHERE user_id = %s"""
+            try:
+                cursor.execute(countQuery, userId)
+                result = cursor.fetchone();
+                rCount = result[0]
+                return rCount
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+    return 0;
+
 def reset():
     with db() as connection:
         with connection.cursor() as cursor:
             try:
                 cursor.execute("""DROP TABLE IF EXISTS restolikes""")
-                cursor.execute("""CREATE TABLE restolikes (userId INTEGER REFERENCES users(id),
-                    restoId INTEGER REFERENCES restos(id)), UNIQUE(userId, restoId)""")
+                cursor.execute("""CREATE TABLE restolikes (user_id INTEGER REFERENCES users(id),
+                    resto_id INTEGER REFERENCES restos(id)), UNIQUE(user_id, resto_id)""")
             except dbapi2.Error:
                 connection.rollback()
             else:

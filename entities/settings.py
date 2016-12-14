@@ -5,6 +5,6 @@ import datetime
 
 page = Blueprint(__name__)
 
-@page.route('/profilesettings/<int:user_id>')
+@page.route('/settings/')
 def main(user_id):
-    return render_template('profilesettings.html')
+    return render_template('settings.html')
