@@ -25,3 +25,4 @@ def reset():
             else:
                 connection.commit()
     return
+
