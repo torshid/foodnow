@@ -29,7 +29,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{ url_for('entities.home.main') }}">Food — Now !</a>
+          <a class="navbar-brand" href="{{ url_for('entities.home.main') }}">{{ foodnow() }}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
         	<div class="navbar-form navbar-right">
@@ -71,7 +71,7 @@
     <div class="container">
      <hr>
       <footer>
-        <p>&copy; 2016 Food — Now !</p>
+        <p>&copy; 2016 {{ foodnow() }}</p>
       </footer>
     </div>
 	<!-- JQuery -->

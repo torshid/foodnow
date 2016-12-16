@@ -15,7 +15,7 @@ def main(resto_pseudo):
     resto = restos.getResto(resto_pseudo)
     if not resto:
         abort(404)
-    return render_template('panel/home.html', name = resto[1])
+    return render_template('panel/home.html', resto = resto)
 
 @page.route('/<string:resto_pseudo>/panel/overview', methods = ['GET', 'POST'])
 def overview(resto_pseudo):

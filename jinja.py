@@ -1,5 +1,11 @@
+def foodnow():
+    return "Food — Now !"
+
 def fileExists(name):
     import os
+    if name[:1] == '/':
+        name = name[1:]
+    print(os.path.dirname(os.path.abspath(__file__)) + '/' + name)
     return os.path.isfile(os.path.dirname(os.path.abspath(__file__)) + '/' + name)
 
 def checkSessions():
