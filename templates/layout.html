@@ -45,7 +45,7 @@
 						      {% if employments %}
 						      <li class="dropdown-header">Employments</li>
 						      	{% for employment in employments %}
-						      		{% set resto = getResto(employment[1]) %}
+						      		{% set resto = getResto(id = employment[1]) %}
 						      <li><a href="{{ url_for('entities.resto.main', resto_pseudo = resto[2]) }}">{{ resto[1] }}</a></li>
 								{% endfor %}
 						      {% endif %}

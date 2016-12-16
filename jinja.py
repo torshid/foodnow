@@ -28,9 +28,11 @@ def getUser():
 
 def getUserEmployments():
     from tables import employees
-    employments = employees.getUserEmployments(getUser()[0])
-    return employments
+    return employees.getUserEmployments(getUser()[0])
 
-def getResto(restoid):
+def getResto(id = None, pseudo = None):
     from tables import restos
-    return restos.getRestoFromId(restoid)
+    if id:
+        return restos.getRestoFromId(id)
+    else:
+        return restos.getResto(pseudo)
