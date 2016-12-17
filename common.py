@@ -20,6 +20,9 @@ def db():  # new database connection
 def exist(key):
     return key in request.form
 
+def anydata():
+    return len(request.form) > 0
+
 def validLength(value, min, max):
     value = value.strip()
     return len(value) >= min and len(value) < max
@@ -57,6 +60,14 @@ def redirectLogin(entity, **data):
 
 def redirectPanel(entity, **data):
     return redirect(url_for('entities.panel.main', resto_pseudo = data['resto_pseudo']) + "#" + url_for(entity, **data).replace('/' + data['resto_pseudo'] + '/panel/', ''))
+
+def redirectPanelJS(entity, message = None, **data):
+    return "<script>loadPage('" + url_for(entity, **data).replace('/' + data['resto_pseudo'] + '/panel/', '') + "', true, null" + ((", '" + message + "'") if message else ', null') + ");</script>"
+
+def bsalert(message, type = None):
+    if not type:
+        type = 'info'
+    return '<div class="alert alert-' + type + ' alert-dismissable fade in"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + message + '</div>'
 
 def select(table, all, dict = None, extra = None):
     result = None

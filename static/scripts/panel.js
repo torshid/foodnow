@@ -25,7 +25,16 @@ $(document).ready(function()
         }
         else
         {
-        	loadPage($(this).attr('id'));
+        	var form = $(this).closest('form');
+
+        	if (form.length)
+    		{
+        		loadPage($(this).attr('id'), false, form.serialize());
+    		}
+        	else
+    		{
+        		loadPage($(this).attr('id'));
+    		}
 
             return false;
         }
@@ -36,12 +45,6 @@ $(document).ready(function()
         if (e.originalEvent.state)
         {
         	loadPage(e.originalEvent.state.url, true);
-            /*document.getElementById("content").innerHTML = e.originalEvent.state.html;
-
-            if (e.originalEvent.state.title != null)
-        	{
-            	document.title = e.originalEvent.state.title;
-        	}*/
         }
     })
 
@@ -52,15 +55,13 @@ function setTitle(title)
     document.title = title;
 }
 
-function loadPage(url, replace)
+function loadPage(url, replace, data, message)
 {
-    var variables = null, realurl = url;
+	var tagid = url;
 
     if (url.indexOf("/") > -1)
     {
-        variables = url.substr(url.indexOf("/") + 1).split('/');
-
-        realurl = url.substr(0, url.indexOf("/"));
+        tagid = url.substr(0, url.indexOf("/"));
     }
 
     $('#content').fadeOut(200,function()
@@ -72,8 +73,8 @@ function loadPage(url, replace)
     $.ajax(
     {
         type: 'POST',
-        url: realurl,
-        data: (variables == null ? '' : 'variables[]=' + variables.join('&variables[]=')),
+        url: url,
+        data: (data == null ? '' : data),
         dataType: "html",
         success: function(msg)
         {
@@ -81,41 +82,46 @@ function loadPage(url, replace)
             {
                 $('#content').fadeIn(200);
                 $('#content').html(msg);
+                if (message != null)
+            	{
+                    $('#message').html(message);
+                    $('#message').delay(15000).fadeOut(500);
+            	}
                 if (replace)
             	{
-                	window.history.replaceState({html: msg, title: $(msg).filter('title').text(), url : realurl}, '', realurl);
+                	window.history.replaceState({html: msg, title: $(msg).filter('title').text(), url : url}, '', url);
             	}
                 else
             	{
-                	window.history.pushState({html: msg, title: $(msg).filter('title').text(), url : realurl}, '', realurl);
+                	window.history.pushState({html: msg, title: $(msg).filter('title').text(), url : url}, '', url);
                 }
         	});
 
-            if ($('#' + realurl).parent().parent().hasClass('navsub'))
+            if ($('#' + tagid).parent().parent().hasClass('navsub'))
             {
                 $('#sidebar').find('.active').removeClass('active');
 
-                $('#' + realurl).parent().parent().show();
-                $('#' + realurl).parent().parent().parent().first().addClass('active');
+                $('#' + tagid).parent().parent().show();
+                $('#' + tagid).parent().parent().parent().first().addClass('active');
             }
             else
             {
-                if (!$('#' + realurl).closest('li').hasClass('active')) {
+                if (!$('#' + tagid).closest('li').hasClass('active')) {
                     $('#sidebar').find('.active').find('.navsub').fadeOut(200);
                 }
 
                 $('#sidebar').find('.active').removeClass('active');
             }
 
-            if ($('#' + realurl).parent().parent().hasClass('navsub'))
+            if ($('#' + tagid).parent().parent().hasClass('navsub'))
             {
-                $('#' + realurl).addClass('active');
-                $('#' + realurl).find('.navsub').fadeIn(200)
+                $('#' + tagid).addClass('active');
+                $('#' + tagid).find('.navsub').fadeIn(200)
             }
             else
             {
-                $('#' + realurl).closest('li').addClass('active');
-                $('#' + realurl).closest('li').find('.navsub').fadeIn(200);
+                $('#' + tagid).closest('li').addClass('active');
+                $('#' + tagid).closest('li').find('.navsub').fadeIn(200);
             }
         },
         error: function()

@@ -5,6 +5,7 @@ from common import *
 from tables import restos, menus
 
 import datetime
+from flask.globals import request
 
 page = Blueprint(__name__)
 
@@ -27,6 +28,9 @@ def newmenu(resto_pseudo):
         return redirectLogin('entities.managemenus.main', resto_pseudo = resto_pseudo)
     if request.method == 'GET':
         return redirectPanel('entities.managemenus.newmenu', resto_pseudo = resto_pseudo)
+
+    if anydata():
+        return redirectPanelJS('entities.managemenus.main', '<br/>' + bsalert(request.form['content']), resto_pseudo = resto_pseudo)
 
     return render_template('panel/newmenu.html')
 
