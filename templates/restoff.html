@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %} {{ resto[1] }} {% endblock %}
+{% block body %}
+	<div class="container">
+		<h2>{{ resto[1] }} (@{{ resto[2]}})</h2>
+		<div class="alert alert-warning">
+			 <strong>Warning!</strong> {{ resto[6] }}
+		</div>
+	</div>
+{% endblock %}

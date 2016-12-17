@@ -12,4 +12,7 @@ def main(resto_pseudo):
     resto = restos.getResto(resto_pseudo)
     if not resto:
         abort(404)
+    print(resto)
+    if resto[5] == False:
+        return render_template('restoff.html', resto = resto);
     return render_template('resto.html', resto = resto);

@@ -16,7 +16,10 @@ def reset():
         with connection.cursor() as cursor:
             try:
                 cursor.execute("""DROP TABLE IF EXISTS restos""")
-                cursor.execute("""CREATE TABLE restos (id SERIAL, name VARCHAR, pseudo VARCHAR UNIQUE, mail VARCHAR, phone VARCHAR)""")
+                cursor.execute(("CREATE TABLE restos ("
+                    "id SERIAL, name VARCHAR, pseudo VARCHAR UNIQUE, mail VARCHAR, phone VARCHAR,"
+                    "accessible BOOLEAN DEFAULT false, warnmsg VARCHAR DEFAULT 'Our restaurant page is under construction, see you soon!'"
+                ")"))
             except dbapi2.Error:
                 connection.rollback()
             else:

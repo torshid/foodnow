@@ -26,4 +26,6 @@ def updateProfile(userId):
 
 def reset():
     users.reset()
+    users.addUser('Yusuf Aksoy', 'yusuf@y.y', md5Password('12345'))  # id=1
+    users.addUser('Moctar Sawadogo', 'moctar@m.m', md5Password('12345'))  # id=2
     return

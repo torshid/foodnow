@@ -306,17 +306,7 @@ hr
     display: block;
 }
 
-/*.postactions div:first-child
+.title
 {
-    font-weight: bold;
+	font-size: 22px;
 }
-.postactions div:last-child
-{
-    display: none;
-    color: gray;
-    font-size: 12px;
-}
-.postactions:hover div:last-child
-{
-    display: block;
-}*/

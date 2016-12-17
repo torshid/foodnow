@@ -58,15 +58,17 @@ def redirectLogin(entity, **data):
 def redirectPanel(entity, **data):
     return redirect(url_for('entities.panel.main', resto_pseudo = data['resto_pseudo']) + "#" + url_for(entity, **data).replace('/' + data['resto_pseudo'] + '/panel/', ''))
 
-def select(table, all, dict = None):
+def select(table, all, dict = None, extra = None):
     result = None
+    if not extra:
+        extra = ''
     with db() as connection:
         with connection.cursor() as cursor:
             if dict:
                 placeholders = ' AND '.join(['%s = %s' % (key, '%s') for (key, value) in dict.items()])
-                query = "SELECT * FROM %s WHERE %s" % (table, placeholders)
+                query = "SELECT * FROM %s WHERE %s %s" % (table, placeholders, extra)
             else:
-                query = "SELECT * FROM %s" % (table)
+                query = "SELECT * FROM %s %s" % (table, extra)
             try:
                 if dict:
                     cursor.execute(query, list(dict.values()))
@@ -82,10 +84,10 @@ def select(table, all, dict = None):
                 connection.commit()
     return result
 
-def selectone(table, dict = None):
+def selectone(table, dict = None, extra = None):
     return select(table, False, dict)
 
-def selectall(table, dict = None):
+def selectall(table, dict = None, extra = None):
     return select(table, True, dict)
 
 def delete(table, dict):
