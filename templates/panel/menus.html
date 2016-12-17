@@ -1,9 +1,9 @@
 {% import 'panel/macros.html' as macros %}
-{{ macros.title('Menus', 'new-menu', 'new', 'success') }}
-{% if menus %}
-hello
+{{ macros.title('Menus', [('new-menu', 'new menu', 'primary')]) }}
+{% for menu in menus %}
+	<a href="#" id="{{ url_for('entities.managemenus.view', resto_pseudo = resto[2], menu_id = menu[0]) }}">{{ menu[2] }}</a><br/>
 {% else %}
-There is no menus in your restaurant...
-{% endif %}
+	<div>There is no menus in your restaurant...</div>
+{% endfor %}
 <div>
 </div>

@@ -42,12 +42,22 @@ def validRestoName(name):
 def validRestoPseudo(pseudo):
     return validLength(pseudo, restopseudomin, restopseudomax)
 
+def validMenuName(name):
+    return validLength(name, menunamemin, menunamemax)
+
 def validPhone(phone):
     phone = phone.strip()
     result = re.match("(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})", phone)
     if not result:
         return False
     return len(result.group(0)) == len(phone)
+
+def isint(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
 
 def md5(value):
     return hashlib.md5(str(value).encode('utf-8')).hexdigest()
@@ -96,10 +106,10 @@ def select(table, all, dict = None, extra = None):
     return result
 
 def selectone(table, dict = None, extra = None):
-    return select(table, False, dict)
+    return select(table, False, dict, extra)
 
 def selectall(table, dict = None, extra = None):
-    return select(table, True, dict)
+    return select(table, True, dict, extra)
 
 def delete(table, dict):
     result = None
@@ -139,6 +149,25 @@ def insert(table, dict, simple = None):
     return result
 
 
+def update(table, dict, extra = None):
+    result = False
+    if not extra:
+        extra = [{}]
+    with db() as connection:
+        with connection.cursor() as cursor:
+            placeholders1 = ', '.join(['%s = %s' % (key, '%s') for (key, value) in dict.items()])
+            placeholders2 = '1=1'
+            if len(extra) > 0:
+                  placeholders2 = ' AND '.join(['%s = %s' % (key, '%s') for (key, value) in extra.items()])
+            query = "UPDATE %s SET %s WHERE %s" % (table, placeholders1, placeholders2)
+            try:
+                cursor.execute(query, (list(dict.values()) + list(extra.values())))
+                result = True
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+    return result
 
 
 

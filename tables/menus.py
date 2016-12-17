@@ -3,11 +3,22 @@ import psycopg2 as dbapi2
 from common import *
 
 def addMenu(restoid, name, disposition, visible):
-    return insert('menus', { 'restoid' : restoid, 'name' : pseudo, 'disposition' : disposition, 'visible' : visible})
+    return insert('menus', { 'restoid' : restoid, 'name' : name, 'disposition' : disposition, 'visible' : visible})
 
 def getRestoMenus(restoid):
     return selectall('menus', { 'restoid' : restoid }, 'ORDER BY disposition')
 
+def getMenu(id):
+    return selectone('menus', { 'id' : id })
+
+def getRestoMenuHighestDisposition(restoid):
+    return selectone('menus', { 'restoid' : restoid }, 'ORDER BY disposition DESC')
+
+def updateMenu(id, name, disposition, visible):
+    return update('menus', { 'name' : name, 'disposition' : disposition, 'visible' : visible}, { 'id' : id })
+
+def deleteMenu(id):
+    return delete('menus', { 'id' : id })
 def reset():
     with db() as connection:
         with connection.cursor() as cursor:

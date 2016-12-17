@@ -25,11 +25,21 @@ $(document).ready(function()
         }
         else
         {
+        	if ($(this).children().hasClass('btn-danger'))
+        	{
+	        	var ask = confirm("Are you to execute this action?");
+
+	            if (!ask)
+	            {
+	            	return;
+	            }
+        	}
+
         	var form = $(this).closest('form');
 
         	if (form.length)
     		{
-        		loadPage($(this).attr('id'), false, form.serialize());
+        		loadPage($(this).attr('id'), true, form.serialize());
     		}
         	else
     		{
@@ -59,6 +69,16 @@ function loadPage(url, replace, data, message)
 {
 	var tagid = url;
 
+	var split = window.location.pathname.split('/');
+	var root = '/' + split[1] + '/' + split[2] + '/';
+
+	if (url.includes(root))
+	{
+		url = url.replace(root, '');
+	}
+
+	var completeurl = root + url;
+
     if (url.indexOf("/") > -1)
     {
         tagid = url.substr(0, url.indexOf("/"));
@@ -73,7 +93,7 @@ function loadPage(url, replace, data, message)
     $.ajax(
     {
         type: 'POST',
-        url: url,
+        url: completeurl,
         data: (data == null ? '' : data),
         dataType: "html",
         success: function(msg)
@@ -89,11 +109,11 @@ function loadPage(url, replace, data, message)
             	}
                 if (replace)
             	{
-                	window.history.replaceState({html: msg, title: $(msg).filter('title').text(), url : url}, '', url);
+                	window.history.replaceState({html: msg, title: $(msg).filter('title').text(), url : completeurl}, '', completeurl);
             	}
                 else
             	{
-                	window.history.pushState({html: msg, title: $(msg).filter('title').text(), url : url}, '', url);
+                	window.history.pushState({html: msg, title: $(msg).filter('title').text(), url : completeurl}, '', completeurl);
                 }
         	});
 
@@ -133,10 +153,4 @@ function loadPage(url, replace, data, message)
             });
         }
     });
-}
-
-function selectside(id)
-{
-    $('#sidebar').find('.active').removeClass('active');
-    $('#' + id).closest('li').addClass('active');
 }

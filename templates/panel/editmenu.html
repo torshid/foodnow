@@ -1,24 +1,24 @@
 {% import 'panel/macros.html' as macros %}
 <form class="form-horizontal">
-	{{ macros.title('New menu', [('new-menu', 'create menu', 'success'),], errors) }}
+	{{ macros.title('Edit menu ' + menu[2], [('menus/' + menu[0]|string() + '/edit', 'save', 'primary'),], errors) }}
 	<div class="form-group">
 		<label for="name" class="col-sm-1 control-label">Name</label>
 		<div class="col-sm-11">
-			<input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ name }}" />
+			<input type="text" class="form-control" id="name" name="name" placeholder="{{ menu[2] }}" value="{{ name }}" />
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="disposition" class="col-sm-1 control-label">Disposition</label>
 		<div class="col-sm-11">
-			<input type="number" pattern="[0-9.]+" class="form-control" name="disposition" placeholder="Display order" value="{{ disposition }}"/>
+			<input type="number" pattern="[0-9.]+" class="form-control" name="disposition" placeholder="Display order" value="{{ menu[3] }}"/>
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="visible" class="col-sm-1 control-label">Visible</label>
 		<div class="col-sm-11">
 			<select class="form-control" name="visible">
-				<option value="1" {% if visible == '1' %} selected {% endif %}>Yes</option>
-				<option value="0" {% if visible == '0' %} selected {% endif %}>No</option>
+				<option value="1" {% if menu[4] == 1 %} selected {% endif %}>Yes</option>
+				<option value="0" {% if menu[4] == 0 %} selected {% endif %}>No</option>
 			</select>
 		</div>
 	</div>
