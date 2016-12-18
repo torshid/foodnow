@@ -93,7 +93,6 @@ def redirectPanel(entity, **data):
 def redirectPanelJS(entity, message = None, **data):
     return "<script>loadPage('" + url_for(entity, **data).replace('/' + data['resto_pseudo'] + '/panel/', '') + "', true, null" + ((", '" + message + "'") if message else ', null') + ");</script>"
 
-
 def bsalert(message, type = None):
     if not type:
         type = 'info'

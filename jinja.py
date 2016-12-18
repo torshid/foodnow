@@ -35,6 +35,10 @@ def getUserEmployments():
     from tables import employees
     return employees.getUserEmployments(getUser()[0])
 
+def isManager(employee):
+    from tables import employees
+    return employees.isManager(employee)
+
 def getResto(id = None, pseudo = None):
     from tables import restos
     if id:

@@ -1,7 +1,18 @@
 {% extends "layout.html" %}
 {% block title %} {{ resto[1] }} {% endblock %}
 {% block body %}
-	<div class="container">
-		<h2>{{ resto[1] }} (@{{ resto[2]}})</h2>
+	<div class="container mainc">
+		<div><span class="title vcenter">{{ resto[1] }} (@{{ resto[2]}})</span>
+			{% if isManager(employment) %}
+				<a href="{{ url_for('entities.panel.main', resto_pseudo = resto[2])}}"><button class="btn btn-primary">panel</button></a>
+			{% endif %}
+		</div>
+		{% if resto[5] == False %}
+			<div class="alert alert-warning" style="margin-top: 10px;">
+				 <strong>The restaurant public page is disabled! </strong> You can activate it in the <a href="{{ url_for('entities.panel.settings', resto_pseudo = resto[2])}}"><button class="btn btn-primary">settings</button></a>.
+			</div>
+		{% endif %}
+		<hr/>
+		Test
 	</div>
 {% endblock %}
