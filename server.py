@@ -4,7 +4,7 @@ import os
 import psycopg2 as dbapi2
 import re
 
-from werkzeug.exceptions import NotFound, HTTPException
+from werkzeug.exceptions import NotFound, Forbidden
 from flask import Flask, app, render_template
 
 from common import *
@@ -33,11 +33,8 @@ for name in os.listdir("entities"):
 def error(e):
     return render_template('errors/' + str(e.code) + '.html'), e.code
 
-@app.errorhandler(HTTPException)
+@app.errorhandler(Forbidden)
 def error(e):
-    code = 500
-    if isinstance(e, HTTPException):
-        code = e.code
     return render_template('errors/' + str(e.code) + '.html'), e.code
 
 if __name__ == '__main__':

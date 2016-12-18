@@ -1,6 +1,6 @@
 {% macro alertErrors(errors) -%}
 	{% if errors %}
-		<div class="alert alert-danger">Please correct the following:<br/><ul>
+		<div class="alert alert-danger" style="margin-bottom: 16px;">Please correct the following:<br/><ul>
         {% for error in errors %}
 			<li>{{ error }}</li>
 		{% endfor %}

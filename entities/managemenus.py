@@ -11,27 +11,19 @@ page = Blueprint(__name__)
 
 @page.route('/<string:resto_pseudo>/panel/menus', methods = ['GET', 'POST'])
 def main(resto_pseudo):
-    if not isLogged():
-        return redirectLogin('entities.managemenus.main', resto_pseudo = resto_pseudo)
-    if request.method == 'GET':
-        return redirectPanel('entities.managemenus.main', resto_pseudo = resto_pseudo)
-
-    resto = restos.getResto(resto_pseudo)
-    if not resto:
-        abort(404)
+    permission = hasPanelAccess('entities.managemenus.main', resto_pseudo = resto_pseudo)
+    if not isinstance(permission, tuple):
+        return permission
+    resto, employment = permission
 
     return render_template('panel/menus.html', resto = resto, menus = menus.getRestoMenus(resto[0]))
 
 @page.route('/<string:resto_pseudo>/panel/new-menu', methods = ['GET', 'POST'])
 def new(resto_pseudo):
-    if not isLogged():
-        return redirectLogin('entities.managemenus.main', resto_pseudo = resto_pseudo)
-    if request.method == 'GET':
-        return redirectPanel('entities.managemenus.new', resto_pseudo = resto_pseudo)
-
-    resto = restos.getResto(resto_pseudo)
-    if not resto:
-        abort(404)
+    permission = hasPanelAccess('entities.managemenus.new', resto_pseudo = resto_pseudo)
+    if not isinstance(permission, tuple):
+        return permission
+    resto, employment = permission
 
     name = ''
     disposition = menus.getRestoMenuHighestDisposition(resto[0])
@@ -59,14 +51,10 @@ def new(resto_pseudo):
 
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>', methods = ['GET', 'POST'])
 def view(resto_pseudo, menu_id):
-    if not isLogged():
-        return redirectLogin('entities.managemenus.view', resto_pseudo = resto_pseudo, menu_id = menu_id)
-    if request.method == 'GET':
-        return redirectPanel('entities.managemenus.view', resto_pseudo = resto_pseudo, menu_id = menu_id)
-
-    resto = restos.getResto(resto_pseudo)
-    if not resto:
-        abort(404)
+    permission = hasPanelAccess('entities.managemenus.view', resto_pseudo = resto_pseudo, menu_id = menu_id)
+    if not isinstance(permission, tuple):
+        return permission
+    resto, employment = permission
 
     menu = menus.getMenu(menu_id)
     if not menu:
@@ -76,14 +64,10 @@ def view(resto_pseudo, menu_id):
 
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/edit', methods = ['GET', 'POST'])
 def edit(resto_pseudo, menu_id):
-    if not isLogged():
-        return redirectLogin('entities.managemenus.main', resto_pseudo = resto_pseudo, menu_id = menu_id)
-    if request.method == 'GET':
-        return redirectPanel('entities.managemenus.edit', resto_pseudo = resto_pseudo, menu_id = menu_id)
-
-    resto = restos.getResto(resto_pseudo)
-    if not resto:
-        abort(404)
+    permission = hasPanelAccess('entities.managemenus.edit', resto_pseudo = resto_pseudo, menu_id = menu_id)
+    if not isinstance(permission, tuple):
+        return permission
+    resto, employment = permission
 
     menu = menus.getMenu(menu_id)
     if not menu:
@@ -111,19 +95,16 @@ def edit(resto_pseudo, menu_id):
 
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/delete', methods = ['GET', 'POST'])
 def deletemenu(resto_pseudo, menu_id):
-    if not isLogged():
-        return redirectLogin('entities.managemenus.main', resto_pseudo = resto_pseudo, menu_id = menu_id)
-    if request.method == 'GET':
-        return redirectPanel('entities.managemenus.main', resto_pseudo = resto_pseudo, menu_id = menu_id)
-
-    resto = restos.getResto(resto_pseudo)
-    if not resto:
-        abort(404)
+    permission = hasPanelAccess('entities.managemenus.delete', resto_pseudo = resto_pseudo, menu_id = menu_id)
+    if not isinstance(permission, tuple):
+        return permission
+    resto, employment = permission
 
     menu = menus.getMenu(menu_id)
     if not menu:
         abort(404)
 
+    # TODO: check if has any meals
     menus.deleteMenu(menu[0])
     return redirectPanelJS('entities.managemenus.main', '<br/>' + bsalert('You successfully deleted the menu ' + menu[2], 'info'), resto_pseudo = resto_pseudo)
 

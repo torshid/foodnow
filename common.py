@@ -3,12 +3,12 @@ import psycopg2 as dbapi2
 import hashlib
 import re
 import flask
-from flask import Flask, session, request, redirect, render_template
+from flask import Flask, session, request, redirect, render_template, abort
 from flask.helpers import url_for
-from jinja import *
 
 from email.utils import parseaddr
 
+from jinja import *
 from config import *
 
 def Blueprint(name):  # new simple blueprint from given name
@@ -65,6 +65,25 @@ def md5(value):
 def md5Password(password):
     return md5('{[-' + password + '-]}')
 
+def hasPanelAccess(entity, onlypost = True, **data):
+    if not isLogged():
+        return redirectLogin(entity, **data)
+    if onlypost and request.method == 'GET':
+        return redirectPanel(entity, **data)
+
+    from tables import restos, employees
+
+    resto = restos.getResto(data['resto_pseudo'])
+    if not resto:
+        abort(404)
+
+    employment = employees.getUserRestoEmployment(resto[0], getUser()[0])
+
+    if not employees.isManager(employment):
+        abort(403)
+
+    return (resto, employment)
+
 def redirectLogin(entity, **data):
     return redirect(url_for('entities.signlog.login', redirect_url = url_for(entity, **data)[1:]))
 
@@ -73,6 +92,7 @@ def redirectPanel(entity, **data):
 
 def redirectPanelJS(entity, message = None, **data):
     return "<script>loadPage('" + url_for(entity, **data).replace('/' + data['resto_pseudo'] + '/panel/', '') + "', true, null" + ((", '" + message + "'") if message else ', null') + ");</script>"
+
 
 def bsalert(message, type = None):
     if not type:

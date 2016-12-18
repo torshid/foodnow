@@ -14,6 +14,18 @@ def getRestoEmployees(restoid):
 def getUserEmployments(userid):
     return selectall('employees', { 'userid' : userid })
 
+def getUserRestoEmployment(restoid, userid):
+    return selectone('employees', { 'restoid' : restoid, 'userid' : userid })
+
+def isManager(employee):
+    return isRole(employee, rolemanager)
+
+def isWorker(employee):
+    return isRole(employee, roleworker)
+
+def isRole(employee, role):
+    return employee != None and employee[3] == role
+
 def reset():
     with db() as connection:
         with connection.cursor() as cursor:
