@@ -9,5 +9,5 @@ page = Blueprint(__name__)
 
 
 @page.route('/userschoice/')
-def main(user_id):
+def main():
     return "HELLO AGAIN"
