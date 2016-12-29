@@ -11,7 +11,7 @@
 <div class="container bootstrap snippet">
     <div class="row">
   		<div class="col-sm-10"><h1>User name</h1></div>
-    	<div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="/static/images/default_profile_pic.png"></a></div>
+    	<div class="col-sm-2"><a href="/user/{{user_id}}" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="/static/images/default_profile_pic.png"></a></div>
     </div>
     <div class="row">
   		<div class="col-sm-3"><!--left col-->
@@ -44,9 +44,9 @@
     	<div class="col-sm-9">
 
           <ul class="nav nav-tabs" id="myTab">
-            <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-            <li><a href="#messages" data-toggle="tab">Messages</a></li>
-            <li><a href="#settings" data-toggle="tab">Settings</a></li>
+            <li class="active"><a href="#home" data-toggle="tab">My Restaurants</a></li>
+            <li><a href="#messages" data-toggle="tab">My Meals</a></li>
+            <li><a href="#settings" data-toggle="tab">My Settings</a></li>
           </ul>
 
           <div class="tab-content">
@@ -194,32 +194,11 @@
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="first_name"><h4>First name</h4></label>
+                              <label for="first_name"><h4>Name</h4></label>
                               <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
                           </div>
                       </div>
-                      <div class="form-group">
 
-                          <div class="col-xs-6">
-                            <label for="last_name"><h4>Last name</h4></label>
-                              <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
-                          </div>
-                      </div>
-
-                      <div class="form-group">
-
-                          <div class="col-xs-6">
-                              <label for="phone"><h4>Phone</h4></label>
-                              <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
-                          </div>
-                      </div>
-
-                      <div class="form-group">
-                          <div class="col-xs-6">
-                             <label for="mobile"><h4>Mobile</h4></label>
-                              <input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
-                          </div>
-                      </div>
                       <div class="form-group">
 
                           <div class="col-xs-6">

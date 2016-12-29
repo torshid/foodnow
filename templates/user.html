@@ -1,9 +1,7 @@
-{% import 'macros.html' as macros %}
+{% import 'feedblock.html' as feedblock %}
 {% extends "layout.html" %}
-{% block title %} Login {% endblock %}
-{% block navigation %}
+{% block title %} User {% endblock %}
 
-{% endblock %}
 {% block body %}
 
 	<div class="container">
@@ -52,6 +50,19 @@
       </div>
     </div>
     </div>
+    <div class="col-sm-7"></div>
+
+
+	{%set feed = getLikedRestos(user_id)%}
+	{%if feed%}
+		{%for element in feed%}
+			{{feedblock.feedblock(element)}}
+		{%endfor%}
+	{%endif%}
+
+
+
+
 </div>
 
 
