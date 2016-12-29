@@ -1,3 +1,5 @@
+#import common
+
 def foodnow():
     return "Food — Now !"
 
@@ -45,3 +47,7 @@ def getResto(id = None, pseudo = None):
         return restos.getRestoFromId(id)
     else:
         return restos.getResto(pseudo)
+
+def getLikedRestos(userId):
+    from tables import restolikes
+    return restolikes.getLikedRestos(userId)
