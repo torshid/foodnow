@@ -2,24 +2,47 @@ import psycopg2 as dbapi2
 
 from common import *
 
-def addUser(name, mail, password):
-    return insert('users', { 'name' : name, 'mail' : mail, 'password' : password })
+import psycopg2 as dbapi2
 
-def getUser(mail, password):
-    return selectone('users', { 'mail' : mail, 'password' : password })
+from common import *
 
-def getUserFromId(id):
-    return selectone('users', { 'id' : id })
+#need to add mealId
+def review(userId, restoId, content):
+    with db() as connection:
+        with connection.cursor() as cursor:
+            try:
+                insert('reviews', {'user_id' : userId, 'resto_id' : restoId, 'content' : 'content'})
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+    return
 
-def getUserFromMail(mail):
-    return selectone('users', { 'mail' : mail })
+
+def getUserReviews(userId):
+    list = []
+    with db() as connection:
+        with connection.cursor() as cursor:
+            query = """"SELECT * FROM reviews WHERE user_id = %s"""
+            try:
+                cursor.execute(query, userId)
+                list = cursor.fetchall();
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+    return list
+
 
 def reset():
     with db() as connection:
         with connection.cursor() as cursor:
             try:
-                cursor.execute("""DROP TABLE IF EXISTS users""")
-                cursor.execute("""CREATE TABLE users (id SERIAL, name VARCHAR, mail VARCHAR UNIQUE, password VARCHAR)""")
+                cursor.execute("""DROP TABLE IF EXISTS restorecommendations""")
+                cursor.execute("""CREATE TABLE restorecommendations (user_id INTEGER REFERENCES users(id),
+                resto_id REFERENCES restos(id), content VARCHAR)""")
+                #cursor.execute("""DROP TABLE IF EXISTS foodrecommendations""")
+                #cursor.execute("""CREATE TABLE foodrecommendations (recommender_id INTEGER REFERENCES users(id), meal_id INTEGER REFERENCES  content VARCHAR)""")
             except dbapi2.Error:
                 connection.rollback()
             else:
