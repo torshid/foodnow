@@ -7,9 +7,9 @@ from tables import users
 
 page = Blueprint(__name__)
 
-@page.route('/user/<int:user_id>')
+@page.route('/reviews/<int:user_id>')
 def main(user_id):
-    return render_template('user.html', user_id = user_id)
+    return "HELLO"
 
 def reset():
     users.reset()
