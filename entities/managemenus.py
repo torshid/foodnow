@@ -1,11 +1,10 @@
-from flask import render_template, redirect, abort
+from flask import render_template, redirect, abort, request
 from flask.helpers import url_for
 from common import *
 
 from tables import restos, menus
 
-import datetime
-from flask.globals import request
+# from flask.globals import request
 
 page = Blueprint(__name__)
 
@@ -73,6 +72,9 @@ def edit(resto_pseudo, menu_id):
     if not menu:
         abort(404)
 
+    if menu[1] != resto[0]:
+        abort(403)
+
     name = menu[2]
     disposition = menu[3]
     visible = menu[4]
@@ -103,6 +105,9 @@ def deletemenu(resto_pseudo, menu_id):
     menu = menus.getMenu(menu_id)
     if not menu:
         abort(404)
+
+    if menu[1] != resto[0]:
+        abort(403)
 
     # TODO: check if has any meals
     menus.deleteMenu(menu[0])

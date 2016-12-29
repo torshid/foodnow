@@ -2,8 +2,8 @@ import psycopg2 as dbapi2
 
 from common import *
 
-def addResto(name, pseudo, mail, phone):
-    return insert('restos', { 'name' : name, 'pseudo' : pseudo, 'mail' : mail, 'phone' : phone})
+def addResto(name, pseudo, mail, phone, currency):
+    return insert('restos', { 'name' : name, 'pseudo' : pseudo, 'mail' : mail, 'phone' : phone, 'currency' : currency})
 
 def getResto(pseudo):
     return selectone('restos', { 'pseudo' : pseudo })
@@ -18,7 +18,8 @@ def reset():
                 cursor.execute("""DROP TABLE IF EXISTS restos""")
                 cursor.execute(("CREATE TABLE restos ("
                     "id SERIAL, name VARCHAR, pseudo VARCHAR UNIQUE, mail VARCHAR, phone VARCHAR,"
-                    "accessible BOOLEAN DEFAULT false, warnmsg VARCHAR DEFAULT 'Our restaurant page is under construction, see you soon!'"
+                    "accessible BOOLEAN DEFAULT false, warnmsg VARCHAR DEFAULT 'Our restaurant page is under construction, see you soon!',"
+                    "currency VARCHAR"
                 ")"))
             except dbapi2.Error:
                 connection.rollback()

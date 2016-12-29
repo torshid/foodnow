@@ -45,6 +45,9 @@ def validRestoPseudo(pseudo):
 def validMenuName(name):
     return validLength(name, menunamemin, menunamemax)
 
+def validCurrency(currency):
+    return validLength(currency, 3, 3)
+
 def validPhone(phone):
     phone = phone.strip()
     result = re.match("(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})", phone)
@@ -166,7 +169,6 @@ def insert(table, dict, simple = None):
             else:
                 connection.commit()
     return result
-
 
 def update(table, dict, extra = None):
     result = False

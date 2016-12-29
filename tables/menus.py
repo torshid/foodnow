@@ -19,12 +19,13 @@ def updateMenu(id, name, disposition, visible):
 
 def deleteMenu(id):
     return delete('menus', { 'id' : id })
+
 def reset():
     with db() as connection:
         with connection.cursor() as cursor:
             try:
                 cursor.execute("""DROP TABLE IF EXISTS menus""")
-                cursor.execute("""CREATE TABLE menus (id SERIAL, restoid INTEGER, name VARCHAR, disposition INTEGER, visible BOOLEAN)""")
+                cursor.execute("""CREATE TABLE menus (id SERIAL, restoid INTEGER, name VARCHAR, disposition SMALLINT, visible BOOLEAN)""")
             except dbapi2.Error:
                 connection.rollback()
             else:
