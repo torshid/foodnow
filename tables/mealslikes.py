@@ -33,6 +33,10 @@ def getTotalLikesMeals(userId):
                 connection.commit()
     return 0;
 
+def getLikedMeals():
+
+    return
+
 
 def reset():
     with db() as connection:
