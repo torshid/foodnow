@@ -53,14 +53,18 @@
     <div class="col-sm-7"></div>
 
 
+	<div class="col-sm-7">
 	{%set feed = getLikedRestos(user_id)%}
 	{%if feed%}
 		{%for element in feed%}
 			{{feedblock.feedblock(element)}}
 		{%endfor%}
 	{%endif%}
+	</div>
 
-
+	<div class="col-sm-7">
+		<h3>This is tab 2</h3>
+	</div>
 
 
 </div>
