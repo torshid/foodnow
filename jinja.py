@@ -51,3 +51,12 @@ def getResto(id = None, pseudo = None):
 def getLikedRestos(userId):
     from tables import restolikes
     return restolikes.getLikedRestos(userId)
+
+def updateProfile(userId, name = None, email = None, password = None):
+    from entities import user
+    user.updateProfile(name, email, password)
+    return
+
+def getMostLikedRestos():
+    from tables import restos
+    return restos.getMostLikedRestos()
