@@ -26,3 +26,16 @@ def reset():
             else:
                 connection.commit()
     return
+
+def getMostLikedRestos(): #incomplete
+    list = []
+    with db() as connection:
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute("""SELECT * FROM restos LIMIT 10""")
+                list = cursor.fetchall();
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+    return      list
