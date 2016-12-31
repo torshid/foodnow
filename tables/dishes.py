@@ -3,7 +3,7 @@ import psycopg2 as dbapi2
 from common import *
 
 def addDish(menuid, name, price, disposition, visible):
-    return insert('dishes', { 'menuid' : menuid, 'name' : name, 'price' : price, 'disposition' : disposition, 'visible' : visible})
+    return insert('dishes', { 'menuid' : menuid, 'name' : name, 'price' : price, 'disposition' : disposition, 'visible' : visible })
 
 def getDish(id):
     return selectone('dishes', { 'id' : id })
@@ -16,6 +16,9 @@ def deleteDish(id):
 
 def getMenuDishes(menuid):
     return selectall('dishes', { 'menuid' : menuid }, 'ORDER BY disposition')
+
+def updateDish(id, name, price, disposition, visible):
+    return update('dishes', { 'name' : name, 'price' : price, 'disposition' : disposition, 'visible' : visible }, { 'id' : id })
 
 def reset():
     with db() as connection:

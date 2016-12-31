@@ -1,0 +1,2 @@
+{% import 'panel/macros.html' as macros %}
+{{ macros.title(dish[2] + ' in ' + menu[2], [('menus/' + menu[0]|string() + '/dishes/' + dish[0]|string() + '/edit', 'edit', 'primary'), (('menus/' + menu[0]|string() + '/dishes/' + dish[0]|string() + '/delete', 'delete', 'danger'))]) }}

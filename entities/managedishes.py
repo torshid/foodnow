@@ -80,10 +80,11 @@ def deletedish(resto_pseudo, menu_id, dish_id):
     if dish[1] != menu[0]:
         abort(403)
 
-    return
+    dishes.deleteDish(dish[0])
+    return redirectPanelJS('entities.managemenus.view', '<br/>' + bsalert('You successfully deleted the dish ' + dish[2], 'info'), resto_pseudo = resto_pseudo, menu_id = menu_id)
 
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/dishes/<int:dish_id>', methods = ['GET', 'POST'])
-def dish(resto_pseudo, menu_id):
+def dish(resto_pseudo, menu_id, dish_id):
     permission = hasPanelAccess('entities.managedishes.dish', resto_pseudo = resto_pseudo, menu_id = menu_id, dish_id = dish_id)
     if not isinstance(permission, tuple):
         return permission
@@ -106,7 +107,7 @@ def dish(resto_pseudo, menu_id):
     return render_template('panel/dish.html', menu = menu, dish = dish)
 
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/dishes/<int:dish_id>/edit', methods = ['GET', 'POST'])
-def editdish(resto_pseudo, menu_id):
+def editdish(resto_pseudo, menu_id, dish_id):
     permission = hasPanelAccess('entities.managedishes.editdish', resto_pseudo = resto_pseudo, menu_id = menu_id, dish_id = dish_id)
     if not isinstance(permission, tuple):
         return permission
@@ -126,7 +127,29 @@ def editdish(resto_pseudo, menu_id):
     if dish[1] != menu[0]:
         abort(403)
 
-    return render_template('panel/editdish.html')
+    name = dish[2]
+    price = dish[3]
+    disposition = dish[4]
+    visible = [5]
+    errors = []
+
+    if anydata():
+        if exist('name') and exist('price') and exist('disposition') and exist('visible'):
+            name = request.form['name']
+            price = request.form['price']
+            disposition = request.form['disposition']
+            visible = request.form['visible']
+            if not validDishName(name):
+                errors.append('The name length must be between ' + str(dishnamemin) + ' and ' + str(dishnamemax))
+            if not isfloat(price):
+                errors.append('The price value must be a (real) number')
+            if not isint(disposition):
+                errors.append('The disposition value must be a number')
+            if len(errors) == 0:
+                dishes.updateDish(dish[0], name, price, disposition, visible)
+                return redirectPanelJS('entities.managemenus.view', '<br/>' + bsalert('You successfully edited the dish ' + name, 'success'), resto_pseudo = resto_pseudo, menu_id = menu_id)
+
+    return render_template('panel/editdish.html', menu = menu, dish = dish, name = name, price = price, disposition = disposition, visible = visible, errors = errors)
 
 def reset():
     dishes.reset()

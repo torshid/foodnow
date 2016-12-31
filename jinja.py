@@ -25,6 +25,12 @@ def checkSessions():
             if 'user' in session: del session['user']
     return
 
+def istrue(s):
+    return s == '1' or s == 1
+
+def isfalse(s):
+    return not istrue(s)
+
 def isLogged():
     from flask import session
     return 'user' in session

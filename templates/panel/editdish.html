@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+{% import 'panel/macros.html' as macros %}
+<form class="form-horizontal">
+	{{ macros.title('Edit dish in ' + menu[2], [('menus/' + menu[0]|string() + '/dishes/' + dish[0]|string() + '/edit', 'save', 'success'),], errors) }}
+	<div class="form-group">
+		<label for="name" class="col-sm-1 control-label">Name</label>
+		<div class="col-sm-11">
+			<input type="text" class="form-control" id="name" name="name" placeholder="{{ dish[2] }}" value="{{ name }}" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="price" class="col-sm-1 control-label">Price</label>
+		<div class="col-sm-11">
+			<input type="number" pattern="[0-9.]+" class="form-control" name="price" placeholder="{{ dish[3] }}" value="{{ price }}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="disposition" class="col-sm-1 control-label">Disposition</label>
+		<div class="col-sm-11">
+			<input type="number" pattern="[0-9.]+" class="form-control" name="disposition" placeholder="{{ dish[4] }}" value="{{ disposition }}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="visible" class="col-sm-1 control-label">Visible</label>
+		<div class="col-sm-11">
+			<select class="form-control" name="visible">
+				<option value="1" {% if istrue(visible) %} selected {% endif %}>Yes</option>
+				<option value="0" {% if isfalse(visible) %} selected {% endif %}>No</option>
+			</select>
+		</div>
+	</div>
+</form>
