@@ -53,6 +53,8 @@ def newdish(resto_pseudo, menu_id):
                 errors.append('The price value must be a (real) number')
             if not isint(disposition):
                 errors.append('The disposition value must be a number')
+            if not isbool(visible):
+                errors.append('You must select a correct visible option')
             if len(errors) == 0:
                 dishes.addDish(menu[0], name, price, disposition, visible)
                 return redirectPanelJS('entities.managemenus.view', '<br/>' + bsalert('You successfully added the new dish ' + name, 'success'), resto_pseudo = resto_pseudo, menu_id = menu_id)
@@ -130,7 +132,7 @@ def editdish(resto_pseudo, menu_id, dish_id):
     name = dish[2]
     price = dish[3]
     disposition = dish[4]
-    visible = [5]
+    visible = dish[5]
     errors = []
 
     if anydata():
@@ -145,6 +147,8 @@ def editdish(resto_pseudo, menu_id, dish_id):
                 errors.append('The price value must be a (real) number')
             if not isint(disposition):
                 errors.append('The disposition value must be a number')
+            if not isbool(visible):
+                errors.append('You must select a correct visible option')
             if len(errors) == 0:
                 dishes.updateDish(dish[0], name, price, disposition, visible)
                 return redirectPanelJS('entities.managemenus.view', '<br/>' + bsalert('You successfully edited the dish ' + name, 'success'), resto_pseudo = resto_pseudo, menu_id = menu_id)

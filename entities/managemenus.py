@@ -42,6 +42,8 @@ def new(resto_pseudo):
                 errors.append('The name length must be between ' + str(menunamemin) + ' and ' + str(menunamemax))
             if not isint(disposition):
                 errors.append('The disposition value must be a number')
+            if not isbool(visible):
+                errors.append('You must select a correct visible option')
             if len(errors) == 0:
                 menus.addMenu(resto[0], name, disposition, visible)
                 return redirectPanelJS('entities.managemenus.main', '<br/>' + bsalert('You successfully added the new menu ' + name, 'success'), resto_pseudo = resto_pseudo)
@@ -94,6 +96,8 @@ def edit(resto_pseudo, menu_id):
                 errors.append('The name length must be between ' + str(menunamemin) + ' and ' + str(menunamemax))
             if not isint(disposition):
                 errors.append('The disposition value must be a number')
+            if not isbool(visible):
+                errors.append('You must select a correct visible option')
             if len(errors) == 0:
                 menus.updateMenu(menu[0], name, disposition, visible)
                 return redirectPanelJS('entities.managemenus.main', '<br/>' + bsalert('You successfully edited the menu ' + name, 'success'), resto_pseudo = resto_pseudo)
