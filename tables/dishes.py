@@ -8,6 +8,9 @@ def addDish(menuid, name, price, disposition, visible):
 def getDish(id):
     return selectone('dishes', { 'id' : id })
 
+def getMenuDishesHighestDisposition(menuid):
+    return selectone('dishes', { 'menuid' : menuid }, 'ORDER BY disposition DESC')
+
 def deleteDish(id):
     return delete('dishes', { 'id' : id })
 
@@ -19,7 +22,7 @@ def reset():
         with connection.cursor() as cursor:
             try:
                 cursor.execute("""DROP TABLE IF EXISTS dishes""")
-                cursor.execute("""CREATE TABLE dishes (id SERIAL, menuid INTEGER, name VARCHAR, price REAL, disposition SMALLINT, visible BOOLEAN)""")
+                cursor.execute("""CREATE TABLE dishes (id SERIAL, menuid INTEGER, name VARCHAR, price SMALLINT, disposition SMALLINT, visible BOOLEAN)""")
             except dbapi2.Error:
                 connection.rollback()
             else:

@@ -16,6 +16,8 @@ restopseudomin = 3
 restopseudomax = 16
 menunamemin = 3
 menunamemax = 16
+dishnamemin = 3
+dishnamemax = 24
 
 # employee roles
 rolemanager = 10

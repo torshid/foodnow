@@ -48,6 +48,9 @@ def validMenuName(name):
 def validCurrency(currency):
     return validLength(currency, 3, 3)
 
+def validDishName(name):
+    return validLength(name, dishnamemin, dishnamemax)
+
 def validPhone(phone):
     phone = phone.strip()
     result = re.match("(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})", phone)
@@ -58,6 +61,13 @@ def validPhone(phone):
 def isint(s):
     try:
         int(s)
+        return True
+    except ValueError:
+        return False
+
+def isfloat(s):
+    try:
+        float(s)
         return True
     except ValueError:
         return False

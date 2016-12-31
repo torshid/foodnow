@@ -29,7 +29,7 @@ def new(resto_pseudo):
     if disposition:
         disposition = disposition[3] + 1
     else:
-        disposition = ''
+        disposition = '1'
     visible = '1'
     errors = []
 
@@ -39,7 +39,7 @@ def new(resto_pseudo):
             disposition = request.form['disposition']
             visible = request.form['visible']
             if not validMenuName(name):
-                errors.append('The name lenght must be between ' + str(menunamemin) + ' and ' + str(menunamemax))
+                errors.append('The name length must be between ' + str(menunamemin) + ' and ' + str(menunamemax))
             if not isint(disposition):
                 errors.append('The disposition value must be a number')
             if len(errors) == 0:
@@ -59,9 +59,12 @@ def view(resto_pseudo, menu_id):
     if not menu:
         abort(404)
 
+    if menu[1] != resto[0]:
+        abort(403)
+
     dishs = dishes.getMenuDishes(menu[0])
 
-    return render_template('panel/menu.html', resto = resto, menu = menu, dishs = dishes)
+    return render_template('panel/menu.html', resto = resto, menu = menu, dishes = dishs)
 
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/edit', methods = ['GET', 'POST'])
 def edit(resto_pseudo, menu_id):
@@ -88,7 +91,7 @@ def edit(resto_pseudo, menu_id):
             disposition = request.form['disposition']
             visible = request.form['visible']
             if not validMenuName(name):
-                errors.append('The name lenght must be between ' + str(menunamemin) + ' and ' + str(menunamemax))
+                errors.append('The name length must be between ' + str(menunamemin) + ' and ' + str(menunamemax))
             if not isint(disposition):
                 errors.append('The disposition value must be a number')
             if len(errors) == 0:
