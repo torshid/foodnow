@@ -9,7 +9,12 @@
 {%- endmacro %}
 
 {% macro likeResto(resto_id) -%}
-	<button class="btn btn-primary restolike_btn" data-id="{{resto_id}}">Like Now!</button>
+		<button class="btn btn-primary restolike_btn" data-id="{{resto_id}}">Like Now!</button>
+
+{%- endmacro %}
+
+{% macro likeDish(dish_id) -%}
+		<button class="btn btn-primary dishlike_btn" data-id="{{dish_id}}">Like Now!</button>
 {%- endmacro %}
 
 {% macro recommendedResto(resto_name , resto_pseudo, resto_id) -%}
@@ -21,10 +26,25 @@
                         <h3>{{resto_name}}</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                         <p>
-                            {{likeResto(0)}} <a href="{{url_for('entities.resto.main', resto_pseudo=resto_pseudo)}}" class="btn btn-default">View Page</a>
+                            {{likeResto(resto_id)}} <a href="{{url_for('entities.resto.main', resto_pseudo=resto_pseudo)}}" class="btn btn-default">View Page</a>
                         </p>
                     </div>
                 </div>
             </div>
 
+{%- endmacro %}
+
+{% macro recommendedDish(dish_name , dish_id, price) -%}
+			<div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="/static/images/default_resto.jpg" alt="">
+                    <div class="caption">
+                        <h3>{{dish_name}}</h3>
+                        <p>ONly for {{price}}</p>
+                        <p>
+                            {{likeDish(dish_id)}} <a href="{{url_for('entities.resto.main', resto_pseudo=resto_pseudo)}}" class="btn btn-default">View Resto</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
 {%- endmacro %}

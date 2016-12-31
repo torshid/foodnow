@@ -68,3 +68,7 @@ def updateProfile(userId, name = None, email = None, password = None):
 def getMostLikedRestos():
     from tables import restos
     return restos.getMostLikedRestos()
+
+def getMostLikedDishes():
+    from tables import dishes
+    return dishes.getMostLikedDishes()

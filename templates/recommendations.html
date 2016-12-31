@@ -46,6 +46,23 @@
 
         <hr>
 
+		<!-- Title -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Trending Dishes</h3>
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="row text-center">
+
+		{%set bestdishes = getMostLikedDishes()%}
+
+		{%for dish in bestdishes%}
+			{{macros.recommendedDish(dish[2],dish[0], dish[3])}}
+		{%endfor%}
+
+
+        </div>
 
     </div>
     <!-- /.container -->
