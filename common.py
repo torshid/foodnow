@@ -51,6 +51,9 @@ def validCurrency(currency):
 def validWarnmsg(warnmsg):
     return validLength(warnmsg, 0, restowarnmsgmax)
 
+def validDescription(description):
+    return validLength(description, 0, restodescriptionmax)
+
 def validDishName(name):
     return validLength(name, dishnamemin, dishnamemax)
 
@@ -149,6 +152,31 @@ def selectone(table, dict = None, extra = None):
 
 def selectall(table, dict = None, extra = None):
     return select(table, True, dict, extra)
+
+def count(table, field, dict = None):
+    result = None
+    with db() as connection:
+        with connection.cursor() as cursor:
+            if dict:
+                placeholders = ' AND '.join(['%s = %s' % (key, '%s') for (key, value) in dict.items()])
+                query = "SELECT COUNT(%s) FROM %s WHERE %s" % (field, table, placeholders)
+            else:
+                query = "SELECT COUNT(%s) FROM %s" % (field, table)
+            try:
+                if dict:
+                    cursor.execute(query, list(dict.values()))
+                else:
+                    cursor.execute(query)
+                result = cursor.fetchone()
+                if result:
+                    result = result[0]
+                else:
+                    result = 0
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+    return result
 
 def delete(table, dict):
     result = None
