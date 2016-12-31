@@ -6,9 +6,9 @@ $(document).ready(function() {
 
 	});
 
-	$(".mealslike_btn").click(function () {
-
+	$(".dishlike_btn").click(function () {
+		alert($(this).data("id"));
 	    $(this).text("Liked");
-
+	    $(this).removeClass("btn-primary").addClass("btn-default");
 	});
-	});
+});
