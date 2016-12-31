@@ -38,7 +38,7 @@ def new():
             if not validDescription(description):
                 errors.append('Description length must be <= ' + str(restodescriptionmax))
             if len(errors) == 0:
-                id = restos.addResto(name, pseudo, mail, phone, currency.upper())
+                id = restos.addResto(name, pseudo, mail, phone, currency.upper(), description)
                 employees.addEmployee(id, getUser()[0], rolemanager)
                 if id == None:
                     errors.append("@name is already used")
