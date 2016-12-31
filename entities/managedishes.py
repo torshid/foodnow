@@ -120,6 +120,9 @@ def editdish(resto_pseudo, menu_id, dish_id):
     if dish[1] != menu[0]:
         abort(403)
 
+    allmenus = menus.getRestoMenus(resto[0])
+
+    menuid = dish[1]
     name = dish[2]
     price = dish[3]
     disposition = dish[4]
@@ -127,11 +130,15 @@ def editdish(resto_pseudo, menu_id, dish_id):
     errors = []
 
     if anydata():
-        if exist('name') and exist('price') and exist('disposition') and exist('visible'):
+        if exist('menu') and exist('name') and exist('price') and exist('disposition') and exist('visible'):
+            menuid = request.form['menu']
             name = request.form['name']
             price = request.form['price']
             disposition = request.form['disposition']
             visible = request.form['visible']
+            newmenu = menus.getMenu(menuid)
+            if not newmenu or newmenu[1] != resto[0]:
+                errors.append('You have to select a correct menu')
             if not validDishName(name):
                 errors.append('The name length must be between ' + str(dishnamemin) + ' and ' + str(dishnamemax))
             if not isfloat(price):
@@ -141,10 +148,10 @@ def editdish(resto_pseudo, menu_id, dish_id):
             if not isbool(visible):
                 errors.append('You must select a correct visible option')
             if len(errors) == 0:
-                dishes.updateDish(dish[0], name, price, disposition, visible)
-                return redirectPanelJS('entities.managemenus.view', '<br/>' + bsalert('You successfully edited the dish ' + name, 'success'), resto_pseudo = resto_pseudo, menu_id = menu_id)
+                dishes.updateDish(dish[0], menuid, name, price, disposition, visible)
+                return redirectPanelJS('entities.managemenus.view', '<br/>' + bsalert('You successfully edited the dish ' + name, 'success'), resto_pseudo = resto_pseudo, menu_id = newmenu[0])
 
-    return render_template('panel/editdish.html', menu = menu, dish = dish, name = name, price = price, disposition = disposition, visible = visible, errors = errors)
+    return render_template('panel/editdish.html', menu = menu, menus = allmenus, menuid = menuid, dish = dish, name = name, price = price, disposition = disposition, visible = visible, errors = errors)
 
 def reset():
     dishes.reset()

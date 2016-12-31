@@ -5,6 +5,7 @@
     <thead>
       <tr>
         <th>Name</th>
+        <th>Dishes</th>
         <th>Disposition</th>
         <th>Visible</th>
       </tr>
@@ -19,6 +20,7 @@
                     | <a href="#" class="text-danger" id="{{ url_for('entities.managemenus.delete', resto_pseudo = resto[2], menu_id = menu[0]) }}">Delete</a>
                 </div>
 			</td>
+			<td>{{ menu[5] }}</td>
 			<td>{{ menu[3] }}</td>
 			<td>{{ menu[4] }}</td>
 		</tr>

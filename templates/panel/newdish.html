@@ -10,19 +10,19 @@
 	<div class="form-group">
 		<label for="price" class="col-sm-1 control-label">Price</label>
 		<div class="col-sm-11">
-			<input type="number" pattern="[0-9.]+" class="form-control" name="price" placeholder="Price" value="{{ price }}"/>
+			<input type="number" pattern="[0-9.]+" class="form-control" id="price" name="price" placeholder="Price" value="{{ price }}"/>
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="disposition" class="col-sm-1 control-label">Disposition</label>
 		<div class="col-sm-11">
-			<input type="number" pattern="[0-9.]+" class="form-control" name="disposition" placeholder="Display order" value="{{ disposition }}"/>
+			<input type="number" pattern="[0-9.]+" class="form-control" id="disposition" name="disposition" placeholder="Display order" value="{{ disposition }}"/>
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="visible" class="col-sm-1 control-label">Visible</label>
 		<div class="col-sm-11">
-			<select class="form-control" name="visible">
+			<select class="form-control" id="visible" name="visible">
 				<option value="1" {% if visible == '1' %} selected {% endif %}>Yes</option>
 				<option value="0" {% if visible == '0' %} selected {% endif %}>No</option>
 			</select>

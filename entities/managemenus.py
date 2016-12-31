@@ -15,7 +15,14 @@ def main(resto_pseudo):
         return permission
     resto, employment = permission
 
-    return render_template('panel/menus.html', resto = resto, menus = menus.getRestoMenus(resto[0]))
+    menuslist = menus.getRestoMenus(resto[0])
+    index = 0
+
+    for menu in menuslist:
+        menuslist[index] += (dishes.countMenuDishes(menu[0]),)
+        index += 1
+
+    return render_template('panel/menus.html', resto = resto, menus = menuslist)
 
 @page.route('/<string:resto_pseudo>/panel/menus/new', methods = ['GET', 'POST'])
 def new(resto_pseudo):
