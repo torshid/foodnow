@@ -2,7 +2,7 @@ from flask import render_template, redirect, abort, request
 from flask.helpers import url_for
 from common import *
 
-from tables import restos, menus
+from tables import restos, menus, dishes
 
 # from flask.globals import request
 
@@ -17,7 +17,7 @@ def main(resto_pseudo):
 
     return render_template('panel/menus.html', resto = resto, menus = menus.getRestoMenus(resto[0]))
 
-@page.route('/<string:resto_pseudo>/panel/new-menu', methods = ['GET', 'POST'])
+@page.route('/<string:resto_pseudo>/panel/menus/new', methods = ['GET', 'POST'])
 def new(resto_pseudo):
     permission = hasPanelAccess('entities.managemenus.new', resto_pseudo = resto_pseudo)
     if not isinstance(permission, tuple):
@@ -59,7 +59,9 @@ def view(resto_pseudo, menu_id):
     if not menu:
         abort(404)
 
-    return render_template('panel/menu.html', resto = resto, menu = menu)
+    dishs = dishes.getMenuDishes(menu[0])
+
+    return render_template('panel/menu.html', resto = resto, menu = menu, dishs = dishes)
 
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/edit', methods = ['GET', 'POST'])
 def edit(resto_pseudo, menu_id):

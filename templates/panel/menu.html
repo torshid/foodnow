@@ -1,2 +1,7 @@
 {% import 'panel/macros.html' as macros %}
 {{ macros.title(menu[2], [('menus/' + menu[0]|string() + '/edit', 'edit', 'primary'), (('menus/' + menu[0]|string() + '/delete', 'delete', 'danger'))]) }}
+{% for dish in dishes %}
+	<a href="#" id="{{ url_for('entities.managedishes.dish', resto_pseudo = resto[2], menu_id = menu[0], dish_id = dish[0]) }}">{{ menu[2] }}</a><br/>
+{% else %}
+	<div>There is no dishes in this menu...</div>
+{% endfor %}

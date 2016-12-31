@@ -45,6 +45,6 @@ def new():
 def reset():
     restos.reset()
     employees.reset()
-    restos.addResto('Kebabs Restaurant', 'kebabs', 'kebabs@foodnow.com', '532532536623')
+    restos.addResto('Kebabs Restaurant', 'kebabs', 'kebabs@foodnow.com', '532532536623', 'TRY')
     employees.addEmployee(1, 1, rolemanager)
     return
