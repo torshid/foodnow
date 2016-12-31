@@ -25,7 +25,7 @@ def anydata():
 
 def validLength(value, min, max):
     value = value.strip()
-    return len(value) >= min and len(value) < max
+    return len(value) >= min and len(value) <= max
 
 def validName(name):
     return validLength(name, namemin, namemax)
@@ -48,6 +48,9 @@ def validMenuName(name):
 def validCurrency(currency):
     return validLength(currency, 3, 3)
 
+def validWarnmsg(warnmsg):
+    return validLength(warnmsg, 0, restowarnmsgmax)
+
 def validDishName(name):
     return validLength(name, dishnamemin, dishnamemax)
 
@@ -57,6 +60,10 @@ def validPhone(phone):
     if not result:
         return False
     return len(result.group(0)) == len(phone)
+
+def isbool(s):
+    s = s.lower()
+    return s == '1' or s == 1 or s == '0' or s == 0 or s == 'true' or s == 'false'
 
 def isint(s):
     try:

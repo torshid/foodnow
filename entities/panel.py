@@ -33,7 +33,46 @@ def settings(resto_pseudo):
         return permission
     resto, employment = permission
 
-    return render_template('panel/settings.html')
+    name = resto[1]
+    pseudo = resto[2]
+    mail = resto[3]
+    phone = resto[4]
+    accessible = resto[5]
+    warnmsg = resto[6]
+    currency = resto[7]
+    errors = []
+
+    if request.method == 'POST':
+        if exist('name') and exist('pseudo') and exist('mail') and exist('phone') and exist('accessible') and exist('warnmsg') and exist('currency'):
+            name = request.form['name']
+            pseudo = request.form['pseudo']
+            mail = request.form['mail']
+            phone = request.form['phone']
+            accessible = request.form['accessible']
+            warnmsg = request.form['warnmsg']
+            currency = request.form['currency']
+            if not validRestoName(name):
+                errors.append('Name length must be >= ' + str(restonamemin))
+            if not validRestoPseudo(pseudo):
+                errors.append('@name length must be >= ' + str(restopseudomin))
+            if not validMail(mail):
+                errors.append('Enter a correct mail address')
+            if not validPhone(phone):
+                errors.append('Enter a correct phone number')
+            if not validCurrency(currency):
+                errors.append('Enter a correct currency (TRY, AED, USD, ...)')
+            if not isbool(accessible):
+                errors.append('You must select a correct accessible option')
+            if not validWarnmsg(warnmsg):
+                errors.append('The disabled message length must be <= ' + str(restowarnmsgmax))
+            if len(errors) == 0:
+                updated = restos.updateResto(resto[0], name, pseudo, mail, phone, accessible, warnmsg, currency.upper())
+                if not updated:
+                    errors.append("@name is already used")
+                else:
+                    return redirectPanelJS('entities.panel.settings', '<br/>' + bsalert('You successfully edited the settings', 'success'), resto_pseudo = resto_pseudo)
+
+    return render_template('panel/settings.html', resto = resto, name = name, pseudo = pseudo, mail = mail, phone = phone, accessible = accessible, warnmsg = warnmsg, currency = currency, errors = errors)
 
 @page.route('/<string:resto_pseudo>/panel/reviews', methods = ['GET', 'POST'])
 def reviews(resto_pseudo):

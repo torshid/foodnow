@@ -3,13 +3,16 @@ import psycopg2 as dbapi2
 from common import *
 
 def addResto(name, pseudo, mail, phone, currency):
-    return insert('restos', { 'name' : name, 'pseudo' : pseudo, 'mail' : mail, 'phone' : phone, 'currency' : currency})
+    return insert('restos', { 'name' : name, 'pseudo' : pseudo, 'mail' : mail, 'phone' : phone, 'currency' : currency })
 
 def getResto(pseudo):
     return selectone('restos', { 'pseudo' : pseudo })
 
 def getRestoFromId(id):
     return selectone('restos', { 'id' : id })
+
+def updateResto(id, name, pseudo, mail, phone, accessible, warnmsg, currency):
+    return update('restos', { 'name' : name, 'pseudo' : pseudo, 'mail' : mail, 'phone' : phone, 'accessible' : accessible, 'warnmsg' : warnmsg, 'currency' : currency }, { 'id' : id })
 
 def reset():
     with db() as connection:
