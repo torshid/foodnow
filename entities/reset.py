@@ -18,3 +18,12 @@ def main():
                     if callable(func):
                         func()
     return redirect(url_for('entities.home.main'))
+
+@page.route('/reset/<string:modname>')
+def specific(modname):
+    module = __import__('entities.' + modname, fromlist = ['reset'])
+    if (hasattr(module, 'reset')):
+        func = getattr(module, 'reset')
+        if callable(func):
+            func()
+    return redirect(url_for('entities.home.main'))
