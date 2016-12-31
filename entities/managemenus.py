@@ -105,7 +105,7 @@ def edit(resto_pseudo, menu_id):
     return render_template('panel/editmenu.html', menu = menu, name = name, disposition = disposition, visible = visible, errors = errors)
 
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/delete', methods = ['GET', 'POST'])
-def deletemenu(resto_pseudo, menu_id):
+def delete(resto_pseudo, menu_id):
     permission = hasPanelAccess('entities.managemenus.delete', resto_pseudo = resto_pseudo, menu_id = menu_id)
     if not isinstance(permission, tuple):
         return permission
@@ -118,7 +118,9 @@ def deletemenu(resto_pseudo, menu_id):
     if menu[1] != resto[0]:
         abort(403)
 
-    # TODO: check if has any meals
+    if dishes.countMenuDishes(menu[0]) > 0:
+        return bsalert('There are dishes in the menu <a href="#" id="' + url_for('entities.managemenus.view', resto_pseudo = resto_pseudo, menu_id = menu_id) + '"><button class="btn btn-primary">' + menu[2] + '</button></a>, you need to delete them first.', 'danger')
+
     menus.deleteMenu(menu[0])
     return redirectPanelJS('entities.managemenus.main', '<br/>' + bsalert('You successfully deleted the menu ' + menu[2], 'info'), resto_pseudo = resto_pseudo)
 

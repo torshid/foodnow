@@ -40,10 +40,11 @@ def settings(resto_pseudo):
     accessible = resto[5]
     warnmsg = resto[6]
     currency = resto[7]
+    description = resto[8]
     errors = []
 
     if request.method == 'POST':
-        if exist('name') and exist('pseudo') and exist('mail') and exist('phone') and exist('accessible') and exist('warnmsg') and exist('currency'):
+        if exist('name') and exist('pseudo') and exist('mail') and exist('phone') and exist('accessible') and exist('warnmsg') and exist('currency') and exist('description'):
             name = request.form['name']
             pseudo = request.form['pseudo']
             mail = request.form['mail']
@@ -51,6 +52,7 @@ def settings(resto_pseudo):
             accessible = request.form['accessible']
             warnmsg = request.form['warnmsg']
             currency = request.form['currency']
+            description = request.form['description']
             if not validRestoName(name):
                 errors.append('Name length must be >= ' + str(restonamemin))
             if not validRestoPseudo(pseudo):
@@ -61,18 +63,20 @@ def settings(resto_pseudo):
                 errors.append('Enter a correct phone number')
             if not validCurrency(currency):
                 errors.append('Enter a correct currency (TRY, AED, USD, ...)')
+            if not validDescription(description):
+                errors.append('Description length must be <= ' + str(restodescriptionmax))
             if not isbool(accessible):
                 errors.append('You must select a correct accessible option')
             if not validWarnmsg(warnmsg):
                 errors.append('The disabled message length must be <= ' + str(restowarnmsgmax))
             if len(errors) == 0:
-                updated = restos.updateResto(resto[0], name, pseudo, mail, phone, accessible, warnmsg, currency.upper())
+                updated = restos.updateResto(resto[0], name, pseudo, mail, phone, accessible, warnmsg, currency.upper(), description)
                 if not updated:
                     errors.append("@name is already used")
                 else:
                     return redirectPanelJS('entities.panel.settings', '<br/>' + bsalert('You successfully edited the settings', 'success'), resto_pseudo = resto_pseudo)
 
-    return render_template('panel/settings.html', resto = resto, name = name, pseudo = pseudo, mail = mail, phone = phone, accessible = accessible, warnmsg = warnmsg, currency = currency, errors = errors)
+    return render_template('panel/settings.html', resto = resto, name = name, pseudo = pseudo, mail = mail, phone = phone, accessible = accessible, warnmsg = warnmsg, currency = currency, description = description, errors = errors)
 
 @page.route('/<string:resto_pseudo>/panel/reviews', methods = ['GET', 'POST'])
 def reviews(resto_pseudo):

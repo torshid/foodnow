@@ -8,15 +8,6 @@ from flask.globals import request
 
 page = Blueprint(__name__)
 
-@page.route('/<string:resto_pseudo>/panel/dishes', methods = ['GET', 'POST'])
-def main(resto_pseudo):
-    permission = hasPanelAccess('entities.managedishes.dishes', resto_pseudo = resto_pseudo)
-    if not isinstance(permission, tuple):
-        return permission
-    resto, employment = permission
-
-    return render_template('panel/dishes.html')
-
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/dishes/new', methods = ['GET', 'POST'])
 def newdish(resto_pseudo, menu_id):
     permission = hasPanelAccess('entities.managedishes.newdish', resto_pseudo = resto_pseudo, menu_id = menu_id)

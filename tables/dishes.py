@@ -20,12 +20,15 @@ def getMenuDishes(menuid):
 def updateDish(id, name, price, disposition, visible):
     return update('dishes', { 'name' : name, 'price' : price, 'disposition' : disposition, 'visible' : visible }, { 'id' : id })
 
+def countMenuDishes(menuid):
+    return count('dishes', 'id', { 'menuid' : menuid })
+
 def reset():
     with db() as connection:
         with connection.cursor() as cursor:
             try:
                 cursor.execute("""DROP TABLE IF EXISTS dishes""")
-                cursor.execute("""CREATE TABLE dishes (id SERIAL, menuid INTEGER, name VARCHAR, price SMALLINT, disposition SMALLINT, visible BOOLEAN)""")
+                cursor.execute("""CREATE TABLE dishes (id SERIAL, menuid INTEGER, name VARCHAR, price REAL, disposition SMALLINT, visible BOOLEAN)""")
             except dbapi2.Error:
                 connection.rollback()
             else:

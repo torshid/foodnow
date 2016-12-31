@@ -28,3 +28,17 @@ form {
 .title {
 	font-size: 26px;
 }
+
+.postactions .posttitle div:first-child {
+	font-weight: italic;
+}
+
+.postactions .posttitle div:last-child {
+	display: none;
+	color: gray;
+	font-size: 12px;
+}
+
+.postactions:hover .posttitle div:last-child {
+	display: block;
+}

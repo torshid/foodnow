@@ -15,7 +15,7 @@ $(document).ready(function() {
 		if ($(this).attr('href') != '#') {
 			return;
 		} else {
-			if ($(this).children().hasClass('btn-danger')) {
+			if ($(this).children().hasClass('btn-danger') || $(this).hasClass('text-danger')) {
 				var ask = confirm("Are you to execute this action?");
 
 				if (!ask) {
@@ -65,6 +65,8 @@ function loadPage(url, replace, data, message) {
 	else if (url.indexOf("/") > -1) {
 		tagid = url.substr(0, url.indexOf("/"));
 	}
+
+	tagid = tagid.replace(root, '');
 
 	$('#content').fadeOut(200, function() {
 		$('#content').html('<div id="loading"></div>');
