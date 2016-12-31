@@ -8,9 +8,13 @@ from flask.globals import request
 
 page = Blueprint(__name__)
 
+@page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/dishes', methods = ['GET', 'POST'])
+def main(resto_pseudo, menu_id):
+    return redirectPanel('entities.managemenus.view', resto_pseudo = resto_pseudo, menu_id = menu_id)
+
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/dishes/new', methods = ['GET', 'POST'])
-def newdish(resto_pseudo, menu_id):
-    permission = hasPanelAccess('entities.managedishes.newdish', resto_pseudo = resto_pseudo, menu_id = menu_id)
+def new(resto_pseudo, menu_id):
+    permission = hasPanelAccess('entities.managedishes.new', resto_pseudo = resto_pseudo, menu_id = menu_id)
     if not isinstance(permission, tuple):
         return permission
     resto, employment = permission
@@ -26,7 +30,7 @@ def newdish(resto_pseudo, menu_id):
     price = ''
     disposition = dishes.getMenuDishesHighestDisposition(menu[0])
     if disposition:
-        disposition = disposition[3] + 1
+        disposition = disposition[4] + 1
     else:
         disposition = '1'
     visible = '1'
@@ -50,11 +54,11 @@ def newdish(resto_pseudo, menu_id):
                 dishes.addDish(menu[0], name, price, disposition, visible)
                 return redirectPanelJS('entities.managemenus.view', '<br/>' + bsalert('You successfully added the new dish ' + name, 'success'), resto_pseudo = resto_pseudo, menu_id = menu_id)
 
-    return render_template('panel/newdish.html', menu = menu, name = name, price = price, disposition = disposition, visible = visible, errors = errors)
+    return render_template('panel/newdish.html', resto = resto, menu = menu, name = name, price = price, disposition = disposition, visible = visible, errors = errors)
 
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/dishes/<int:dish_id>/delete', methods = ['GET', 'POST'])
-def deletedish(resto_pseudo, menu_id, dish_id):
-    permission = hasPanelAccess('entities.managedishes.deletedish', resto_pseudo = resto_pseudo, menu_id = menu_id, dish_id = dish_id)
+def delete(resto_pseudo, menu_id, dish_id):
+    permission = hasPanelAccess('entities.managedishes.delete', resto_pseudo = resto_pseudo, menu_id = menu_id, dish_id = dish_id)
     if not isinstance(permission, tuple):
         return permission
     resto, employment = permission
@@ -77,8 +81,8 @@ def deletedish(resto_pseudo, menu_id, dish_id):
     return redirectPanelJS('entities.managemenus.view', '<br/>' + bsalert('You successfully deleted the dish ' + dish[2], 'info'), resto_pseudo = resto_pseudo, menu_id = menu_id)
 
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/dishes/<int:dish_id>', methods = ['GET', 'POST'])
-def dish(resto_pseudo, menu_id, dish_id):
-    permission = hasPanelAccess('entities.managedishes.dish', resto_pseudo = resto_pseudo, menu_id = menu_id, dish_id = dish_id)
+def view(resto_pseudo, menu_id, dish_id):
+    permission = hasPanelAccess('entities.managedishes.view', resto_pseudo = resto_pseudo, menu_id = menu_id, dish_id = dish_id)
     if not isinstance(permission, tuple):
         return permission
     resto, employment = permission
@@ -97,11 +101,11 @@ def dish(resto_pseudo, menu_id, dish_id):
     if dish[1] != menu[0]:
         abort(403)
 
-    return render_template('panel/dish.html', menu = menu, dish = dish)
+    return render_template('panel/dish.html', resto = resto, menu = menu, dish = dish)
 
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/dishes/<int:dish_id>/edit', methods = ['GET', 'POST'])
-def editdish(resto_pseudo, menu_id, dish_id):
-    permission = hasPanelAccess('entities.managedishes.editdish', resto_pseudo = resto_pseudo, menu_id = menu_id, dish_id = dish_id)
+def edit(resto_pseudo, menu_id, dish_id):
+    permission = hasPanelAccess('entities.managedishes.edit', resto_pseudo = resto_pseudo, menu_id = menu_id, dish_id = dish_id)
     if not isinstance(permission, tuple):
         return permission
     resto, employment = permission
@@ -151,7 +155,7 @@ def editdish(resto_pseudo, menu_id, dish_id):
                 dishes.updateDish(dish[0], menuid, name, price, disposition, visible)
                 return redirectPanelJS('entities.managemenus.view', '<br/>' + bsalert('You successfully edited the dish ' + name, 'success'), resto_pseudo = resto_pseudo, menu_id = newmenu[0])
 
-    return render_template('panel/editdish.html', menu = menu, menus = allmenus, menuid = menuid, dish = dish, name = name, price = price, disposition = disposition, visible = visible, errors = errors)
+    return render_template('panel/editdish.html', resto = resto, menu = menu, menus = allmenus, menuid = menuid, dish = dish, name = name, price = price, disposition = disposition, visible = visible, errors = errors)
 
 def reset():
     dishes.reset()

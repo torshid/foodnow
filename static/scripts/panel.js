@@ -58,22 +58,18 @@ function loadPage(url, replace, data, message) {
 
 	var completeurl = root + url;
 
-	if (tagid.split('/').length == 2 && $('#' + tagid.replace('/', '-')).length)
-	{
-		tagid = tagid.replace('/', '-');
-	}
-	else if (url.indexOf("/") > -1) {
-		tagid = url.substr(0, url.indexOf("/"));
-	}
+	//if (url.indexOf("/") > -1) {
+	//	tagid = url.substr(0, url.indexOf("/"));
+	//}
 
 	tagid = tagid.replace(root, '');
+
+	completeurl = completeurl.split('-').join('/');
 
 	$('#content').fadeOut(200, function() {
 		$('#content').html('<div id="loading"></div>');
 		$('#content').fadeIn(200);
 	});
-
-	completeurl = completeurl.replace('-', '/');
 
 	$.ajax({
 		type : 'POST',

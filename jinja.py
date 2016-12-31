@@ -1,5 +1,3 @@
-#import common
-
 def foodnow():
     return "Food — Now !"
 
@@ -46,6 +44,10 @@ def getUserEmployments():
 def isManager(employee):
     from tables import employees
     return employees.isManager(employee)
+
+def panel_for(entity, **data):
+    from flask.helpers import url_for
+    return '/'.join(url_for(entity, **data).split('/')[3:]).replace('/', '-')
 
 def getResto(id = None, pseudo = None):
     from tables import restos

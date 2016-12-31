@@ -1,6 +1,6 @@
 {% import 'panel/macros.html' as macros %}
 <form class="form-horizontal">
-	{{ macros.title('Edit dish in ' + menu[2], [('menus/' + menu[0]|string() + '/dishes/' + dish[0]|string() + '/edit', 'save', 'success'),], errors) }}
+	{{ macros.title('Edit dish in ' + menu[2], [(panel_for('entities.managedishes.edit', resto_pseudo = resto[2], menu_id = menu[0], dish_id = dish[0]), 'save', 'success'),], errors) }}
 	<div class="form-group">
 		<label for="menu" class="col-sm-1 control-label">Menu</label>
 		<div class="col-sm-11">

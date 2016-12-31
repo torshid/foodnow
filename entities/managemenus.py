@@ -55,7 +55,7 @@ def new(resto_pseudo):
                 menus.addMenu(resto[0], name, disposition, visible)
                 return redirectPanelJS('entities.managemenus.main', '<br/>' + bsalert('You successfully added the new menu ' + name, 'success'), resto_pseudo = resto_pseudo)
 
-    return render_template('panel/newmenu.html', name = name, disposition = disposition, visible = visible, errors = errors)
+    return render_template('panel/newmenu.html', resto = resto, name = name, disposition = disposition, visible = visible, errors = errors)
 
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>', methods = ['GET', 'POST'])
 def view(resto_pseudo, menu_id):
@@ -109,7 +109,7 @@ def edit(resto_pseudo, menu_id):
                 menus.updateMenu(menu[0], name, disposition, visible)
                 return redirectPanelJS('entities.managemenus.main', '<br/>' + bsalert('You successfully edited the menu ' + name, 'success'), resto_pseudo = resto_pseudo)
 
-    return render_template('panel/editmenu.html', menu = menu, name = name, disposition = disposition, visible = visible, errors = errors)
+    return render_template('panel/editmenu.html', resto = resto, menu = menu, name = name, disposition = disposition, visible = visible, errors = errors)
 
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/delete', methods = ['GET', 'POST'])
 def delete(resto_pseudo, menu_id):
