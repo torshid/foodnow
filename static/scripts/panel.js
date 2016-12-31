@@ -58,7 +58,11 @@ function loadPage(url, replace, data, message) {
 
 	var completeurl = root + url;
 
-	if (url.indexOf("/") > -1) {
+	if (tagid.split('/').length == 2 && $('#' + tagid.replace('/', '-')).length)
+	{
+		tagid = tagid.replace('/', '-');
+	}
+	else if (url.indexOf("/") > -1) {
 		tagid = url.substr(0, url.indexOf("/"));
 	}
 
@@ -66,6 +70,8 @@ function loadPage(url, replace, data, message) {
 		$('#content').html('<div id="loading"></div>');
 		$('#content').fadeIn(200);
 	});
+
+	completeurl = completeurl.replace('-', '/');
 
 	$.ajax({
 		type : 'POST',
@@ -99,8 +105,7 @@ function loadPage(url, replace, data, message) {
 				$('#sidebar').find('.active').removeClass('active');
 
 				$('#' + tagid).parent().parent().show();
-				$('#' + tagid).parent().parent().parent().first().addClass(
-						'active');
+				$('#' + tagid).parent().parent().parent().first().addClass('active');
 			} else {
 				if (!$('#' + tagid).closest('li').hasClass('active')) {
 					$('#sidebar').find('.active').find('.navsub').fadeOut(200);
