@@ -27,3 +27,4 @@ dishnamemax = 24
 rolemanager = 10
 roleworker = 5
 roledriver = 1
+roles = [(rolemanager, 'Manager'), (roleworker, 'Worker'), (roledriver, 'Driver')]

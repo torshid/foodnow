@@ -22,7 +22,7 @@ def updateDish(id, menuid, name, price, disposition, visible):
     return update('dishes', { 'menuid' : menuid, 'name' : name, 'price' : price, 'disposition' : disposition, 'visible' : visible }, { 'id' : id })
 
 def countMenuDishes(menuid):
-    return count('dishes', 'id', { 'menuid' : menuid })
+    return count('dishes', 'id', { 'menuid' : menuid, 'deleted' : '0' })
 
 def reset():
     with db() as connection:

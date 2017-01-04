@@ -1,6 +1,6 @@
 {% import 'panel/macros.html' as macros %}
 <form class="form-horizontal">
-	{{ macros.title('Settings', [('settings', 'save', 'success'),], errors) }}
+	{{ macros.title('Settings', [(panel_for('entities.panel.settings', resto_pseudo = resto[2]), 'save', 'success'),], errors) }}
 	<div class="form-group">
 		<label for="name" class="col-sm-2 control-label">Name</label>
 		<div class="col-sm-10">

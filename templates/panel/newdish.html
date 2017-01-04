@@ -1,6 +1,6 @@
 {% import 'panel/macros.html' as macros %}
 <form class="form-horizontal">
-	{{ macros.title('New dish in ' + menu[2], [('menus/' + menu[0]|string() + '/dishes/new', 'create dish', 'success'),], errors) }}
+	{{ macros.title('New dish in ' + menu[2], [(panel_for('entities.managedishes.new', resto_pseudo = resto[2], menu_id = menu[0]), 'create dish', 'success'),], errors) }}
 	<div class="form-group">
 		<label for="name" class="col-sm-1 control-label">Name</label>
 		<div class="col-sm-11">
