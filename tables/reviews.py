@@ -38,13 +38,39 @@ def reset():
     with db() as connection:
         with connection.cursor() as cursor:
             try:
-                cursor.execute("""DROP TABLE IF EXISTS restorecommendations""")
-                cursor.execute("""CREATE TABLE restorecommendations (user_id INTEGER REFERENCES users(id),
-                resto_id REFERENCES restos(id), content VARCHAR)""")
-                #cursor.execute("""DROP TABLE IF EXISTS foodrecommendations""")
-                #cursor.execute("""CREATE TABLE foodrecommendations (recommender_id INTEGER REFERENCES users(id), meal_id INTEGER REFERENCES  content VARCHAR)""")
+                cursor.execute("""DROP TABLE IF EXISTS reviews""")
+                cursor.execute("""CREATE TABLE reviews (user_id INTEGER REFERENCES users(id),
+                resto_id REFERENCES restos(id), dish_id REFERENCES dishes(id), content VARCHAR)""")
             except dbapi2.Error:
                 connection.rollback()
             else:
                 connection.commit()
     return
+
+def getRestoReviews(restoId):
+    list = []
+    query = """SELECT content FROM dishes WHERE resto_id= %s"""
+    with db() as connection:
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query, [restoId])
+                list = cursor.fetchall()
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+    return list
+
+def getDishReviews(dishId):
+    list = []
+    query = """SELECT content FROM dishes WHERE dish_id= %s"""
+    with db() as connection:
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(query, [dishId])
+                list = cursor.fetchall()
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+    return list

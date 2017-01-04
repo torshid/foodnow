@@ -7,9 +7,17 @@ from tables import users
 
 page = Blueprint(__name__)
 
-@page.route('/user/<int:user_id>')
+@page.route('/user/<int:user_id>/')
 def main(user_id):
-    return render_template('user.html', user_id = user_id)
+    if isValidUserId(user_id):
+        return render_template('user.html', user_id = user_id)
+    return render_template('home.html')
+
+@page.route('/user/<int:user_id>/settings/')
+def settings(user_id):
+    if isLogged():
+        return render_template('settings.html', user_id = user_id)
+    return render_template('home.html')
 
 def updateProfile(userId, name = None, email = None, password = None):
     if (isLogged()):

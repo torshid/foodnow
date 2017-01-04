@@ -237,6 +237,8 @@ def update(table, dict, extra = None):
 
 
 
-
+def isValidUserId(id):
+    from tables import users
+    return users.isValidUserId(id)
 
 

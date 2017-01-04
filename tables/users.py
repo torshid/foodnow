@@ -14,6 +14,18 @@ def getUserFromId(id):
 def getUserFromMail(mail):
     return selectone('users', { 'mail' : mail })
 
+def isValidUserId(id):
+    result = []
+    result = selectone('users', {'id': id})
+    if result :
+        return True
+    return False
+
+def getUserFromId(id):
+    user = []
+    user = selectone('users', {'id': id})
+    return user
+
 def reset():
     with db() as connection:
         with connection.cursor() as cursor:

@@ -40,6 +40,7 @@
 						    <span class="caret"></span></button>
 						    <ul class="dropdown-menu">
 						      <li><a href="{{ url_for('entities.user.main', user_id = getUser()[0]) }}">My profile</a></li>
+						      <li><a href="{{ url_for('entities.user.settings', user_id = getUser()[0]) }}">Settings</a></li>
 						      <li><a href="{{ url_for('entities.signlog.logout') }}">Logout</a></li>
 						      {% set employments = getUserEmployments() %}
 						      {% if employments %}

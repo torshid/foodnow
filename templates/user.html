@@ -3,7 +3,7 @@
 {% block title %} User {% endblock %}
 
 {% block body %}
-
+{%set user = getUserFromId(1)%}
 	<div class="container">
 	<div class = "jumbotron">
     <div class="card hovercard">
@@ -14,7 +14,7 @@
         <div class="useravatar">
             <img alt="" src="/static/images/default_profile_pic.png">
         </div>
-        <div class="card-info"> <span class="card-title">Pamela Andrson</span>
+        <div class="card-info"> <span class="card-title">{{user[1]}}</span>
 
         </div>
     </div>
