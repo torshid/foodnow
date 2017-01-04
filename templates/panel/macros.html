@@ -30,3 +30,13 @@
 	</div>
 	<hr/>
 {%- endmacro %}
+{% macro inputfile() -%}
+<div class="input-group">
+	<label class="input-group-btn">
+	    <span class="btn btn-primary">
+	        Browse… <input type="file" id="file" name="file" style="display: none;">
+	        </span>
+	    </label>
+	    <input type="text" class="form-control" readonly>
+	</div>
+{%- endmacro %}

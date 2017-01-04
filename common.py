@@ -5,6 +5,7 @@ import re
 import flask
 from flask import Flask, session, request, redirect, render_template, abort
 from flask.helpers import url_for
+from werkzeug.utils import secure_filename
 
 from email.utils import parseaddr
 
@@ -128,6 +129,25 @@ def bsalert(message, type = None):
     if not type:
         type = 'info'
     return '<div class="alert alert-' + type + ' alert-dismissable fade in"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + message + '</div>'
+
+def allowedFile(extensions, filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in extensions
+
+def checkUpload(extensions, path):
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            return False
+        file = request.files['file']
+        if file.filename == '':
+            return False
+        if file and allowedFile(extensions, file.filename):
+            filename = secure_filename(file.filename)
+            if fileExists(path):
+                os.remove(path)
+            file.save(path)
+            return True
+    return False
 
 def select(table, all, dict = None, extra = None):
     result = None

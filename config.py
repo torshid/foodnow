@@ -28,3 +28,9 @@ rolemanager = 10
 roleworker = 5
 roledriver = 1
 roles = [(rolemanager, 'Manager'), (roleworker, 'Worker'), (roledriver, 'Driver')]
+
+# file extensions
+pctextensions = set(['png', 'jpg', 'jpeg', 'gif'])
+
+# upload paths
+dishespctpath = 'uploads/dishes/'
