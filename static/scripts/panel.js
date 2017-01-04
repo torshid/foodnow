@@ -26,20 +26,36 @@ $(document).ready(function() {
 			var form = $(this).closest('form');
 
 			if (form.length) {
-				loadPage($(this).attr('id'), true, form.serialize());
+				data = new FormData(form[0]);
+				loadPage($(this).attr('id'), true, data);
 			} else {
 				loadPage($(this).attr('id'));
 			}
 
 			return false;
 		}
-	})
+	});
+
 
 	$(window).bind('popstate', function(e) {
 		if (e.originalEvent.state) {
 			loadPage(e.originalEvent.state.url, true);
 		}
-	})
+	});
+
+	$(document).on('change', ':file', function() {
+	    var input = $(this),
+	        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+	        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+	        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+        if (input.length) {
+            input.val(log);
+        }
+        else {
+            if (log) alert(log);
+        }
+	});
 });
 
 function setTitle(title) {
@@ -63,8 +79,10 @@ function loadPage(url, replace, data, message) {
 	//}
 
 	tagid = tagid.replace(root, '');
-	tagid = tagid.replace('/', '-');
-
+	tagid = tagid.split('/').join('-');
+	if (!$(tagid).length) {
+		tagid = tagid.split('-')[0];
+	}
 	completeurl = completeurl.split('-').join('/');
 
 	$('#content').fadeOut(200, function() {
@@ -76,7 +94,8 @@ function loadPage(url, replace, data, message) {
 		type : 'POST',
 		url : completeurl,
 		data : (data == null ? '' : data),
-		dataType : "html",
+		processData: false,
+		contentType: false,
 		success : function(msg) {
 			$('#content').fadeOut(200, function() {
 				$('#content').fadeIn(200);

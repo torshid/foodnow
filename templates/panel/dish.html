@@ -1,2 +1,28 @@
 {% import 'panel/macros.html' as macros %}
 {{ macros.title(dish[2] + ' in ' + menu[2], [(panel_for('entities.managedishes.edit', resto_pseudo = resto[2], menu_id = menu[0], dish_id = dish[0]), 'edit', 'primary'), ((panel_for('entities.managedishes.delete', resto_pseudo = resto[2], menu_id = menu[0], dish_id = dish[0]), 'delete', 'danger'))]) }}
+<table class="table table-striped" style="width: 100%;">
+	<tr>
+		<th>Name</th>
+		<td>{{ dish[2] }}</td>
+	</tr>
+	<tr>
+		<th>Price</th>
+		<td>{{ dish[3] }}</td>
+	</tr>
+	<tr>
+		<th>Disposition</th>
+		<td>{{ dish[4] }}</td>
+	</tr>
+	<tr>
+		<th>Visible</th>
+		<td>{{ dish[5] }}</td>
+	</tr>
+	<tr>
+		<th>Picture</th>
+		<td>
+			<object data="{{ url_for('entities.uploads.dishimage', dish_id = dish[0]) }}" type="image/png" style="max-width:400px;">
+		    	<img src="/static/images/inexistantdish.png" style="max-width:400px;"/>
+			</object>
+		</td>
+	</tr>
+</table>

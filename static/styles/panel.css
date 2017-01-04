@@ -181,46 +181,6 @@ body {
 	height: 200px;
 }
 
-.edition {
-	padding: 15px !important;;
-}
-
-.edition button {
-	font-size: 10px;
-}
-
-.edition #bold {
-	font-weight: bold;
-}
-
-.edition #italic {
-	font-style: italic;
-}
-
-.edition #underline {
-	text-decoration: underline;
-}
-
-.editor {
-	margin-top: 10px;
-}
-
-.dropedit {
-
-}
-
-.dropedit li {
-
-}
-
-.dropedit a {
-
-}
-
-.preview {
-	display: none;
-}
-
 .newside {
 	padding: 10px !important;
 }
@@ -295,4 +255,24 @@ form .last {
 .control-label {
 	font-weight: normal;
 	padding: 0;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }

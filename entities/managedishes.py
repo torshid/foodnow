@@ -51,7 +51,8 @@ def new(resto_pseudo, menu_id):
             if not isbool(visible):
                 errors.append('You must select a correct visible option')
             if len(errors) == 0:
-                dishes.addDish(menu[0], name, price, disposition, visible)
+                id = dishes.addDish(menu[0], name, price, disposition, visible)
+                checkUpload(pctextensions, dishespctpath + str(id) + '.png')
                 return redirectPanelJS('entities.managemenus.view', '<br/>' + bsalert('You successfully added the new dish ' + name, 'success'), resto_pseudo = resto_pseudo, menu_id = menu_id)
 
     return render_template('panel/newdish.html', resto = resto, menu = menu, name = name, price = price, disposition = disposition, visible = visible, errors = errors)
@@ -153,6 +154,7 @@ def edit(resto_pseudo, menu_id, dish_id):
                 errors.append('You must select a correct visible option')
             if len(errors) == 0:
                 dishes.updateDish(dish[0], menuid, name, price, disposition, visible)
+                checkUpload(pctextensions, dishespctpath + str(dish[0]) + '.png')
                 return redirectPanelJS('entities.managemenus.view', '<br/>' + bsalert('You successfully edited the dish ' + name, 'success'), resto_pseudo = resto_pseudo, menu_id = newmenu[0])
 
     return render_template('panel/editdish.html', resto = resto, menu = menu, menus = allmenus, menuid = menuid, dish = dish, name = name, price = price, disposition = disposition, visible = visible, errors = errors)
