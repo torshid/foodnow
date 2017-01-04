@@ -40,7 +40,7 @@ def validRestoName(name):
     return validLength(name, restonamemin, restonamemax)
 
 def validRestoPseudo(pseudo):
-    return validLength(pseudo, restopseudomin, restopseudomax)
+    return validLength(pseudo, restopseudomin, restopseudomax) and re.match("^[A-Za-z0-9]*$", pseudo)
 
 def validMenuName(name):
     return validLength(name, menunamemin, menunamemax)
@@ -63,6 +63,14 @@ def validPhone(phone):
     if not result:
         return False
     return len(result.group(0)) == len(phone)
+
+def validRole(role):
+    if not isint(role):
+        role = int(role)
+    for rol in roles:
+        if rol[0] == int(role):
+            return True
+    return False
 
 def isbool(s):
     s = s.lower()

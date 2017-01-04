@@ -56,7 +56,7 @@ def settings(resto_pseudo):
             if not validRestoName(name):
                 errors.append('Name length must be >= ' + str(restonamemin))
             if not validRestoPseudo(pseudo):
-                errors.append('@name length must be >= ' + str(restopseudomin))
+                errors.append('@name length must be >= ' + str(restopseudomin) + ' and contain only letters and digits')
             if not validMail(mail):
                 errors.append('Enter a correct mail address')
             if not validPhone(phone):

@@ -63,6 +63,7 @@ function loadPage(url, replace, data, message) {
 	//}
 
 	tagid = tagid.replace(root, '');
+	tagid = tagid.replace('/', '-');
 
 	completeurl = completeurl.split('-').join('/');
 

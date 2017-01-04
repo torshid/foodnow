@@ -1,0 +1,31 @@
+{% import 'panel/macros.html' as macros %}
+{{ macros.title('Employees', [('employees-add', 'add employee', 'primary')]) }}
+{% if employees %}
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Mail address</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+	{% for employee in employees %}
+		<tr class="postactions">
+			<td class="posttitle">
+				<div><a href="{{ url_for('entities.user.main', user_id = employee[0]) }}">{{ employee[5][1] }}</a></div>
+				<div>
+					{% if employee[2] != getUser()[0] %}
+	                    <a href="#" class="text-danger" id="{{ panel_for('entities.manageemployees.remove', resto_pseudo = resto[2], employee_id = employee[0]) }}">Remove</a>
+	                {% endif %}
+                </div>
+			</td>
+			<td>{{ employee[5][2] }}</td>
+			<td>{{ getRoleTitle(employee[3]) }}</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+{% else %}
+	<div>There is no employee in your restaurant... What?!</div>
+{% endif %}
