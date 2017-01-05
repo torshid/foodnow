@@ -80,7 +80,7 @@ function loadPage(url, replace, data, message) {
 
 	tagid = tagid.replace(root, '');
 	tagid = tagid.split('/').join('-');
-	if (!$(tagid).length) {
+	if ($('#sidebar').has('#' + tagid).length == 0) {
 		tagid = tagid.split('-')[0];
 	}
 	completeurl = completeurl.split('-').join('/');

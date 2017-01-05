@@ -9,8 +9,8 @@
 {%- endmacro %}
 {% macro title(text, buttons, errors) -%}
 	<div class="row">
-		<div class="col-md-8 title">{{ text }}</div>
-		<div class="col-md-4 text-right">
+		<div class="col-xs-7 title">{{ text }}</div>
+		<div class="col-xs-5 text-right">
 			{% for id, text, type in buttons %}
 				<a href="#" id="{{ id }}"><button type="button" class="btn btn-{{ type }}">{{ text }}</button></a>
 			{% endfor %}

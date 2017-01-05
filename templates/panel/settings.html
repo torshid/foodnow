@@ -2,44 +2,44 @@
 <form class="form-horizontal">
 	{{ macros.title('Settings', [(panel_for('entities.panel.settings', resto_pseudo = resto[2]), 'save', 'success'),], errors) }}
 	<div class="form-group">
-		<label for="name" class="col-sm-2 control-label">Name</label>
-		<div class="col-sm-10">
+		<label for="name" class="col-sm-3 control-label">Name</label>
+		<div class="col-sm-9">
 			<input type="text" class="form-control" id="name" name="name" placeholder="{{ resto[1] }}" value="{{ name }}" />
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="pseudo" class="col-sm-2 control-label">@name</label>
-		<div class="col-sm-10">
+		<label for="pseudo" class="col-sm-3 control-label">@name</label>
+		<div class="col-sm-9">
 			<input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="{{ resto[2] }}" value="{{ pseudo }}" />
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="mail" class="col-sm-2 control-label">Contact mail address</label>
-		<div class="col-sm-10">
+		<label for="mail" class="col-sm-3 control-label">Contact mail address</label>
+		<div class="col-sm-9">
 			<input type="text" class="form-control" id="mail" name="mail" placeholder="{{ resto[3] }}" value="{{ mail }}" />
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="phone" class="col-sm-2 control-label">Contact phone number</label>
-		<div class="col-sm-10">
+		<label for="phone" class="col-sm-3 control-label">Contact phone number</label>
+		<div class="col-sm-9">
 			<input type="text" class="form-control" id="phone" name="phone" placeholder="{{ resto[4] }}" value="{{ phone }}" />
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="currency" class="col-sm-2 control-label">Currency</label>
-		<div class="col-sm-10">
+		<label for="currency" class="col-sm-3 control-label">Currency</label>
+		<div class="col-sm-9">
 			<input type="text" class="form-control" id="currency" name="currency" placeholder="{{ resto[7] }}" value="{{ currency }}" />
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="description" class="col-sm-2 control-label">Description</label>
-		<div class="col-sm-10">
+		<label for="description" class="col-sm-3 control-label">Description</label>
+		<div class="col-sm-9">
 			<textarea class="form-control" id="description" name="description" placeholder="{{ resto[8] }}">{{ description }}</textarea>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="visible" class="col-sm-2 control-label">Accessible</label>
-		<div class="col-sm-10">
+		<label for="visible" class="col-sm-3 control-label">Accessible</label>
+		<div class="col-sm-9">
 			<select class="form-control" name="accessible">
 				<option value="1" {% if istrue(accessible) %} selected {% endif %}>Yes</option>
 				<option value="0" {% if isfalse(accessible) %} selected {% endif %}>No</option>
@@ -47,8 +47,8 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="warnmsg" class="col-sm-2 control-label">Disabled message</label>
-		<div class="col-sm-10">
+		<label for="warnmsg" class="col-sm-3 control-label">Disabled message</label>
+		<div class="col-sm-9">
 			<textarea class="form-control" id="warnmsg" name="warnmsg" placeholder="{{ resto[6] }}">{{ warnmsg }}</textarea>
 		</div>
 	</div>
