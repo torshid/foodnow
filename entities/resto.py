@@ -1,7 +1,7 @@
 from flask import render_template, abort
 from common import *
 
-from tables import restos, employees
+from tables import restos, employees, menus, dishes
 
 import datetime
 
@@ -24,4 +24,12 @@ def main(resto_pseudo):
     if not employees.isManager(employment) and resto[5] == False:
         return render_template('restoff.html', resto = resto);
 
-    return render_template('resto.html', resto = resto, employment = employment);
+    menulist = menus.getRestoMenus(resto[0])
+
+    index = 0
+
+    for menu in menulist:
+        menulist[index] += (dishes.getMenuDishes(menu[0]),)
+        index += 1
+
+    return render_template('resto.html', resto = resto, employment = employment, menus = menulist);

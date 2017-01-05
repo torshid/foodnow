@@ -1,11 +1,29 @@
+{% import 'macros.html' as macros %}
 {% extends "layout.html" %}
 {% block title %} {{ resto[1] }} {% endblock %}
 {% block body %}
 	<div class="container mainc">
-		<div><span class="title vcenter">{{ resto[1] }} (@{{ resto[2]}})</span>
-			{% if isManager(employment) %}
-				<a href="{{ url_for('entities.panel.main', resto_pseudo = resto[2])}}"><button class="btn btn-primary">panel</button></a>
-			{% endif %}
+	<!-- <div class="container mainc"> -->
+		<div class="row columns">
+			<div class="col-sm-9"><span class="title vcenter">{{ resto[1] }} (@{{ resto[2]}})</span>
+				{% if isManager(employment) %}
+					<a href="{{ url_for('entities.panel.main', resto_pseudo = resto[2]) }}"><button class="btn btn-primary">panel</button></a>
+				{% endif %}
+				{% if isLogged() %} {{ macros.likeResto(resto[0]) }} {% endif %}
+				<div class="restodesc">{{ nl2br(resto[8]) }}</div>
+			</div>
+			<div class="infos col-sm-3">
+				<table class="table .table-striped">
+					<tr>
+						<th>Phone number</th>
+						<td>{{ resto[4] }}</td>
+					</tr>
+					<tr>
+						<th>Mail address</th>
+						<td>{{ resto[3] }}</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		{% if resto[5] == False %}
 			<div class="alert alert-warning" style="margin-top: 10px;">
@@ -13,6 +31,99 @@
 			</div>
 		{% endif %}
 		<hr/>
-		Test
+		{% if menus %}
+			<div class="row-fluid columns content">
+				{% set counter = 0 %}
+					<div class="col-sm-4">
+						<div class="article-tree" id="orders">
+							{% for menu in menus %}
+								{% set counter = counter + 1 %}
+								<div class="item" {% if counter == 1 %} style="border-top: none;" {% endif %}>
+									<table style="width: 100%;">
+									<tr>
+										<td width="75%" class="catname">{{ menu[2] }}</td><td style="text-align: right;"><span id="ordcatprice{{ menu[0] }}">0</span> <span class="small">{{ resto[7] }}</span></td>
+									</tr>
+										{% set dishes = menu[-1] %}
+										{% for dish in dishes %}
+											<tr id="ordplaline{{ dish[0] }}" style="display: none;">
+												<td>• {{ dish[2] }}</td>
+												<td style="text-align: right;"><span id="ordplacount{{ dish[0] }}">0</span></td>
+											</tr>
+										{% endfor %}
+									</table>
+								</div>
+							{% endfor %}
+							<div class="item">
+								<table style="width: 100%;">
+									<tr>
+										<td>Total</td>
+										<td style="text-align: right;"><span id="subtotal">0</span> <span class="small">{{ resto[7] }}</span></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<br/>
+						<div id="submitError">{% if not isLogged() %} <div class="alert alert-info" style="margin-bottom: 20px;"><span type="button" class="close" data-dismiss="alert">&times;</span>You have to <a href="{{ url_for('entities.signlog.login') }}">login</a> or <a href="{{ url_for('entities.signlog.signup') }}">signup</a></a> to submit an order</div> {% endif %}</div>
+						{% if isLogged() %}
+							<center>
+								<a data-toggle="modal" class="open-modalMakeOrder btn btn-primary" href="#modalMakeOrder" id="orderSubmit">Ready to submit</a>
+							</center>
+						{% endif %}
+						<br/>
+					</div>
+					<div class="col-sm-8">
+						<div class="content-area">
+							<ul id="tabs" class="nav nav-tabs {% if isMobile() %} nav-stacked {% endif %}" style="margin-bottom: 0;" onClick="return; scrollTo('tabs');">
+								{% set counter = 0 %}
+								{% set selection = menus[0][0] %}
+								{% for menu in menus %}
+									{% set counter = counter + 1 %}
+									<li {% if menu[0] == selection %} class="active" {% endif %}><a href="#c{{ menu[0] }}" data-toggle="tab" onClick="setCookie(\'tab\', \'' . {{ menu[0] }} . '\', 4);"> {{ menu[2] }}</a></li>
+								{% endfor %}
+							</ul>
+							<div class="tab-content">
+								{% for menu in menus %}
+									{% set counter = 0 %}
+									{% set dishes = menu[-1] %}
+									<div class="tab-pane {% if menu[0] == selection %} active {% endif %} fade in" id="c{{ menu[0] }}">
+										<table id="mega" class="table table-bordered" style="border-top: hidden; border-top-right-radius: 0;">
+											{% for dish in dishes %}
+												{% set counter = counter + 1 %}
+												<tr>
+													<td>
+														{% if isLogged() %}
+															<div class="pull-right">
+																<div class="inter">
+																	<button type="button" class="btn btn-danger remove" style="" onClick="perform(-1, {{ dish[0] }}, {{ dish[1] }});">-</button>
+																	<span class="bob" id="menplacount{{ dish[0] }}">0</span>
+																	<button type="button" class="btn btn-success add" style="" onClick="perform(1, {{ dish[0] }}, {{ dish[1] }} );">+</button>
+																</div>
+															</div>
+														{% endif %}
+														<span class="dishtitle" id="ite{{ dish[0] }}">{{ dish[2] }}</span>{% if isLogged() %}  {{ macros.likeDish(dish[0]) }} {% endif %}
+														{% if dish[7]|length > 0 %}
+															<div class="description">{{ dish[7] }}</div>
+														{% endif %}
+														<div class="price"><span id="menplaprice{{ dish[0] }}">{{ dish[3] }}</span> <span class="smallb">{{ resto[7] }}</span></div>
+													</td>
+													<td style=" width: {{ getThumbWidth() }};">
+														<div class="thumbnail" style="padding: 0; margin: 0; display: inline-block;">
+															{% if dishImageExists(dish[0]) %}
+															<img src="{{ url_for('entities.uploads.dishthumbimage', dish_id = dish[0]) }}"/>
+															{% else %}
+															<img src="/static/images/inexistantthumbdish.png"/>
+															{% endif %}
+														</div>
+													</td>
+												</tr>
+											{% endfor %}
+										</table>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+		{% endif %}
 	</div>
 {% endblock %}

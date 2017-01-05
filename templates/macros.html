@@ -9,12 +9,12 @@
 {%- endmacro %}
 
 {% macro likeResto(resto_id) -%}
-		<button class="btn btn-primary restolike_btn" data-id="{{resto_id}}">Like Now!</button>
+		<button class="btn btn-info restolike_btn" data-id="{{resto_id}}"><span class="glyphicon glyphicon-thumbs-up"></span></button>
 
 {%- endmacro %}
 
 {% macro likeDish(dish_id) -%}
-		<button class="btn btn-primary dishlike_btn" data-id="{{dish_id}}">Like Now!</button>
+		<button class="btn btn-sm btn-info dishlike_btn" data-id="{{dish_id}}"><span class="glyphicon glyphicon-thumbs-up"></span></button>
 {%- endmacro %}
 
 {% macro recommendedResto(resto_name , resto_pseudo, resto_id) -%}

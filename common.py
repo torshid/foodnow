@@ -9,6 +9,9 @@ from werkzeug.utils import secure_filename
 
 from email.utils import parseaddr
 
+import PIL
+from PIL import Image
+
 from jinja import *
 from config import *
 
@@ -57,6 +60,9 @@ def validDescription(description):
 
 def validDishName(name):
     return validLength(name, dishnamemin, dishnamemax)
+
+def validDishDescription(description):
+    return validLength(description, 0, dishdescriptionmax)
 
 def validPhone(phone):
     phone = phone.strip()
@@ -148,6 +154,19 @@ def checkUpload(extensions, path):
             file.save(path)
             return True
     return False
+
+def resizePicture(source, destination, size):
+    img = Image.open(source)
+    if img.size[0] > size[0] or img.size[1] > size[1]:
+        if img.size[1] > img.size[0]:
+            percent = (size[1] / float(img.size[1]))
+            wsize = int((float(img.size[0]) * float(percent)))
+            img = img.resize((wsize, size[1]), PIL.Image.ANTIALIAS)
+        else:
+            percent = (size[0] / float(img.size[0]))
+            hsize = int((float(img.size[1]) * float(percent)))
+            img = img.resize((size[0], hsize), PIL.Image.ANTIALIAS)
+    img.save(destination)
 
 def select(table, all, dict = None, extra = None):
     result = None
