@@ -71,7 +71,7 @@ def likesResto(userId, restoId):
     return liked
 
 def getLikedRestos(userId):
-    restolist = selectall("restolikes", {'user_id' : userId});
+    restolist = selectall('restolikes', {'user_id' : userId});
     result = []
     if restolist:
         for resto in restolist:
@@ -94,7 +94,8 @@ def reset():
 
 def getUserLikedRestosId(userId):
     list = []
-    restolist = selectall("restolikes", {'user_id' : userId});
-    for resto in restolist:
-        list.append(resto[1])
+    restolist = selectall('restolikes', {'user_id' : userId});
+    if restolist:
+        for resto in restolist:
+            list.append(resto[1])
     return list
