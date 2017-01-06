@@ -47,9 +47,9 @@
 									<li><a href="{{ url_for('entities.signlog.logout') }}">Logout</a></li>
 									<li role="separator" class="divider"></li>
 									<li><a href="{{ url_for('entities.managerestos.new') }}">New restaurant</a></li>
-									<li role="separator" class="divider"></li>
 								    {% set employments = getUserEmployments() %}
 								    {% if employments %}
+										<li role="separator" class="divider"></li>
 								    	<li class="dropdown-header">Employments</li>
 								      	{% for employment in employments %}
 								      		{% set resto = getResto(id = employment[1]) %}
