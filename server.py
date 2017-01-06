@@ -48,8 +48,8 @@ def get_elephantsql_dsn(vcap_services):
     return dsn
 
 if __name__ == '__main__':
-    app.secret_key = 'flask key'
-    VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
+    app.secret_key = flaskkey
+    VCAP_APP_PORT = os.getenv('PORT')
     if VCAP_APP_PORT is not None:
         port, debug = int(VCAP_APP_PORT), False
     else:
