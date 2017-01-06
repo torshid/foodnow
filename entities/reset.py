@@ -31,5 +31,5 @@ def specific(modname):
 @page.route('/pull')
 def pull():
     from subprocess import call
-    call(['git', 'pull origin master'])
+    call(['git', 'pull'])
     return redirect(url_for('entities.home.main'))
