@@ -2,6 +2,7 @@ from flask import render_template, redirect, url_for
 
 from common import *
 
+import os
 import datetime
 
 page = Blueprint(__name__)
@@ -30,6 +31,5 @@ def specific(modname):
 
 @page.route('/pull')
 def pull():
-    from subprocess import call
-    call(['git', 'pull'])
+    os.system('git pull origin master')
     return redirect(url_for('entities.home.main'))
