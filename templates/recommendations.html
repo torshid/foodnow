@@ -65,13 +65,51 @@
 		{%set bestdishes = getMostLikedDishes()%}
 		{%if not isLogged()%}
 			{%for dish in bestdishes%}
-				{{macros.recommendedDish(dish[2],dish[0], dish[3])}}
+
+				<div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                	{% if dishImageExists(dish[0])  %}
+					<img src="{{ url_for('entities.uploads.dishthumbimage', dish_id = dish[0]) }}"/>
+					{% else %}
+					<img src="/static/images/inexistantthumbdish.png"/>
+					{% endif %}
+                    <!-- <img src="/static/images/default_dish.jpg" alt="">  -->
+                    <div class="caption">
+                        <h3>{{dish[2]}}</h3>
+                        <p>Only for {{dish[3]}}</p>
+                        <p>
+                            {{macros.likeDish(dish[0])}} <a href="{{url_for('entities.resto.main', resto_pseudo=resto_pseudo)}}" class="btn btn-default">View Resto</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
 			{%endfor%}
 		{%else%} <!-- Discard dishes user already likes -->
 			{%set likeddishes = getUserLikedDishesId(session['user'][0])%}
 			{%for dish in bestdishes%}
 				{%if not dish[0] in likeddishes%}
-					{{macros.recommendedDish(dish[2],dish[0], dish[3])}}
+
+					<div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                	{% if dishImageExists(dish[0])  %}
+					<img src="{{ url_for('entities.uploads.dishthumbimage', dish_id = dish[0]) }}"/>
+					{% else %}
+					<img src="/static/images/inexistantthumbdish.png"/>
+					{% endif %}
+                    <!-- <img src="/static/images/default_dish.jpg" alt="">  -->
+                    <div class="caption">
+                        <h3>{{dish[2]}}</h3>
+                        <p>Only for {{dish[3]}}</p>
+                        <p>
+                            {{macros.likeDish(dish[0])}} <a href="{{url_for('entities.resto.main', resto_pseudo=resto_pseudo)}}" class="btn btn-default">View Resto</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
 				{%endif%}
 				<!-- <p>{{likeddishes|length}}p</p> -->
 			{%endfor%}

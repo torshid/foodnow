@@ -37,10 +37,10 @@
 
 {%- endmacro %}
 
-{% macro recommendedDish(dish_name , dish_id, price) -%}
+{% macro recommendedDish(dish_name , dish_id, price, image) -%}
 			<div class="col-md-3 col-sm-6 hero-feature">
                 <div class="thumbnail">
-                	{% if dishImageExists(dish_id) %}
+                	{% if image  %}
 					<img src="{{ url_for('entities.uploads.dishthumbimage', dish_id = dish_id) }}"/>
 					{% else %}
 					<img src="/static/images/inexistantthumbdish.png"/>
