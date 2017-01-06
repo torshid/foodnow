@@ -40,7 +40,12 @@
 {% macro recommendedDish(dish_name , dish_id, price) -%}
 			<div class="col-md-3 col-sm-6 hero-feature">
                 <div class="thumbnail">
-                    <img src="/static/images/default_dish.jpg" alt="">
+                	{% if dishImageExists(dish_id) %}
+					<img src="{{ url_for('entities.uploads.dishthumbimage', dish_id = dish_id) }}"/>
+					{% else %}
+					<img src="/static/images/inexistantthumbdish.png"/>
+					{% endif %}
+                    <!-- <img src="/static/images/default_dish.jpg" alt="">  -->
                     <div class="caption">
                         <h3>{{dish_name}}</h3>
                         <p>Only for {{price}}</p>
