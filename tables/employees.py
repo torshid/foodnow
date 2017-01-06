@@ -35,6 +35,10 @@ def isRole(employee, role):
         employee = (0, 0, 0, employee, 0)
     return employee != None and employee[3] == role
 
+def countRestoEmployees(restoid):
+    return count('employees', 'id', { 'restoid' : restoid })
+
+
 def reset():
     with db() as connection:
         with connection.cursor() as cursor:

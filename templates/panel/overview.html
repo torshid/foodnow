@@ -1,1 +1,27 @@
-this is da dashboard
+{% import 'panel/macros.html' as macros %}
+{{ macros.title('Overview') }}
+<div class="alert alert-info">
+	Welcome on your panel. From here, you can manage your restaurant as you like.
+</div>
+<table class="table table-striped">
+	<tr>
+		<td>Number of menus</td>
+		<td>{{ countMenus }}</td>
+	</tr>
+	<tr>
+		<td>Number of dishes</td>
+		<td>{{ countDishes }}</td>
+	</tr>
+	<tr>
+		<td>Number of employees</td>
+		<td>{{ countEmployees }}</td>
+	</tr>
+	<tr>
+		<td>Number of reviews</td>
+		<td>0</td>
+	</tr>
+	<tr>
+		<td>Number of orders</td>
+		<td>0</td>
+	</tr>
+</table>

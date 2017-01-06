@@ -2,7 +2,7 @@ from flask import render_template, redirect, abort
 from flask.helpers import url_for
 from common import *
 
-from tables import restos, employees
+from tables import restos, employees, menus, dishes
 
 import datetime
 
@@ -24,7 +24,16 @@ def overview(resto_pseudo):
         return permission
     resto, employment = permission
 
-    return render_template('panel/overview.html')
+    menulist = menus.getRestoMenus(resto[0])
+    countMenus = len(menulist)
+    countDishes = 0
+
+    for menu in menulist:
+        countDishes += dishes.countMenuDishes(menu[0])
+
+    countEmployees = employees.countRestoEmployees(resto[0])
+
+    return render_template('panel/overview.html', countMenus = countMenus, countDishes = countDishes, countEmployees = countEmployees)
 
 @page.route('/<string:resto_pseudo>/panel/settings', methods = ['GET', 'POST'])
 def settings(resto_pseudo):
