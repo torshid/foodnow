@@ -3,20 +3,19 @@ import psycopg2 as dbapi2
 from common import *
 
 #adds restaurants likes by users and returns restoId if no such relation exists or user id if a like exists
-def likeResto(userId, restoId, date):
+def likeResto(userId, restoId):
     with db() as connection:
         with connection.cursor() as cursor:
             checkQuery = """SELECT * FROM restolikes  WHERE userId = %s AND restoId = %s"""
-            addQuery = """INSERT INTO restoLikes (user_id, resto_id, date) values ( %(userId)s, %(restoId)s, %(date)s"""
+            addQuery = """INSERT INTO restoLikes (user_id, resto_id) values ( %(userId)s, %(restoId)s)"""
             try:
-                if cursor.execute(checkQuery, userId, restoId) == None:
+                if cursor.execute(checkQuery, (userId, restoId)) == None:
                     cursor.execute(addQuery, {'userId' : userId, 'restoId' : restoId })
-                    return restoId
             except dbapi2.Error:
                 connection.rollback()
             else:
                 connection.commit()
-    return userId;
+    return
 
 def getLikedRestoDetails(userId, restoId):
     with db() as connection:
@@ -83,7 +82,7 @@ def reset():
             try:
                 cursor.execute("""DROP TABLE IF EXISTS restolikes""")
                 cursor.execute("""CREATE TABLE restolikes (user_id INTEGER REFERENCES users(id),
-                    resto_id INTEGER REFERENCES restos(id)), date DATE, UNIQUE(user_id, resto_id)""")
+                    resto_id INTEGER REFERENCES restos(id)), UNIQUE(user_id, resto_id)""")
             except dbapi2.Error:
                 connection.rollback()
             else:

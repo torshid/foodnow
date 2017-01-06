@@ -91,3 +91,7 @@ def getMostLikedRestos():
 def getMostLikedDishes():
     from tables import dishes
     return dishes.getMostLikedDishes()
+
+def getUserFromId(id):
+    from tables import users
+    return users.getUserFromId(id)

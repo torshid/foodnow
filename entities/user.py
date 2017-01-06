@@ -40,6 +40,18 @@ def updateProfile(userId, name = None, email = None, password = None):
                     connection.commit()
     return
 
+@page.route('/user/<int:user_id>/likeresto/<int:resto_id>/')
+def likeResto(user_id, resto_id):
+    from tables import restolikes
+    restolikes.likeResto(user_id, resto_id)
+    return 'Liked resto'
+
+@page.route('/user/<int:user_id>/likedish/<int:dish_id>/')
+def likeDish(user_id, dish_id):
+    from tables import dishlikes
+    dishlikes.likeDish(user_id, dish_id)
+    return 'Liked dish'
+
 def reset():
     users.reset()
     users.addUser('Yusuf Aksoy', 'yusuf@y.y', md5Password('12345'))  # id=1

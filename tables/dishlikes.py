@@ -3,19 +3,19 @@ import psycopg2 as dbapi2
 from common import *
 
 def likeDish(userId, dishId):
+    liked = False
     with db() as connection:
         with connection.cursor() as cursor:
             checkQuery = """SELECT * FROM dishlikes  WHERE user_id = %s AND dish_id = %s"""
             addQuery = """INSERT INTO restoLikes (user_id, resto_id) values ( %(userId)s, %(dishId)s)"""
             try:
-                if cursor.execute(checkQuery, userId, restoId) == None:
+                if cursor.execute(checkQuery, (userId, dishId)) == None:
                     cursor.execute(addQuery, {'userId' : userId, 'dishId' : dishId })
-                    return restoId
             except dbapi2.Error:
                 connection.rollback()
             else:
                 connection.commit()
-    return userId;
+    return
 
 def getTotalLikesDish(dishId):
     mCount = 0
@@ -32,9 +32,10 @@ def getTotalLikesDish(dishId):
                 connection.commit()
     return mCount;
 
-def getLikedDishes():
-
-    return
+def getLikedDishes(userId):
+    list = []
+    selectall('dishlikes', {'user_id': userId});
+    return list
 
 
 def reset():
