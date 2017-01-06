@@ -2,20 +2,20 @@
 <form class="form-horizontal">
 	{{ macros.title('Edit menu ' + menu[2], [(panel_for('entities.managemenus.edit', resto_pseudo = resto[2], menu_id = menu[0]), 'save', 'primary'),], errors) }}
 	<div class="form-group">
-		<label for="name" class="col-sm-1 control-label">Name</label>
-		<div class="col-sm-11">
+		<label for="name" class="col-sm-2 control-label">Name</label>
+		<div class="col-sm-10">
 			<input type="text" class="form-control" id="name" name="name" placeholder="{{ menu[2] }}" value="{{ name }}" />
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="disposition" class="col-sm-1 control-label">Disposition</label>
-		<div class="col-sm-11">
+		<label for="disposition" class="col-sm-2 control-label">Disposition</label>
+		<div class="col-sm-10">
 			<input type="number" pattern="[0-9.]+" class="form-control" name="disposition" placeholder="{{ menu[3] }}" value="{{ disposition }}"/>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="visible" class="col-sm-1 control-label">Visible</label>
-		<div class="col-sm-11">
+		<label for="visible" class="col-sm-2 control-label">Visible</label>
+		<div class="col-sm-10">
 			<select class="form-control" name="visible">
 				<option value="1" {% if istrue(visible) %} selected {% endif %}>Yes</option>
 				<option value="0" {% if isfalse(visible) %} selected {% endif %}>No</option>

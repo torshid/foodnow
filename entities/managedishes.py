@@ -34,16 +34,20 @@ def new(resto_pseudo, menu_id):
     else:
         disposition = '1'
     visible = '1'
+    description = ''
     errors = []
 
     if anydata():
-        if exist('name') and exist('price') and exist('disposition') and exist('visible'):
+        if exist('name') and exist('price') and exist('disposition') and exist('visible') and exist('description'):
             name = request.form['name']
             price = request.form['price']
             disposition = request.form['disposition']
             visible = request.form['visible']
+            description = request.form['description']
             if not validDishName(name):
                 errors.append('The name length must be between ' + str(dishnamemin) + ' and ' + str(dishnamemax))
+            if not validDishDescription(description):
+                errors.append('The description length must be <=' + str(dishdescriptionmax))
             if not isfloat(price):
                 errors.append('The price value must be a (real) number')
             if not isint(disposition):
@@ -51,11 +55,14 @@ def new(resto_pseudo, menu_id):
             if not isbool(visible):
                 errors.append('You must select a correct visible option')
             if len(errors) == 0:
-                id = dishes.addDish(menu[0], name, price, disposition, visible)
-                checkUpload(pctextensions, dishespctpath + str(id) + '.png')
+                id = dishes.addDish(menu[0], name, price, disposition, visible, description)
+                pctfile = dishespctpath + str(id) + '.png'
+                if checkUpload(pctextensions, pctfile):
+                    resizePicture(pctfile, pctfile, dishpctsize)
+                    resizePicture(pctfile, dishesthumbspath + str(id) + '.png', dishthumbsize)
                 return redirectPanelJS('entities.managemenus.view', '<br/>' + bsalert('You successfully added the new dish ' + name, 'success'), resto_pseudo = resto_pseudo, menu_id = menu_id)
 
-    return render_template('panel/newdish.html', resto = resto, menu = menu, name = name, price = price, disposition = disposition, visible = visible, errors = errors)
+    return render_template('panel/newdish.html', resto = resto, menu = menu, name = name, price = price, disposition = disposition, visible = visible, description = description, errors = errors)
 
 @page.route('/<string:resto_pseudo>/panel/menus/<int:menu_id>/dishes/<int:dish_id>/delete', methods = ['GET', 'POST'])
 def delete(resto_pseudo, menu_id, dish_id):
@@ -132,20 +139,24 @@ def edit(resto_pseudo, menu_id, dish_id):
     price = dish[3]
     disposition = dish[4]
     visible = dish[5]
+    description = dish[7]
     errors = []
 
     if anydata():
-        if exist('menu') and exist('name') and exist('price') and exist('disposition') and exist('visible'):
+        if exist('menu') and exist('name') and exist('price') and exist('disposition') and exist('visible') and exist('description'):
             menuid = request.form['menu']
             name = request.form['name']
             price = request.form['price']
             disposition = request.form['disposition']
             visible = request.form['visible']
+            description = request.form['description']
             newmenu = menus.getMenu(menuid)
             if not newmenu or newmenu[1] != resto[0]:
                 errors.append('You have to select a correct menu')
             if not validDishName(name):
                 errors.append('The name length must be between ' + str(dishnamemin) + ' and ' + str(dishnamemax))
+            if not validDishDescription(description):
+                errors.append('The description length must be <=' + str(dishdescriptionmax))
             if not isfloat(price):
                 errors.append('The price value must be a (real) number')
             if not isint(disposition):
@@ -153,11 +164,15 @@ def edit(resto_pseudo, menu_id, dish_id):
             if not isbool(visible):
                 errors.append('You must select a correct visible option')
             if len(errors) == 0:
-                dishes.updateDish(dish[0], menuid, name, price, disposition, visible)
-                checkUpload(pctextensions, dishespctpath + str(dish[0]) + '.png')
+                pctfile = dishespctpath + str(dish[0]) + '.png'
+                dishes.updateDish(dish[0], menuid, name, price, disposition, visible, description)
+                if checkUpload(pctextensions, pctfile):
+                    resizePicture(pctfile, pctfile, dishpctsize)
+                    resizePicture(pctfile, dishesthumbspath + str(dish[0]) + '.png', dishthumbsize)
+
                 return redirectPanelJS('entities.managemenus.view', '<br/>' + bsalert('You successfully edited the dish ' + name, 'success'), resto_pseudo = resto_pseudo, menu_id = newmenu[0])
 
-    return render_template('panel/editdish.html', resto = resto, menu = menu, menus = allmenus, menuid = menuid, dish = dish, name = name, price = price, disposition = disposition, visible = visible, errors = errors)
+    return render_template('panel/editdish.html', resto = resto, menu = menu, menus = allmenus, menuid = menuid, dish = dish, name = name, price = price, disposition = disposition, visible = visible, description = description, errors = errors)
 
 def reset():
     dishes.reset()

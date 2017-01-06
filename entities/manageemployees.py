@@ -78,5 +78,5 @@ def remove(resto_pseudo, employee_id):
     return redirectPanelJS('entities.manageemployees.main', '<br/>' + bsalert('You successfully removed employee ' + employee[1], 'info'), resto_pseudo = resto_pseudo)
 
 def reset():
-    menus.reset()
+    employees.reset()
     return

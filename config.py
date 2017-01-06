@@ -22,6 +22,10 @@ menunamemin = 3
 menunamemax = 16
 dishnamemin = 3
 dishnamemax = 24
+dishdescriptionmax = 256
+
+dishpctsize = (1014, 768)
+dishthumbsize = (128, 64)
 
 # employee roles
 rolemanager = 10
@@ -34,3 +38,6 @@ pctextensions = set(['png', 'jpg', 'jpeg', 'gif'])
 
 # upload paths
 dishespctpath = 'uploads/dishes/'
+dishesthumbspath = 'uploads/dishes/thumbs/'
+
+phones = ['phone', 'android', 'blackberry', 'mobile']

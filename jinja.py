@@ -1,6 +1,12 @@
 def foodnow():
     return "Food — Now !"
 
+def isMobile():
+    from flask import request
+    from common import phones
+    agent = request.headers.get('User-Agent')
+    return any(phone in agent.lower() for phone in phones)
+
 def fileExists(name):
     import os
     if name[:1] == '/':
@@ -22,6 +28,18 @@ def checkSessions():
             if 'password' in session: del session['password']
             if 'user' in session: del session['user']
     return
+
+def dishImageExists(dishid):
+    from config import dishesthumbspath
+    return fileExists(dishesthumbspath + str(dishid) + '.png')
+
+def nl2br(value):
+    import re
+    from jinja2 import evalcontextfilter, Markup, escape
+    _paragraph_re = re.compile(r'(?:\r\n|\r|\n){2,}')
+    result = u'\n\n'.join(u'<p>%s</p>' % p.replace('\n', '<br/>\n') \
+        for p in _paragraph_re.split(escape(value)))
+    return Markup(result)
 
 def istrue(s):
     return s == '1' or s == 1
@@ -56,6 +74,14 @@ def isDriver(employee):
 def getRoles():
     from common import roles
     return roles
+
+def getThumbWidth():
+    from common import dishthumbsize
+    return dishthumbsize[0]
+
+def getMenuDishes(menuid):
+    from tables import dishes
+    return dishes.getMenuDishes(menuid)
 
 def getRoleTitle(role):
     from common import roles

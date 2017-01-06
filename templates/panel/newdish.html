@@ -2,26 +2,32 @@
 <form class="form-horizontal" enctype="multipart/form-data">
 	{{ macros.title('New dish in ' + menu[2], [(panel_for('entities.managedishes.new', resto_pseudo = resto[2], menu_id = menu[0]), 'create dish', 'success'),], errors) }}
 	<div class="form-group">
-		<label for="name" class="col-sm-1 control-label">Name</label>
-		<div class="col-sm-11">
+		<label for="name" class="col-sm-2 control-label">Name</label>
+		<div class="col-sm-10">
 			<input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ name }}" />
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="price" class="col-sm-1 control-label">Price</label>
-		<div class="col-sm-11">
+		<label for="description" class="col-sm-2 control-label">Description</label>
+		<div class="col-sm-10">
+			<textarea class="form-control" id="description" name="description" placeholder="Description">{{ description }}</textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="price" class="col-sm-2 control-label">Price</label>
+		<div class="col-sm-10">
 			<input type="number" pattern="[0-9.]+" class="form-control" id="price" name="price" placeholder="Price" value="{{ price }}"/>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="disposition" class="col-sm-1 control-label">Disposition</label>
-		<div class="col-sm-11">
+		<label for="disposition" class="col-sm-2 control-label">Disposition</label>
+		<div class="col-sm-10">
 			<input type="number" pattern="[0-9.]+" class="form-control" id="disposition" name="disposition" placeholder="Display order" value="{{ disposition }}"/>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="visible" class="col-sm-1 control-label">Visible</label>
-		<div class="col-sm-11">
+		<label for="visible" class="col-sm-2 control-label">Visible</label>
+		<div class="col-sm-10">
 			<select class="form-control" id="visible" name="visible">
 				<option value="1" {% if visible == '1' %} selected {% endif %}>Yes</option>
 				<option value="0" {% if visible == '0' %} selected {% endif %}>No</option>
@@ -29,8 +35,8 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="file" class="col-sm-1 control-label">Picture</label>
-		<div class="col-sm-11">
+		<label for="file" class="col-sm-2 control-label">Picture</label>
+		<div class="col-sm-10">
 			{{ macros.inputfile() }}
 		</div>
 	</div>
