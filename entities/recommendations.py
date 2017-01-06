@@ -32,3 +32,9 @@ def getRecommendations():
     finally:
         connection.close()
     return
+
+def reset():
+    from tables import dishlikes, restolikes
+    dishlikes.reset()
+    restolikes.reset()
+    return

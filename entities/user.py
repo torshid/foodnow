@@ -45,17 +45,23 @@ def likeResto(user_id, resto_id):
     from tables import restolikes
     liked = restolikes.likeResto(user_id, resto_id)
     if liked is 0:
-        return 'Not liked'
+        return 'Returned 0'
+    if liked is 1:
+        return 'Returned 1'
     else:
-        return 'Liked'
+        return 'Returned 2'
 
 @page.route('/user/<int:user_id>/likedish/<int:dish_id>/')
 def likeDish(user_id, dish_id):
     from tables import dishlikes
     liked = dishlikes.likeDish(user_id, dish_id)
-    if liked:
-        return 'liked'
-    return 'Not Liked'
+    if liked is 0:
+        return 'Returned 0'
+    if liked is 1:
+        return 'Returned 1'
+    else:
+        return 'Returned 2'
+
 
 def reset():
     dishlikes.reset()
