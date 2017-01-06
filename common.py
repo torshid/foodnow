@@ -9,9 +9,6 @@ from werkzeug.utils import secure_filename
 
 from email.utils import parseaddr
 
-#import PIL
-#from PIL import Image
-
 from jinja import *
 from config import *
 
@@ -156,6 +153,8 @@ def checkUpload(extensions, path):
     return False
 
 def resizePicture(source, destination, size):
+    import PIL
+    from PIL import Image
     img = Image.open(source)
     if img.size[0] > size[0] or img.size[1] > size[1]:
         if img.size[1] > img.size[0]:
