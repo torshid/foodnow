@@ -27,3 +27,9 @@ def specific(modname):
         if callable(func):
             func()
     return redirect(url_for('entities.home.main'))
+
+@page.route('/pull')
+def pull():
+    from subprocess import call
+    call(['git', 'pull origin master'])
+    return redirect(url_for('entities.home.main'))
