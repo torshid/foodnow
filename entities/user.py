@@ -3,7 +3,7 @@ from common import *
 
 import datetime
 
-from tables import users
+from tables import users, restolikes, dishlikes
 
 page = Blueprint(__name__)
 
@@ -11,7 +11,7 @@ page = Blueprint(__name__)
 def main(user_id):
     if isValidUserId(user_id):
         return render_template('user.html', user_id = user_id)
-    return render_template('home.html')
+    return abort(404)
 
 @page.route('/user/<int:user_id>/settings/')
 def settings(user_id):
@@ -43,16 +43,23 @@ def updateProfile(userId, name = None, email = None, password = None):
 @page.route('/user/<int:user_id>/likeresto/<int:resto_id>/')
 def likeResto(user_id, resto_id):
     from tables import restolikes
-    restolikes.likeResto(user_id, resto_id)
-    return 'Liked resto'
+    liked = restolikes.likeResto(user_id, resto_id)
+    if liked:
+        return 'liked'
+    else:
+        return 'Not Liked'
 
 @page.route('/user/<int:user_id>/likedish/<int:dish_id>/')
 def likeDish(user_id, dish_id):
     from tables import dishlikes
-    dishlikes.likeDish(user_id, dish_id)
-    return 'Liked dish'
+    liked = dishlikes.likeDish(user_id, dish_id)
+    if liked:
+        return 'liked'
+    return 'Not Liked'
 
 def reset():
+    dishlikes.reset()
+    restolikes.reset()
     users.reset()
     users.addUser('Yusuf Aksoy', 'yusuf@y.y', md5Password('12345'))  # id=1
     users.addUser('Moctar Sawadogo', 'moctar@m.m', md5Password('12345'))  # id=2

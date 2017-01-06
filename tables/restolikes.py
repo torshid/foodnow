@@ -4,18 +4,8 @@ from common import *
 
 #adds restaurants likes by users and returns restoId if no such relation exists or user id if a like exists
 def likeResto(userId, restoId):
-    with db() as connection:
-        with connection.cursor() as cursor:
-            checkQuery = """SELECT * FROM restolikes  WHERE userId = %s AND restoId = %s"""
-            addQuery = """INSERT INTO restoLikes (user_id, resto_id) values ( %(userId)s, %(restoId)s)"""
-            try:
-                if cursor.execute(checkQuery, (userId, restoId)) == None:
-                    cursor.execute(addQuery, {'userId' : userId, 'restoId' : restoId })
-            except dbapi2.Error:
-                connection.rollback()
-            else:
-                connection.commit()
-    return
+    liked = insert('restolikes', {'user_id': userId, 'resto_id': restoId})
+    return liked
 
 def getLikedRestoDetails(userId, restoId):
     with db() as connection:
@@ -59,7 +49,7 @@ def likesResto(userId, restoId):
             try:
                 cursor.execute(countQuery, (userId, restoId))
                 result = cursor.fetchone();
-                if (result):
+                if result:
                     liked = True
             except dbapi2.Error:
                 connection.rollback()

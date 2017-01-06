@@ -34,12 +34,19 @@
         <div class="row text-center">
 
 		{%set bestrestos = getMostLikedRestos()%}
-
-		{%for resto in bestrestos%}
-			{{macros.recommendedResto(resto[1],resto[2], resto[0])}}
-		{%endfor%}
-
-
+		{%if not isLogged()%}
+			{%for resto in bestrestos%}
+				{{macros.recommendedResto(resto[1],resto[2], resto[0], resto[8])}}
+			{%endfor%}
+		{%else%} <!-- Discard restos user already likes -->
+			{%set likedrestos = getLikedRestos(session['user'][0])%}
+			{%for resto in bestrestos%}
+				{%if not resto[0] in likedrestos%}
+					{{macros.recommendedResto(resto[1],resto[2], resto[0], resto[8])}}
+				{%endif%}
+				<!-- <p>{{likedrestos|length}}p</p>  -->
+			{%endfor%}
+		{%endif%}
         </div>
 
         <!-- /.row -->
@@ -56,10 +63,19 @@
         <div class="row text-center">
 
 		{%set bestdishes = getMostLikedDishes()%}
-
-		{%for dish in bestdishes%}
-			{{macros.recommendedDish(dish[2],dish[0], dish[3])}}
-		{%endfor%}
+		{%if not isLogged()%}
+			{%for dish in bestdishes%}
+				{{macros.recommendedDish(dish[2],dish[0], dish[3])}}
+			{%endfor%}
+		{%else%} <!-- Discard dishes user already likes -->
+			{%set likeddishes = getLikedDishes(session['user'][0])%}
+			{%for dish in bestdishes%}
+				{%if not dish[0] in likeddishes%}
+					{{macros.recommendedDish(dish[2],dish[0], dish[3])}}
+				{%endif%}
+				<!-- <p>{{likeddishes|length}}p</p> -->
+			{%endfor%}
+		{%endif%}
 
 
         </div>

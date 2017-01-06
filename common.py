@@ -9,8 +9,8 @@ from werkzeug.utils import secure_filename
 
 from email.utils import parseaddr
 
-import PIL
-from PIL import Image
+#import PIL
+#from PIL import Image
 
 from jinja import *
 from config import *

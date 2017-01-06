@@ -121,3 +121,11 @@ def getMostLikedDishes():
 def getUserFromId(id):
     from tables import users
     return users.getUserFromId(id)
+
+def getLikedDishes(userId):
+    from tables import dishlikes
+    return dishlikes.getLikedDishes(userId)
+
+def getLikedRestos(userId):
+    from tables import restolikes
+    return restolikes.getLikedRestos(userId)
