@@ -4,8 +4,21 @@ from common import *
 
 #adds restaurants likes by users and returns restoId if no such relation exists or user id if a like exists
 def likeResto(userId, restoId):
-    liked = insert('restolikes', {'user_id': userId, 'resto_id': restoId})
-    return liked
+    with db() as connection:
+        with connection.cursor() as cursor:
+            result = 0
+            query = """INSERT INTO restolikes values (%s, %s)"""
+            try:
+                if likesResto(userId, restoId):
+                    result = 1
+                else :
+                    cursor.execute(query, (userId, restoId))
+                    result = 2
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
+    return result
 
 def getLikedRestoDetails(userId, restoId):
     with db() as connection:
@@ -71,10 +84,17 @@ def reset():
         with connection.cursor() as cursor:
             try:
                 cursor.execute("""DROP TABLE IF EXISTS restolikes""")
-                cursor.execute("""CREATE TABLE restolikes (user_id INTEGER REFERENCES users(id),
-                    resto_id INTEGER REFERENCES restos(id)), UNIQUE(user_id, resto_id)""")
+                cursor.execute("""CREATE TABLE restolikes (user_id INTEGER,
+                    resto_id INTEGER)""")
             except dbapi2.Error:
                 connection.rollback()
             else:
                 connection.commit()
     return
+
+def getUserLikedRestosId(userId):
+    list = []
+    restolist = selectall("restolikes", {'user_id' : userId});
+    for resto in restolist:
+        list.append(resto[1])
+    return list

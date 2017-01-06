@@ -44,10 +44,10 @@ def updateProfile(userId, name = None, email = None, password = None):
 def likeResto(user_id, resto_id):
     from tables import restolikes
     liked = restolikes.likeResto(user_id, resto_id)
-    if liked:
-        return 'liked'
+    if liked is 0:
+        return 'Not liked'
     else:
-        return 'Not Liked'
+        return 'Liked'
 
 @page.route('/user/<int:user_id>/likedish/<int:dish_id>/')
 def likeDish(user_id, dish_id):

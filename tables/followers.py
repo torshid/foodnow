@@ -4,31 +4,48 @@ from common import *
 
 #adds follower relationship and returns followedId if doesn t exist or userId if already exists
 def addFollows(userId, followedId):
-    returnId = userId
     with db() as connection:
         with connection.cursor() as cursor:
-            checkQuery = """SELECT * FROM followers  WHERE follower = %s AND followed = %s"""
-            addQuery = """INSERT INTO followers (follower, followed) values ( %(userId)s, %(followedId)s)"""
+            result = 0
+            query = """INSERT INTO followers(follower, followed) values (%s, %s)"""
             try:
-                if cursor.execute(checkQuery, (userId, followedId)) == None:
-                    cursor.execute(addQuery, {'userId' : userId, 'followedId' : followedId })
-                    returnId = followedId
+                if likesResto(userId, followedId):
+                    result = 1
+                else :
+                    cursor.execute(query, (userId, followedId))
+                    result = 2
             except dbapi2.Error:
                 connection.rollback()
             else:
                 connection.commit()
-    return returnId;
+    return result
 
+
+def follows(follower, followed):
+    result = selectone('followers', {'follower': follower, 'followed': followed})
+    if result:
+        return True
+    return False
 
 def reset():
     with db() as connection:
         with connection.cursor() as cursor:
             try:
                 cursor.execute("""DROP TABLE IF EXISTS followers""")
-                cursor.execute("""CREATE TABLE followers (follower INTEGER REFERENCES users(id),
-                    followed INTEGER REFERENCES users(id)), UNIQUE(follower, followed)""")
+                cursor.execute("""CREATE TABLE followers (follower INTEGER ,
+                    followed INTEGER)""")
             except dbapi2.Error:
                 connection.rollback()
             else:
                 connection.commit()
     return
+
+def getFollowedList(usedId): #people the user follows
+    list = []
+    list = selectall('followers', {'follower': userId})
+    return list
+
+def getFollowersList(usedId): #people who follow the user
+    list = []
+    list = selectall('followers', {'followed': userId})
+    return list

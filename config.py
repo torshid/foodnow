@@ -1,9 +1,11 @@
 import os
 
 # database info
-dbname = environ['fn_dbname'] if 'fn_dbname' in os.environ else 'foodnow'
-dbuser = environ['fn_dbuser'] if 'fn_dbuser' in os.environ else 'postgres'
-dbpass = environ['fn_dbpass'] if 'fn_dbpass' in os.environ else 'hello123'
+dbname = os.getenv('fn_dbname', 'foodnow')
+dbuser = os.getenv('fn_dbuser', 'postgres')
+dbpass = os.getenv('fn_dbpass', 'hello123')
+
+flaskkey = 'flask key'
 
 # lengths needed
 namemin = 3

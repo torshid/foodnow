@@ -126,6 +126,14 @@ def getLikedDishes(userId):
     from tables import dishlikes
     return dishlikes.getLikedDishes(userId)
 
+def getUserLikedDishesId(userId):
+    from tables import dishlikes
+    return dishlikes.getUserLikedDishesId(userId)
+
 def getLikedRestos(userId):
     from tables import restolikes
     return restolikes.getLikedRestos(userId)
+
+def getUserLikedRestosId(userId):
+    from tables import restolikes
+    return restolikes.getUserLikedRestosId(userId)
