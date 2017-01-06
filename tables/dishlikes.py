@@ -38,7 +38,7 @@ def getTotalLikesDish(dishId):
                 connection.commit()
     return mCount;
 
-def getLikedDishes(userId):
+def getUserLikedDishesId(userId):
     list = []
     with db() as connection:
         with connection.cursor() as cursor:
@@ -53,14 +53,19 @@ def getLikedDishes(userId):
     #selectall('dishlikes', {'user_id': userId});
     return list
 
+def getLikedDishes(userId):
+    list = []
+    list = selectall('dishlikes', {'user_id': userId})
+    return list
+
 
 def reset():
     with db() as connection:
         with connection.cursor() as cursor:
             try:
                 cursor.execute("""DROP TABLE IF EXISTS dishlikes""")
-                cursor.execute("""CREATE TABLE dishlikes (user_id INTEGER REFERENCES users(id),
-                    dish_id INTEGER REFERENCES dishes(id)), UNIQUE(user_id, dish_id)""")
+                cursor.execute("""CREATE TABLE dishlikes (user_id INTEGER,
+                    dish_id INTEGER)""")
             except dbapi2.Error:
                 connection.rollback()
             else:

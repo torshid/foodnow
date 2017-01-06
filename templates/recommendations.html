@@ -39,12 +39,12 @@
 				{{macros.recommendedResto(resto[1],resto[2], resto[0], resto[8])}}
 			{%endfor%}
 		{%else%} <!-- Discard restos user already likes -->
-			{%set likedrestos = getLikedRestos(session['user'][0])%}
+			{%set likedrestos = getUserLikedRestosId(session['user'][0])%}
 			{%for resto in bestrestos%}
 				{%if not resto[0] in likedrestos%}
 					{{macros.recommendedResto(resto[1],resto[2], resto[0], resto[8])}}
 				{%endif%}
-				<!-- <p>{{likedrestos|length}}p</p>  -->
+				<!--  <p>{{likedrestos|length}}</p> -->
 			{%endfor%}
 		{%endif%}
         </div>
@@ -68,7 +68,7 @@
 				{{macros.recommendedDish(dish[2],dish[0], dish[3])}}
 			{%endfor%}
 		{%else%} <!-- Discard dishes user already likes -->
-			{%set likeddishes = getLikedDishes(session['user'][0])%}
+			{%set likeddishes = getUserLikedDishesId(session['user'][0])%}
 			{%for dish in bestdishes%}
 				{%if not dish[0] in likeddishes%}
 					{{macros.recommendedDish(dish[2],dish[0], dish[3])}}

@@ -9,12 +9,15 @@
 {%- endmacro %}
 
 {% macro likeResto(resto_id) -%}
+		{%if 'user' in session%}
 		<a href="{{url_for('entities.user.likeResto', user_id = session['user'][0], resto_id = resto_id)}}" class="btn btn-info restolike_btn" data-id="{{resto_id}}"><span class="glyphicon glyphicon-thumbs-up"></span></a>
-
+		{%endif%}
 {%- endmacro %}
 
 {% macro likeDish(dish_id) -%}
+		{%if 'user' in session%}
 		<a href="{{url_for('entities.user.likeDish', user_id = session['user'][0], dish_id = dish_id)}}" class="btn btn-sm btn-info dishlike_btn" data-id="{{dish_id}}"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+		{%endif%}
 {%- endmacro %}
 
 {% macro recommendedResto(resto_name , resto_pseudo, resto_id, description) -%}
