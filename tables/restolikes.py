@@ -62,7 +62,7 @@ def getLikedRestos(userId):
     result = []
     if restolist:
         for resto in restolist:
-            element = restolikes.getLikedRestoDetails(userId, resto[1])
+            element = getLikedRestoDetails(userId, resto[1])
             result.append(element)
     return result
 

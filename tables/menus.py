@@ -20,6 +20,9 @@ def updateMenu(id, name, disposition, visible):
 def deleteMenu(id):
     return delete('menus', { 'id' : id })
 
+def countRestoMenus(restoid):
+    return count('menus', 'id', { 'restoid' : restoid })
+
 def reset():
     with db() as connection:
         with connection.cursor() as cursor:
