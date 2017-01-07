@@ -176,4 +176,11 @@ def edit(resto_pseudo, menu_id, dish_id):
 
 def reset():
     dishes.reset()
+    dishes.addDish(1, 'Omelette', 10, 1, True, 'Simply eggs!')
+    dishes.addDish(1, 'Croissant', 6, 2, True, 'Original kebab')
+    dishes.addDish(2, 'Adana Kebab', 45, 1, True, 'With some extras')
+    dishes.addDish(2, 'Chicken Kebab', 29, 2, True, 'Look at that, yummy')
+    dishes.addDish(2, 'Sandwich', 15, 3, True, 'The best in da world')
+    dishes.addDish(3, 'Cola', 4, 1, True, 'A must try, or maybe not')
+    dishes.addDish(3, 'Tea', 2, 1, True, 'Traditional Turkish drink')
     return

@@ -36,7 +36,7 @@ def isRole(employee, role):
     return employee != None and employee[3] == role
 
 def countRestoEmployees(restoid):
-    return count('employees', 'id', { 'restoid' : restoid })
+    return count('employees', 'id', { 'restoid' : restoid, 'deleted' : '0' })
 
 
 def reset():

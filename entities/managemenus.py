@@ -133,4 +133,7 @@ def delete(resto_pseudo, menu_id):
 
 def reset():
     menus.reset()
+    menus.addMenu(1, 'Breakfast', 1, True)
+    menus.addMenu(1, 'Kebabs', 2, True)
+    menus.addMenu(1, 'Beverages', 3, True)
     return

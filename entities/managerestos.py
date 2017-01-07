@@ -49,6 +49,12 @@ def new():
 def reset():
     restos.reset()
     employees.reset()
-    restos.addResto('Kebabs Restaurant', 'kebabs', 'kebabs@foodnow.com', '5325325366', 'TRY', 'The best kebabs of Turkey here!')
+    restos.addResto('Kebabs Restaurant', 'kebabs', 'kebabs@foodnow.com', '5325325366', 'TRY', 'The best kebabs of Turkey here!\nWe have tastes for everyone.\nMeat, meat, and more meat!', True)
     employees.addEmployee(1, 1, rolemanager)
+    employees.addEmployee(1, 3, rolemanager)
+    restos.addResto('Italiano', 'italiano', 'italiano@foodnow.com', '0123456789', 'EUR', 'Pizza, Pasta?\nRight here.', True)
+    employees.addEmployee(2, 2, rolemanager)
+    restos.addResto('The Indian Spice', 'spicy', 'inspice@foodnow.com', '9876543210', 'INR', 'Spice, spice everywhere!', False)
+    employees.addEmployee(3, 2, rolemanager)
+    employees.addEmployee(3, 3, rolemanager)
     return

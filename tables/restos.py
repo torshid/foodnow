@@ -2,8 +2,10 @@ import psycopg2 as dbapi2
 
 from common import *
 
-def addResto(name, pseudo, mail, phone, currency, description):
-    return insert('restos', { 'name' : name, 'pseudo' : pseudo, 'mail' : mail, 'phone' : phone, 'currency' : currency, 'description' : description })
+def addResto(name, pseudo, mail, phone, currency, description, accessible = None):
+    if accessible == None:
+        accessible = False
+    return insert('restos', { 'name' : name, 'pseudo' : pseudo, 'mail' : mail, 'phone' : phone, 'currency' : currency, 'description' : description, 'accessible' : accessible })
 
 def getResto(pseudo):
     return selectone('restos', { 'pseudo' : pseudo })
