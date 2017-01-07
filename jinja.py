@@ -41,6 +41,10 @@ def nl2br(value):
         for p in _paragraph_re.split(escape(value)))
     return Markup(result)
 
+def random(min, max):
+    from random import randint
+    return randint(min, max)
+
 def istrue(s):
     return s == '1' or s == 1
 

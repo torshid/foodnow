@@ -1,11 +1,12 @@
 from flask import render_template
 from common import *
 
-import datetime
+from tables import restos
 
 page = Blueprint(__name__)
 
 @page.route('/')
 def main():
-    now = datetime.datetime.now()
-    return render_template('home.html', current_time = now.ctime())
+    restolist = restos.getLastRestos()
+    print(restolist)
+    return render_template('home.html', restos = restolist)

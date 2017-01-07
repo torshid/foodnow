@@ -1,8 +1,28 @@
 {% extends "layout.html" %}
-{% block title %} Home {% endblock %}
+{% block title %} {{ foodnow() }} {% endblock %}
 {% block body %}
-	<div class="container">
-		<h3>Home page is not ready yet, redirecting...</h3>
-		<meta http-equiv="refresh" content="3; url={{ url_for('entities.recommendations.main') }}" />
-	</div>
+	<div class="jumbotron background" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .6)), url('static/images/home/{{ random(1, 7) }}.jpg');">
+      <div class="container">
+        <span class="title"><h1>{{ foodnow() }}</h1></span>
+        <p class="desc">Welcome on <i>{{ foodnow() }}</i>, a social network with a lot of food. Here, you can create your <i>virtual</i> restaurant as a manager and publish your menu. Or talk about your food life as a gourmand.</p>
+        <p>
+        {% if isLogged() %}
+        	<a class="btn btn-info btn-lg" href="{{ url_for('entities.recommendations.main') }}" role="button">Recommendations »</a>
+        {% else %}
+        	<a class="btn btn-success btn-lg" href="{{ url_for('entities.signlog.signup') }}" role="button">Sign up »</a>
+        {% endif %}
+        </p>
+      </div>
+    </div>
+    <div class="container">
+    	<h2>Last created restaurants</h2>
+    	<div class="container">
+    	{% for resto in restos %}
+    		<h3>{{ resto[1] }} <span class="rpseudo">• <a class="rpseudo" href="{{ url_for('entities.resto.main', resto_pseudo = resto[2]) }}">@{{ resto[2] }}</a></span></h3>
+    		<div class="container">
+    			<div class="lead">{{ nl2br(resto[8]) }}</div>
+    		</div>
+    	{% endfor %}
+    	</div>
+    </div>
 {% endblock %}

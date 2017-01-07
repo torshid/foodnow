@@ -32,6 +32,9 @@ def reset():
                 connection.commit()
     return
 
+def getLastRestos():
+    return selectall('restos', extra = 'ORDER BY id DESC LIMIT 10')
+
 def getMostLikedRestos(): #incomplete
     list = []
     with db() as connection:

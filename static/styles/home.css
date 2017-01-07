@@ -1,0 +1,23 @@
+.background {
+	background-repeat: no-repeat;
+	background-position: center center; background-attachment : fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.title {
+	text-shadow: 0 1px 0 black;
+	color: white;
+}
+
+.desc {
+	text-shadow: 0 1px 0 black;
+	color: white;
+}
+
+.rpseudo {
+	font-size: 18px;
+}
