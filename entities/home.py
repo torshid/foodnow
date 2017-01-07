@@ -8,5 +8,4 @@ page = Blueprint(__name__)
 @page.route('/')
 def main():
     restolist = restos.getLastRestos()
-    print(restolist)
     return render_template('home.html', restos = restolist)
