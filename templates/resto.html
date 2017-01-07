@@ -5,7 +5,7 @@
 	<div class="container mainc">
 	<!-- <div class="container mainc"> -->
 		<div class="row columns">
-			<div class="col-sm-9"><span class="title vcenter">{{ resto[1] }} (@{{ resto[2]}})</span>
+			<div class="col-sm-9"><span class="title vcenter">{{ resto[1] }} • @{{ resto[2]}}</span>
 				{% if isManager(employment) %}
 					<a href="{{ url_for('entities.panel.main', resto_pseudo = resto[2]) }}"><button class="btn btn-primary">panel</button></a>
 				{% endif %}
@@ -124,6 +124,8 @@
 						</div>
 					</div>
 				</div>
+		{% else %}
+			<h4>There is no menu yet...</h4>
 		{% endif %}
 	</div>
 {% endblock %}
