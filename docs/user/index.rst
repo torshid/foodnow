@@ -1,8 +1,7 @@
-User Guide
+User guide
 ==========
 
-**explain how your application works from the user perspective, use
-screenshots whereever appropriate**
+Below are all the pages available with explanations and pictures
 
 **to add a picture, use the following example**::
 
@@ -16,7 +15,3 @@ screenshots whereever appropriate**
 
    member1
    member2
-   member3
-   member4
-   member5
-   

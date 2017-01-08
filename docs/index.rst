@@ -1,17 +1,18 @@
-Welcome to itucsdb's documentation!
+Welcome to foodnow's documentation!
 ===================================
-
-:Team: Team Name
 
 :Members:
 
-   * Member 1
-   * Member 2
-   * Member 3
-   * Member 4
-   * Member 5
+   * Yusuf Aksoy
+   * Moctar Sawadogo
 
-**project description goes here (a few paragraphs)**
+*Food — Now !* is a food oriented social network.
+
+The project can be devided into three main parts, with the first two being the basis of the ultimate part:
+
+- creating and managing restaurants (menus, dishes, employees, ...)
+- managing customer incoming orders in real time
+- social aspect, with a wall, followings, recommendations, likes, reviews, ratings, ...
 
 Contents:
 
