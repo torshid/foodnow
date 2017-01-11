@@ -13,7 +13,7 @@
 	{% for employee in employees %}
 		<tr class="postactions">
 			<td class="posttitle">
-				<div><a href="{{ url_for('entities.user.main', user_id = employee[0]) }}">{{ employee[5][1] }}</a></div>
+				<div><a href="{{ url_for('entities.user.main', user_id = employee[2]) }}">{{ employee[5][1] }}</a></div>
 				<div>
 					{% if employee[2] != getUser()[0] %}
 	                    <a href="#" class="text-danger" id="{{ panel_for('entities.manageemployees.remove', resto_pseudo = resto[2], employee_id = employee[0]) }}">Remove</a>
