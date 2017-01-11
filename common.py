@@ -232,11 +232,12 @@ def delete(table, dict):
             query = "DELETE FROM %s WHERE %s" % (table, placeholders)
             try:
                 cursor.execute(query, list(dict.values()))
+                result = True
             except dbapi2.Error:
                 connection.rollback()
+                result = False
             else:
                 connection.commit()
-            print(cursor.query)
     return result
 
 def insert(table, dict, simple = None):

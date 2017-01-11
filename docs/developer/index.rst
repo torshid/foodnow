@@ -9,15 +9,15 @@ Database design
 **include the E/R diagram(s)**
 
 Code
-====
+----
 The project uses a precisely defined architecture which should be respected, in order to be maintained easily, prevent git collisions, and more.
 
 Config module
--------------
+_____________
 The config module is a configuration file, which defines database credentials, and many other parameters such as the min and max length of a user's email address.
 
 Jinja module
-------------
+____________
 The jinja module regroups python methods callable by templates.
 
 There are many methods in it, but main ones are: *checkSessions*, which is called at the beginning of each layout to manage the user state (if connected or not, by the use of cookies and sessions).
@@ -35,7 +35,7 @@ Template example::
       {% endif %}
 
 Common module
--------------
+_____________
 The common module regroups methods which are often used by entities to avoid redundancy.
 
 Some examples are *md5* (generate md5 hash), *validPhone* (checks wether input is a valid phone number), *redirectLogin* (redirects to the login page with optionally a link called in case of a successful login)..
@@ -47,7 +47,7 @@ These functions basically convert a given dictionary to an SQL query, execute it
       insert('employees', { 'restoid' : 5, 'userid' : 8, 'role' : 1 }) # INSERT INTO employees (restoid, userid, role) VALUES (5, 8, 1)
 
 Entities
---------
+________
 Entities are distinct parts of the project, an entity depends on other entities very minimally.
 
 They must be in the folder */entities* of the project.
@@ -83,7 +83,7 @@ Example of a basic entity accessible with the links */example* and */hello*::
           return
 
 Tables
-------
+______
 Tables is a folder which contains modules dealing with database operations.
 These must be imported to entities when needed.
 For example, the module users (referring to the table of the same name) has methods for creating a new user, loading a user from credentials (mail, password) or by id.
