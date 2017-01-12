@@ -3,10 +3,7 @@ Developer guide
 
 Database design
 ---------------
-
-**explain the database design of your project**
-
-**include the E/R diagram(s)**
+.. figure:: https://github.com/torshid/foodnow-screens/raw/master/erd.png
 
 Code
 ----
