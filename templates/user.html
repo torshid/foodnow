@@ -43,7 +43,8 @@
           {%set reviews = getAllReviews(session['user'][0])%}
           {%if reviews%}
           	{%for review in reviews%}
-          		<div class="well"><a type="button" class="btn btn-warning btn-sm" href="{{url_for('entities.reviews.deleteReview', id=review[0])}}"><span class="glyphicon glyphicon-remove"></span></a> {{review[4]}} </div>
+          	{%set resto = getResto(review[2])%}
+          		<div class="well"><a type="button" class="btn btn-warning btn-sm" href="{{url_for('entities.reviews.deleteReview', id=review[0])}}"><span class="glyphicon glyphicon-remove"></span></a>{%if resto%} <strong><a href="{{url_for('entities.resto.main', resto_pseudo=resto[2])}}">@{{resto[2]}}</a> {%endif%}</strong> {{review[4]}} </div>
        		{%endfor%}
   		  {%else%}
   		  	<div class="well">You have no reviews </div>
@@ -58,7 +59,7 @@
 
 	          	<div class="col-sm-7">
 			     <div class="panel panel-default">
-			       <div class="panel-heading"><h4>Resto: {{item[2]}}</h4></div>
+			       <div class="panel-heading"><h4>Resto: @{{item[2]}}</h4><a class = "btn btn-warning"><span class="glyphicon glyphicon-remove pull-right"></span></a></div>
 			        <div class="panel-body">
 			        <div class="thumbnail">
 			          <img src="/static/images/default_resto.jpg" class="img-rounded"><h4>{{item[8]}}</h4>
@@ -92,7 +93,7 @@
 	          	<!--{{feedblock.feedblock(item)}}-->
 	          	<div class="col-sm-7">
 			     <div class="panel panel-default">
-			       <div class="panel-heading"><h4>Dish: {{item[2]}}</h4></div>
+			       <div class="panel-heading"><h4>Dish: {{item[2]}}</h4> <a class = "btn btn-warning"><span class="glyphicon glyphicon-remove pull-right"></span></a></div>
 			        <div class="panel-body">
 			        <div class="thumbnail">
 			        {% if dishImageExists(item[0])  %}
@@ -107,7 +108,7 @@
 			          <form method="post" action="{{ url_for('entities.reviews.addReview') }}">
 			          <div class="input-group">
 			            <div class="input-group-btn">
-			            <button class="btn btn-default" type="submit">Comment</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+			            <button class="btn btn-default" type="submit">Comment</button><button class="btn btn-default"></button>
 			            </div>
 			            <input type="text" class="form-control" name="comment" id="comment"  placeholder="Add a comment...">
 			          </div>
