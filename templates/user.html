@@ -39,27 +39,89 @@
         <div class="well">
       <div class="tab-content">
         <div class="tab-pane fade in active" id="tab1">
-          <h3>This is tab 1</h3>
+
+          {%set reviews = getAllReviews(session['user'][0])%}
+          {%if reviews%}
+          	{%for review in reviews%}
+          		<div class="well"><a type="button" class="btn btn-warning btn-sm" href="{{url_for('entities.reviews.deleteReview', id=review[0])}}"><span class="glyphicon glyphicon-remove"></span></a> {{review[4]}} </div>
+       		{%endfor%}
+  		  {%else%}
+  		  	<div class="well">You have no reviews </div>
+  		  {%endif%}
 
         </div>
         <div class="tab-pane fade in" id="tab2">
-          <h3>This is tab 2</h3>
           {%set likedrestos = getLikedRestos(user_id)%}
           {%if likedrestos%}
 	          {%for item in likedrestos%}
-	          	{{feedblock.feedblock(item)}}
+	          	<!--{{feedblock.feedblock(item)}}-->
+
+	          	<div class="col-sm-7">
+			     <div class="panel panel-default">
+			       <div class="panel-heading"><h4>Resto: {{item[2]}}</h4></div>
+			        <div class="panel-body">
+			        <div class="thumbnail">
+			          <img src="/static/images/default_resto.jpg" class="img-rounded"><h4>{{item[8]}}</h4>
+		            </div>
+			          <div class="clearfix"></div>
+			          <hr>
+			          <hr>
+			          <form method="post" action="{{ url_for('entities.reviews.addReview') }}">
+			          <div class="input-group">
+			            <div class="input-group-btn">
+			            <button class="btn btn-default" type="submit">Comment</button></button>
+			            </div>
+			            <input type="text" class="form-control" name="comment" id="comment"  placeholder="Add a comment...">
+			          </div>
+			          </form>
+
+			        </div>
+			     </div>
+				</div>
+
+		</div>
+
 			  {%endfor%}
+		  {%else%}
+		  		<div class = "well">You have no favourite Restos. <a class ="btn btn-primary" href="{{url_for('entities.recommendations.main')}}">See our Recommendations!</a></div>
 		  {%endif%}
 
 		  {%set likeddishes = getLikedDishes(user_id)%}
 		  {%if likeddishes%}
 	          {%for item in likeddishes%}
-	          	{{feedblock.feedblock(item)}}
+	          	<!--{{feedblock.feedblock(item)}}-->
+	          	<div class="col-sm-7">
+			     <div class="panel panel-default">
+			       <div class="panel-heading"><h4>Dish: {{item[2]}}</h4></div>
+			        <div class="panel-body">
+			        <div class="thumbnail">
+			        {% if dishImageExists(item[0])  %}
+			        	<img src="{{ url_for('entities.uploads.dishthumbimage', dish_id = item[0]) }}"/>
+			        {%else%}
+			          <img src="/static/images/inexistantthumbdish.png" class="img-rounded"><h4>{{item[8]}}</h4>
+		            {%endif%}
+		            </div>
+			          <div class="clearfix"></div>
+			          <hr>
+			          <hr>
+			          <form method="post" action="{{ url_for('entities.reviews.addReview') }}">
+			          <div class="input-group">
+			            <div class="input-group-btn">
+			            <button class="btn btn-default" type="submit">Comment</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+			            </div>
+			            <input type="text" class="form-control" name="comment" id="comment"  placeholder="Add a comment...">
+			          </div>
+			          </form>
+
+			        </div>
+			     </div>
+				</div>
 			  {%endfor%}
+		  {%else%}
+	  		<div class = "well">You have no favourite Dishes. <a class ="btn btn-primary" href="{{url_for('entities.recommendations.main')}}">See our Recommendations!</a></div>
 		  {%endif%}
         </div>
         <div class="tab-pane fade in" id="tab3">
-          <h3>This is tab 3</h3>
         </div>
       </div>
     </div>
@@ -67,18 +129,9 @@
     <div class="col-sm-7"></div>
 
 
-	<div class="col-sm-7">
-	{%set feed = getLikedRestos(user_id)%}
-	{%if feed%}
-		{%for element in feed%}
-			{{feedblock.feedblock(element)}}
-		{%endfor%}
-	{%endif%}
-	</div>
 
-	<div class="col-sm-7">
-		<h3>This is tab 2</h3>
-	</div>
+
+
 
 
 </div>

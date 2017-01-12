@@ -20,24 +20,6 @@ def likeResto(userId, restoId):
                 connection.commit()
     return result
 
-def getLikedRestoDetails(userId, restoId):
-    with db() as connection:
-        with connection.cursor() as cursor:
-            result = None
-            #checkQuery = """SELECT * FROM restolikes  WHERE userId = %s AND restoId = %s"""
-            query = """SELECT DISTINCT restos.id, restos.name, restos.pseudo, restos.phone,
-                restolikes.date FROM restolikes  restos WHERE users.user_id = %s AND resto.id = %s"""
-            try:
-                #if cursor.execute(checkQuery, userId, restoId) == None:
-                #    return None
-                if likesResto(userId, restoId):
-                    cursor.execute(query,(userId, restoId) )
-                result = cursor.fetchall();
-            except dbapi2.Error:
-                connection.rollback()
-            else:
-                connection.commit()
-    return  result
 
 def getTotalLikesRestos(userId):
     with db() as connection:
@@ -75,8 +57,22 @@ def getLikedRestos(userId):
     result = []
     if restolist:
         for resto in restolist:
-            element = getLikedRestoDetails(userId, resto[1])
+            element = getLikedRestoDetails(resto[1])
             result.append(element)
+    return result
+
+def getLikedRestoDetails(restoId):
+    result = []
+    with db() as connection:
+        with connection.cursor() as cursor:
+            query = """SELECT * FROM restos  WHERE id = %(restoId)s"""
+            try:
+                cursor.execute(query, {'restoId': restoId})
+                result = cursor.fetchone()
+            except dbapi2.Error:
+                connection.rollback()
+            else:
+                connection.commit()
     return result
 
 def reset():

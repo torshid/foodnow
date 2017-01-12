@@ -30,6 +30,7 @@ def getAll():
 
 
 def reset():
+    from tables import reviews
     with db() as connection:
         with connection.cursor() as cursor:
             try:
@@ -42,4 +43,6 @@ def reset():
                 connection.rollback()
             else:
                 connection.commit()
+
+
     return

@@ -6,29 +6,29 @@
 
 
 
-                               <div class="panel panel-default">
-                                 <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>{{element[0]}}</h4></div>
-                                  <div class="panel-body">
-                                    <img src="//placehold.it/150x150" class="img-rounded pull-right"> <a href="#">Keyword: {{element[0]}}</a>
-                                    <div class="clearfix"></div>
-                                    <hr>
+	     <div class="panel panel-default">
+	       <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>{{element[2]}}</h4></div>
+	        <div class="panel-body">
+	          <img src="//placehold.it/150x150" class="img-rounded pull-right"> <a href="#">Keyword: {{element[2]}}</a>
+	          <div class="clearfix"></div>
+	          <hr>
 
 
-                                    <hr>
-                                    <form>
-                                    <div class="input-group">
-                                      <div class="input-group-btn">
-                                      <button class="btn btn-default">Comment</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
-                                      </div>
-                                      <input type="text" class="form-control" placeholder="Add a comment..">
-                                    </div>
-                                    </form>
+	          <hr>
+	          <form method="post" action="{{ url_for('entities.reviews.addReview') }}">
+	          <div class="input-group">
+	            <div class="input-group-btn">
+	            <button class="btn btn-default" type="submit">Comment</button></button>
+	            </div>
+	            <input type="text" class="form-control" name="comment" id="comment"  placeholder="Add a comment...">
+	          </div>
+	          </form>
 
-                                  </div>
-                               </div>
+	        </div>
+	     </div>
 
 
-                          </div>
+	</div>
 </div>
 {%endif%}
 

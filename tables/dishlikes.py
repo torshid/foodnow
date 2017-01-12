@@ -61,10 +61,18 @@ def getUserLikedDishesId(userId):
     return list
 
 def getLikedDishes(userId):
-    list = []
-    list = selectall('dishlikes', {'user_id': userId})
-    return list
+    dishlist = selectall('dishlikes', {'user_id' : userId});
+    result = []
+    if dishlist:
+        for dish in dishlist:
+            element = getDishDetails(dish[1])
+            result.append(element)
+    return result
 
+def getDishDetails(dishId):
+    from tables import dishes
+    dish = selectone('dishes', {'id': dishId})
+    return dish
 
 def reset():
     with db() as connection:

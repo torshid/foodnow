@@ -141,3 +141,13 @@ def getLikedRestos(userId):
 def getUserLikedRestosId(userId):
     from tables import restolikes
     return restolikes.getUserLikedRestosId(userId)
+
+def addReview(userId, restoId, dishId, content):
+    from entities import reviews
+    inserted = reviews.addReview(userId, restoId, dishId, content)
+    return inserted
+
+def getAllReviews(userId):
+    from tables import reviews
+    list = reviews.getAllReviews(userId)
+    return list

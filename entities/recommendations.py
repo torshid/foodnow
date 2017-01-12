@@ -10,28 +10,7 @@ page = Blueprint(__name__)
 def main():
     return render_template('recommendations.html')
 
-def recommendResto(restoId):
 
-    return
-
-def recommendMeal(restoId, mealId):
-
-    return
-
-#TODO wrong code to be changed
-def getRecommendations():
-    statement = ""
-    try:
-        connection = dbapi2.connect(dsn)
-        cursor = connection.cursor()
-        cursor.execute(statement)
-        connection.commit()
-        cursor.close()
-    except dbapi2.DatabaseError:
-        connection.rollback()
-    finally:
-        connection.close()
-    return
 
 def reset():
     from tables import dishlikes, restolikes
