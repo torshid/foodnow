@@ -2,7 +2,6 @@ import psycopg2 as dbapi2
 
 from common import *
 
-#adds restaurants likes by users and returns restoId if no such relation exists or user id if a like exists
 def likeResto(userId, restoId):
     with db() as connection:
         with connection.cursor() as cursor:

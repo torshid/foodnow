@@ -24,7 +24,3 @@ def deleteReview(id):
     deleted = delete('reviews', {'id': id})
     return redirect(request.args.get('next') or request.referrer or  url_for(default))
 
-@page.route('/reviews/update/<int:id>')
-def updateReview(id):
-    deleted = update('reviews', {'id': id})
-    return redirect(request.args.get('next') or request.referrer or  url_for(default))
