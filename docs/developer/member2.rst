@@ -37,6 +37,7 @@ Tables
 restolikes
 __________
 .. code-block:: sql
+
    CREATE TABLE restolikes (user_id INTEGER, resto_id INTEGER)
 
 - :code:`likeResto(userId, restoId)`   add a like relationship between a user and a restaurant
@@ -52,6 +53,7 @@ __________
 dishlikes
 _________
 .. code-block:: sql
+
    CREATE TABLE dishlikes (user_id INTEGER, dish_id INTEGER)
 
 - :code:`likeDish(userId, dishId)`   add a like relationship between a user and a dish
@@ -65,6 +67,7 @@ _________
 reviews
 _______
 .. code-block:: sql
+
    CREATE TABLE reviews (id SERIAL PRIMARY KEY, user_id INTEGER ,
                 resto_id INTEGER, dish_id INTEGER, content VARCHAR)
 
